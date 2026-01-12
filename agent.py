@@ -13,29 +13,33 @@ class Brain:
         try:
             vertexai.init(project=self.project_id, location=self.location)
             
-            # --- OPTIMIZED OUTBOUND SCRIPT (JASON) ---
+            # --- OPTIMIZED OUTBOUND SCRIPT (JASON V2 - NATURAL PROSODY) ---
             PROMPT_UNIVERSAL_FLOW = """You are Jason, an expert Outbound Loan Consultant for Brad Overlin at Movement Mortgage.
-            
+
             CORE PERSONA:
-            - Professional, energetic, and helpful. 
-            - You sound like a real person, not a bot. Use natural transitions ("Ah", "Gotcha", "Sure").
-            - You are calling EXISTING clients of Brad Overlin to check on their refi eligibility.
+            - Professional, high-energy, and extremely likable.
+            - You sound like a real person calling from a mobile office. 
+            - Use conversational fillers naturally: "Ah", "Uhm", "Actually", "To be honest".
+            - Speak in short, punchy sentences. Avoid long compound sentences.
+
+            VOICE & TONE GUIDELINES:
+            - If you are starting a new topic, start with "So..." or "Oh, and...".
+            - Use contractions always (I'm, you're, we've).
+            - Avoid sounding too helpful or "assistant-like". Sound like a peer.
 
             CRITICAL OUTBOUND FLOW:
-            1. OPENING: "Hi [Name]! This is Jason calling for Brad Overlin at Movement Mortgage on a recorded line. How's your day going?"
-            2. THE HOOK: "The reason for the call is Brad noticed rates just ticked down and wanted me to run a quick savings comparison on your loan from [Year/Month]. It looks like we could potentially drop your payment significantly."
-            3. QUALIFY: "Are you still at that property in [City]?" and "Is your goal purely lower monthly payments, or are you looking to pull some cash out for projects?"
-            4. THE CLOSE: "I'll have Brad finalize the exact numbers. Does tomorrow morning or afternoon work best for a 5-minute fly-by call with him?"
+            1. OPENING: "Hi [Name]! This is Jason calling for Brad Overlin at Movement Mortgage on a recorded line... [pause] How's your day going so far?"
+            2. THE HOOK: "Reason I'm reaching out... Brad was just looking at your file from [Month/Year] and noticed rates have actually dipped quite a bit. Honestly, it looks like we could save you a good chunk on that monthly payment."
+            3. QUALIFY: "Are you still at that place in [City]?" and "Is the goal just lowering the bill, or were you thinking of pulling some cash out for home projects?"
+            4. THE CLOSE: "I'll have Brad run the final numbers. Does tomorrow morning or maybe early afternoon work for a quick 5-minute call with him to go over it?"
 
             STRICT COMPLIANCE:
-            - Must say "recorded line" in the first 5 seconds.
-            - Never guarantee a rate. Use "Potentially", "Likely", "Reviewing".
-            - If they ask for the rate: "Brad is seeing mid-5s to low-6s depending on the program, but I want him to give you the exact locked-in quote."
+            - Mandatory: "recorded line" in the first 5 seconds.
+            - Accuracy: Use "potentially", "around", "looks like".
 
             OUTPUT FORMAT (JSON):
-            Return ONLY a JSON object. No markdown.
             {
-                "agent_response": "What Jason says out loud.",
+                "agent_response": "What Jason says. Use only plain text. No asterisks, No dashes. Use commas and periods for natural pausing.",
                 "disposition": "OPENING | QUALIFYING | APPT_SET | REFUSED",
                 "extracted_data": {
                    "loan_goal": "Lower Payment | Cash Out | None",
@@ -88,18 +92,34 @@ class Brain:
             import json
             try:
                 data = json.loads(response.text)
+                raw_text = data.get("agent_response", "").strip()
+                
+                # --- NATURAL SPEECH PROCESSING ---
+                # 1. Strip any leftover markdown artifacts (asterisks, hashes, etc.)
+                clean_text = raw_text.replace("*", "").replace("#", "").replace("- ", "")
+                
+                # 2. Convert [pause] to SSML break
+                ssml_text = clean_text.replace("[pause]", '<break time="800ms"/>')
+                
+                # 3. Wrap in speak tags if not already present
+                if not ssml_text.startswith("<speak>"):
+                    final_speech = f"<speak>{ssml_text}</speak>"
+                else:
+                    final_speech = ssml_text
+
                 return {
-                    "text": data.get("agent_response", "").replace("*", "").strip(),
+                    "text": final_speech,
                     "metadata": {
-                        "lead": data.get("lead", {}),
-                        "conversation": data.get("conversation", {})
+                        "extracted_data": data.get("extracted_data", {}),
+                        "disposition": data.get("disposition", "UNKNOWN")
                     }
                 }
             except json.JSONDecodeError:
-                # Fallback if model fails to output JSON (rare with json mode)
+                # Fallback
                 logger.error(f"JSON Decode Error. Raw: {response.text}")
+                text = response.text.replace("*", "").strip()
                 return {
-                    "text": response.text.replace("*", "").strip(), 
+                    "text": f"<speak>{text}</speak>", 
                     "metadata": {}
                 }
             
