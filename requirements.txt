@@ -1,9 +1,11 @@
 fastapi>=0.100.0
 uvicorn>=0.23.0
-google-generativeai
+google-genai>=1.51.0
 google-cloud-aiplatform
 python-multipart
 jinja2
 python-dotenv
 vonage
 simple-salesforce
+playwright
+sendgrid

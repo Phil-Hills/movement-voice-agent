@@ -49,7 +49,6 @@ async def dialogflow_webhook(request: Request):
         logger.info(f"PROCESSED USER TEXT: '{user_text}'")
 
         # Process with Brain
-        # Extract context from session parameters (passed by Dialogflow/GCP)
         session_params = data.get("sessionInfo", {}).get("parameters", {})
         context = {
             "client_name": session_params.get("client_name", session_params.get("telephony-caller-id", "there")),
@@ -63,18 +62,29 @@ async def dialogflow_webhook(request: Request):
         response_data = await brain.process_turn(user_text or "", context=context)
         agent_text = response_data.get("text", "I'm having a brief glitch.")
         metadata = response_data.get("metadata", {})
-        
-        # Flatten metadata for Dialogflow Parameters
-        parameters = {}
-        if "lead" in metadata:
-            parameters.update(metadata["lead"])
-        if "conversation" in metadata:
-            parameters.update(metadata["conversation"])
+        actions = response_data.get("actions", [])
+
+        # --- ACTION ORCHESTRATOR ---
+        for action in actions:
+            action_type = action.get("type")
+            if action_type == "send_sms":
+                logger.info(f"📲 TRIGGER: Sending SMS - {action.get('body')}")
+            elif action_type == "send_email":
+                logger.info(f"📧 TRIGGER: Sending Email - {action.get('body')}")
+            elif action_type == "browser_automation":
+                logger.info(f"🌐 TRIGGER: Internet Agent - Submitting to movement.com")
+            elif action_type == "schedule":
+                logger.info(f"📅 TRIGGER: Scheduling Appointment - {action.get('time')}")
+
+        # Sync Parameters back to Dialogflow
+        parameters = session_params.copy()
+        parameters["last_disposition"] = metadata.get("disposition", "UNKNOWN")
+        parameters.update(metadata.get("extracted_data", {}))
             
     except Exception as e:
         logger.error(f"CRITICAL WEBHOOK ERROR: {e}")
-        agent_text = "I'm having a brief technical glitch. Could you say that again?"
-        parameters = {"error": str(e)}
+        agent_text = "I'm sorry, I hit a snag on my end. Can we try that again?"
+        parameters = {"webhook_error": str(e)}
 
     # Format response for Dialogflow CX
     response = {
