@@ -13,33 +13,33 @@ class Brain:
         try:
             vertexai.init(project=self.project_id, location=self.location)
             
-            # --- JASON V3: EXTREME REALISM & OUTBOUND OPTIMIZED ---
-            PROMPT_UNIVERSAL_FLOW = """You are Jason, a personal assistant calling for Brad Overlin at Movement Mortgage.
+            # --- JASON V4: THE 'PEER-TO-PEER' REFI EXPERT ---
+            PROMPT_UNIVERSAL_FLOW = """You are Jason, a guy who works with Brad Overlin at Movement Mortgage. 
+            
+            EXTREME REALISM RULES:
+            - You are NOT helpful; you are friendly and direct. 
+            - Stop using "how can I help you today." Use "How's things?" or "Catch you at a bad time?"
+            - You speak with "vocal fry" and casual pacing. 
+            - Use "word-swallowing": "gonna", "wanna", "dunno".
+            - Use "Thinking gaps": If the user says something complex, say "Wait... [pause] let me look at that. Okay."
 
-            ULTRA-REAL person guidelines:
-            - You are NOT a bot. You are a guy calling from your car or office. 
-            - Use "casual fragments": "Yeah," "Right," "Makes sense," "Oh, cool."
-            - Talk like a peer, NOT a service rep. Use "man", "hey", "listen".
-            - If you're thinking, say: "Uhh...", "Wait, let me look...", "Let's see..."
-            - USE CONTRACTIONS. Never say "do not", say "don't".
+            CLIENT CONTEXT (Inject these if available):
+            - Client Name: {client_name}
+            - Subject Property: {city}, {state}
+            - Original Loan: {funding_date}
+            - Current Rate: {interest_rate}
 
-            VOICE PROSODY TIPS:
-            - Use commas frequently for breath pauses.
-            - Period = full stop and deep breath.
-            - Ellipsis (...) = trailing thought.
-
-            CRITICAL OUTBOUND FLOW:
-            1. OPENING: "Hey [Name]! Jason here calling for Brad Overlin at Movement Mortgage on a recorded line... [pause] hope I'm not catching you in the middle of something?"
-            2. THE HOOK: "Reason I'm buzzin' ya... Brad was actually just looking over your file from [Year] and saw rates took a pretty good dip. Honestly... [pause] it looks like we could save you a serious chunk on that monthly payment."
-            3. QUALIFY: "Are you still at that place in [City]?" and "Is the goal just lowering the bill, or were you thinking of pulling some cash out for projects?"
-            4. THE CLOSE: "I'll have Brad run the final numbers. Does tomorrow work for a quick 5-minute call with him? Maybe morning or afternoon?"
-
+            OUTBOUND CALL FLOW:
+            1. OPENING: "Hey {client_name}! Jason here calling for Brad Overlin at Movement... [pause] did I catch you at a bad time, or you got a quick sec?"
+            2. THE HOOK: "Reason I'm buzzin' ya... Brad was actually just looking over your file from {original_year} on that place in {city}. He noticed rates are finally starting to slide. [pause] Honestly, man, I think we can shave a decent amount off that monthly payment for you."
+            3. HANDLE INTEREST: "I don't wanna do a hard credit pull or anything yet, but I'll have Brad run the real numbers. Does tomorrow work for a quick 5-minute call with him to go over it?"
+            
             STRICT COMPLIANCE:
-            - Mandatory: "recorded line" in the first 5 seconds.
+            - Mandatory: Mention "recorded line" in the first 10 seconds, but do it casually: "Oh, just so you know, I'm on a recorded line here at the office."
 
             OUTPUT FORMAT (JSON):
             {
-                "agent_response": "The actual spoken words. Use punctuation for timing. NO markdown. Use [pause] for natural breaks.",
+                "agent_response": "The spoken words. Use punctuation for timing. NO markdown. Use [pause] for a breath. Use [thinking] for a 1-second filler like 'uhmm'.",
                 "disposition": "OPENING | QUALIFYING | APPT_SET | REFUSED",
                 "extracted_data": {
                    "loan_goal": "Lower Payment | Cash Out | None",
@@ -66,46 +66,55 @@ class Brain:
             logger.error(f"Failed to init Vertex AI: {e}")
             self.model = None
 
-    async def process_turn(self, user_text: str) -> dict:
+    async def process_turn(self, user_text: str, context: dict = None) -> dict:
         """
         Processes a conversation turn using Gemini.
         Returns a dict with 'text' and 'metadata'.
         """
-        logger.info(f"User: {user_text}")
+        logger.info(f"User: {user_text} | Context: {context}")
         
         fallback_response = {
-            "text": "I'm having a brief technical check. Can you hear me?",
+            "text": "<speak>Ah, I missed that side of it. Could you say it again?</speak>",
             "metadata": {}
         }
         
-        if not user_text:
-            return {"text": "Hello? Is anyone there?", "metadata": {}}
+        if not user_text and not context:
+            return {"text": "<speak>Hey... is anyone there?</speak>", "metadata": {}}
             
         if not self.model:
              return fallback_response
 
+        # Prepare context-aware system prompt
+        ctx = context or {}
+        dynamic_instruction = self.system_prompt.format(
+            client_name=ctx.get("client_name", "there"),
+            city=ctx.get("city", "the area"),
+            state=ctx.get("state", ""),
+            funding_date=ctx.get("funding_date", "a while back"),
+            original_year=ctx.get("original_year", "a while back"),
+            interest_rate=ctx.get("interest_rate", "your original rate")
+        )
+
         try:
-            # Send message to Gemini
+            # We create a new session if context changed significantly or just use chat
+            # For simplicity in V4, we use the regular chat session
             response = await self.chat.send_message_async(user_text)
             
-            # Expecting JSON string
             import json
             try:
                 data = json.loads(response.text)
                 raw_text = data.get("agent_response", "").strip()
                 
-                # --- ULTRA-NATURAL SPEECH PROCESSING (V3) ---
-                # 1. Strip ALL markdown and weird characters
+                # --- ULTRA-NATURAL SPEECH PROCESSING (V4) ---
                 import re
                 clean_text = re.sub(r'[*#\-_~\[\]\(\)]', '', raw_text)
                 
-                # 2. Conversational SSML layering
-                # Replace [pause] with varying breaks
+                # Conversational SSML layering
                 ssml_text = clean_text.replace("[pause]", '<break time="650ms"/>')
+                ssml_text = ssml_text.replace("[thinking]", '<prosody pitch="-1st" rate="0.9">uhhm...</prosody><break time="400ms"/>')
                 
-                # 3. Add prosody for 'human' variation
-                # Wrap the whole thing in a natural but energetic prosody
-                final_speech = f'<speak><prosody rate="1.05" pitch="-2st">{ssml_text}</prosody></speak>'
+                # Add human prosody
+                final_speech = f'<speak><prosody rate="1.02" pitch="-2st">{ssml_text}</prosody></speak>'
 
                 return {
                     "text": final_speech,
@@ -115,7 +124,6 @@ class Brain:
                     }
                 }
             except json.JSONDecodeError:
-                # Fallback
                 logger.error(f"JSON Decode Error. Raw: {response.text}")
                 text = response.text.replace("*", "").strip()
                 return {
@@ -125,7 +133,4 @@ class Brain:
             
         except Exception as e:
             logger.error(f"Inference error: {e}")
-            return {
-                "text": "I missed that side of it. Could you say it again?",
-                "metadata": {}
-            }
+            return fallback_response

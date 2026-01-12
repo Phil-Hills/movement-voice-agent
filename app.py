@@ -49,7 +49,18 @@ async def dialogflow_webhook(request: Request):
         logger.info(f"PROCESSED USER TEXT: '{user_text}'")
 
         # Process with Brain
-        response_data = await brain.process_turn(user_text or "")
+        # Extract context from session parameters (passed by Dialogflow/GCP)
+        session_params = data.get("sessionInfo", {}).get("parameters", {})
+        context = {
+            "client_name": session_params.get("client_name", session_params.get("telephony-caller-id", "there")),
+            "city": session_params.get("city", "your area"),
+            "state": session_params.get("state", ""),
+            "funding_date": session_params.get("funding_date", ""),
+            "original_year": session_params.get("original_year", ""),
+            "interest_rate": session_params.get("interest_rate", "")
+        }
+        
+        response_data = await brain.process_turn(user_text or "", context=context)
         agent_text = response_data.get("text", "I'm having a brief glitch.")
         metadata = response_data.get("metadata", {})
         
