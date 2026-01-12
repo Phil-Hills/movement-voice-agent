@@ -92,7 +92,7 @@ class Brain:
             self.system_prompt = PROMPT_UNIVERSAL_FLOW
             
             self.model = GenerativeModel(
-                "gemini-1.5-flash",
+                "gemini-1.5-flash-002",
                 system_instruction=[self.system_prompt],
                 generation_config={"response_mime_type": "application/json"}
             )
