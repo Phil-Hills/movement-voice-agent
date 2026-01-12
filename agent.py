@@ -71,16 +71,16 @@ class Brain:
         )
 
         try:
-            # Gemini 3.0 request with thinking level
+            # Gemini 3.0 request with MINIMAL thinking for lowest latency
             response = self.client.models.generate_content(
                 model=self.model_id,
-                contents=user_text or "Hello",
+                contents=user_text,
                 config=types.GenerateContentConfig(
                     system_instruction=instruction,
                     response_mime_type="application/json",
                     temperature=0.7,
                     thinking_config=types.ThinkingConfig(
-                        thinking_level="MEDIUM" # Balance reasoning and latency
+                        thinking_level="MINIMAL" # High speed for telephony
                     )
                 )
             )

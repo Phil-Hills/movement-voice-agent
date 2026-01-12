@@ -46,6 +46,14 @@ async def dialogflow_webhook(request: Request):
              if intent_info.get("displayName") == "Default Welcome Intent":
                  user_text = "Hello"
     
+        if not user_text:
+             logger.info("Empty transcript detected - sending apology.")
+             return JSONResponse(content={
+                 "fulfillment_response": {
+                     "messages": [{"text": {"text": ["<speak>Sorry about that, [pause] I didn't catch what you said. Could you say that again?</speak>"]}}]
+                 }
+             })
+
         logger.info(f"PROCESSED USER TEXT: '{user_text}'")
 
         # Process with Brain
@@ -59,7 +67,7 @@ async def dialogflow_webhook(request: Request):
             "interest_rate": session_params.get("interest_rate", "")
         }
         
-        response_data = await brain.process_turn(user_text or "", context=context)
+        response_data = await brain.process_turn(user_text, context=context)
         agent_text = response_data.get("text", "I'm having a brief glitch.")
         metadata = response_data.get("metadata", {})
         actions = response_data.get("actions", [])
@@ -97,7 +105,7 @@ async def dialogflow_webhook(request: Request):
                 }
             ]
         },
-        "session_info": {
+        "sessionInfo": {
             "parameters": parameters
         }
     }
