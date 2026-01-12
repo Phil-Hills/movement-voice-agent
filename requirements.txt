@@ -5,4 +5,5 @@ google-cloud-aiplatform
 python-multipart
 jinja2
 python-dotenv
-# No external telephony libs needed!
+vonage
+simple-salesforce
