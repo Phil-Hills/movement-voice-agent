@@ -27,25 +27,27 @@ async def dialogflow_webhook(request: Request):
     logger.info(f"FULL DIALOGFLOW REQUEST: {json.dumps(data)}")
 
     try:
-        # Extract text from Dialogflow CX payload
-        # Standard CX format: request -> text
-        # Or nested: detectIntentResponse -> queryResult -> text
-        user_text = data.get("text")
+        # --- ROBUST TRANSCRIPT EXTRACTION ---
+        # 1. Check top-level 'transcript' (Common in Telephony/No-Match)
+        user_text = data.get("transcript")
         
+        # 2. Check traditional CX 'text' field
+        if not user_text:
+            user_text = data.get("text")
+            
+        # 3. Check nested queryResult
         if not user_text:
             query_result = data.get("detectIntentResponse", {}).get("queryResult", {})
             user_text = query_result.get("text") or query_result.get("transcript")
             
-        # Fallback: Check top-level transcript (common in telephony no-match events)
-        if not user_text:
-            user_text = data.get("transcript")
-        
-        # If still empty, check for Page/Intent Info (Welcome Event)
+        # 4. Check for Welcome Event
         if not user_text:
              intent_info = data.get("detectIntentResponse", {}).get("queryResult", {}).get("intent", {})
              if intent_info.get("displayName") == "Default Welcome Intent":
                  user_text = "Hello"
     
+        logger.info(f"PROCESSED USER TEXT: '{user_text}'")
+
         # Process with Brain
         response_data = await brain.process_turn(user_text or "")
         agent_text = response_data.get("text", "I'm having a brief glitch.")
