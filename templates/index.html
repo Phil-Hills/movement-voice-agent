@@ -470,6 +470,61 @@
             cursor: not-allowed;
         }
 
+        .audio-btn {
+            padding: 1rem;
+            background: transparent;
+            color: var(--teal);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover {
+            background: rgba(45, 212, 191, 0.1);
+            border-color: var(--teal);
+        }
+
+        .audio-btn.muted {
+            color: var(--text-muted);
+        }
+
+        .speaking-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 8px;
+        }
+
+        .speaking-indicator span {
+            width: 3px;
+            height: 12px;
+            background: var(--teal);
+            border-radius: 2px;
+            animation: speak 0.8s infinite ease-in-out;
+        }
+
+        .speaking-indicator span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .speaking-indicator span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes speak {
+
+            0%,
+            100% {
+                transform: scaleY(0.4);
+            }
+
+            50% {
+                transform: scaleY(1);
+            }
+        }
+
         /* Features Grid */
         .features {
             padding: 5rem 0;
@@ -626,7 +681,7 @@
             <div class="container">
                 <span class="badge">
                     <span class="badge-dot"></span>
-                    Gemini 3 Hackathon Entry
+                    AI-Powered Voice Agents
                 </span>
                 <h1>Turn Every Lead Into<br><span class="gradient-text">Booked Appointments</span></h1>
                 <p class="hero-subtitle">Autonomous AI voice agent powered by Gemini 3 Flash Preview. Calls, qualifies,
@@ -680,9 +735,13 @@
                         <div class="chat-input-container">
                             <input type="text" class="chat-input" id="chatInput" placeholder="Type your response..."
                                 onkeypress="handleKeyPress(event)">
+                            <button class="audio-btn" id="audioBtn" onclick="toggleAudio()" title="Toggle Voice">
+                                🔊
+                            </button>
                             <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -737,10 +796,10 @@
             <div class="footer-links">
                 <a href="https://github.com/Phil-Hills/movement-voice-agent" target="_blank">GitHub</a>
                 <a href="/docs">API Docs</a>
-                <a href="https://philhills.com" target="_blank">Phil Hills</a>
-                <a href="https://gemini3.devpost.com" target="_blank">Gemini 3 Hackathon</a>
+                <a href="https://philhills.ai" target="_blank">Phil Hills AI</a>
+                <a href="mailto:phil@philhills.ai">Contact</a>
             </div>
-            <p class="footer-credit">Built by Phil Hills | Seattle, 2026 | Google DeepMind Gemini 3 Hackathon</p>
+            <p class="footer-credit">© 2026 Phil Hills AI | Seattle, WA | Enterprise AI Voice Solutions</p>
         </div>
     </footer>
 
@@ -748,10 +807,61 @@
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
+        const audioBtn = document.getElementById('audioBtn');
+
+        // Audio/TTS state
+        let audioEnabled = true;
+        let synth = window.speechSynthesis;
+        let currentUtterance = null;
 
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendMessage();
         }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            audioBtn.textContent = audioEnabled ? '🔊' : '🔇';
+            audioBtn.classList.toggle('muted', !audioEnabled);
+            if (!audioEnabled && synth.speaking) {
+                synth.cancel();
+            }
+        }
+
+        function speak(text) {
+            if (!audioEnabled || !synth) return;
+
+            // Cancel any ongoing speech
+            synth.cancel();
+
+            // Create utterance with natural voice settings
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.rate = 1.05;
+            currentUtterance.pitch = 0.9;
+
+            // Try to use a natural-sounding voice
+            const voices = synth.getVoices();
+            const preferredVoice = voices.find(v =>
+                v.name.includes('Google') ||
+                v.name.includes('Natural') ||
+                v.name.includes('Daniel') ||
+                v.name.includes('Samantha')
+            ) || voices[0];
+
+            if (preferredVoice) {
+                currentUtterance.voice = preferredVoice;
+            }
+
+            synth.speak(currentUtterance);
+        }
+
+        // Speak initial greeting when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (audioEnabled) {
+                    speak("Hey there! Jason here calling for Brad Overlin at Movement Mortgage. Did I catch you at a bad time?");
+                }
+            }, 1000);
+        });
 
         async function sendMessage() {
             const text = chatInput.value.trim();
@@ -777,6 +887,9 @@
                 agentText = agentText.replace(/<[^>]+>/g, '').trim();
 
                 addMessage(agentText, 'agent', 'Jason (AI Agent)');
+
+                // Speak the agent's response
+                speak(agentText);
 
                 if (data.actions && data.actions.length > 0) {
                     const actionSummary = data.actions.map(a => `✅ ${a.type}`).join(', ');
