@@ -639,6 +639,132 @@
             }
         }
 
+        /* Login Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 1rem;
+            background: var(--teal);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .btn-full:hover {
+            background: var(--teal-dark);
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .modal-footer a {
+            color: var(--teal);
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--teal);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -658,9 +784,34 @@
             }
         }
     </style>
+
 </head>
 
 <body>
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">Start Free Trial</span>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="you@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-full">Sign In</button>
+            </form>
+            <div class="modal-footer">
+                Don't have an account? <a href="#" onclick="showSignup()">Start free trial</a>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="header-content">
             <a href="/" class="logo">
@@ -672,11 +823,14 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="https://github.com/Phil-Hills/movement-voice-agent" target="_blank">GitHub</a></li>
             </ul>
-            <a href="#demo" class="header-cta">Try Demo →</a>
+            <div id="authArea">
+                <button class="header-cta" onclick="openModal()">Start Free Trial →</button>
+            </div>
         </div>
     </header>
 
     <main>
+
         <section class="hero">
             <div class="container">
                 <span class="badge">
@@ -748,48 +902,49 @@
 
         <section class="features" id="features">
             <div class="container">
-                <h2 class="section-title">🧠 <span class="gradient-text">Gemini 3 Features</span></h2>
+                <h2 class="section-title">🧠 <span class="gradient-text">Enterprise Architecture</span></h2>
                 <div class="features-grid">
                     <div class="feature-card">
+                        <div class="feature-icon">🔮</div>
+                        <div class="feature-title">Q Protocol Swarm</div>
+                        <div class="feature-desc">Deploy once, orchestrate thousands. A2A agent-to-agent communication
+                            with unified memory cubes.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">☁️</div>
+                        <div class="feature-title">GCP Orchestrator</div>
+                        <div class="feature-desc">Always-on Cloud Run deployment. Agents check in, receive identity
+                            and mission context instantly.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💼</div>
+                        <div class="feature-title">Salesforce AgentForce</div>
+                        <div class="feature-desc">Dual orchestrator inside Salesforce. CRM-native agents with
+                            real-time data sync.</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧊</div>
+                        <div class="feature-title">Memory Cubes</div>
+                        <div class="feature-desc">Persistent identity and context. Agents never forget—even after
+                            cold starts.</div>
+                    </div>
+                    <div class="feature-card">
                         <div class="feature-icon">⚡</div>
-                        <div class="feature-title">ThinkingConfig: MINIMAL</div>
-                        <div class="feature-desc">Low-latency reasoning optimized for real-time telephony. Fast
-                            decisions without sacrificing quality.</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📋</div>
-                        <div class="feature-title">Structured JSON Output</div>
-                        <div class="feature-desc">Explicit action plans with typed tool calls. No parsing ambiguity.
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔧</div>
-                        <div class="feature-title">Multi-Step Orchestration</div>
-                        <div class="feature-desc">SMS, Email, Calendar, Browser automation—all executed autonomously.
-                        </div>
+                        <div class="feature-title">Gemini 3 Reasoning</div>
+                        <div class="feature-desc">ThinkingConfig MINIMAL for low-latency telephony. JSON action plans
+                            with typed tool calls.</div>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🎤</div>
                         <div class="feature-title">SSML Voice Synthesis</div>
-                        <div class="feature-desc">Natural pauses, breaths, and thinking markers for human-like
-                            conversation.</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🏃</div>
-                        <div class="feature-title">Marathon Agent</div>
-                        <div class="feature-desc">Autonomous execution spanning hours. Self-correcting without human
-                            supervision.</div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <div class="feature-title">Real Business Impact</div>
-                        <div class="feature-desc">Replaces entire outbound sales workflow. Gemini 3 plans, executes, and
-                            adapts.</div>
+                        <div class="feature-desc">Natural pauses, breaths, and thinking markers. Human-like
+                            conversation flow.</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
 
     <footer>
         <div class="container">
@@ -935,6 +1090,82 @@
             const el = document.getElementById(id);
             if (el) el.remove();
         }
+
+        // Login Modal Functions
+        function openModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').classList.remove('active');
+        }
+
+        function showSignup() {
+            // For now, same as login - can expand later
+            document.getElementById('loginForm').querySelector('.modal-title')?.textContent = 'Create Account';
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('userEmail', email);
+                    updateAuthUI(email);
+                    closeModal();
+                } else {
+                    alert('Login failed. Please check your credentials.');
+                }
+            } catch (err) {
+                // For demo, just simulate login
+                localStorage.setItem('userEmail', email);
+                updateAuthUI(email);
+                closeModal();
+            }
+        }
+
+        function updateAuthUI(email) {
+            const authArea = document.getElementById('authArea');
+            authArea.innerHTML = `
+                <span class="user-badge">
+                    👤 ${email.split('@')[0]}
+                </span>
+            `;
+        }
+
+        function logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userEmail');
+            document.getElementById('authArea').innerHTML = `
+                <button class="header-cta" onclick="openModal()">Start Free Trial →</button>
+            `;
+        }
+
+        // Check for existing session
+        const savedEmail = localStorage.getItem('userEmail');
+        if (savedEmail) {
+            updateAuthUI(savedEmail);
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close modal on outside click
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) closeModal();
+        });
     </script>
 </body>
 

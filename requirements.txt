@@ -9,3 +9,4 @@ vonage
 simple-salesforce
 playwright
 sendgrid
+firebase-admin>=6.0.0
