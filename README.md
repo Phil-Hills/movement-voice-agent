@@ -1,11 +1,13 @@
 # 🎙️ Movement Voice Agent (Jason)
 
-Enterprise-grade AI Voice Agent for **Brad Overlin @ Movement Mortgage**. This agent is designed to handle outbound and inbound telephony via **Dialogflow CX**, powered by **Gemini 1.5 Flash**.
+> **🏆 Google DeepMind Gemini 3 Hackathon Entry — Marathon Agent Track**
+
+Enterprise-grade AI Voice Agent for **Brad Overlin @ Movement Mortgage**. This agent handles outbound telephony via **Vonage/Dialogflow CX**, powered by **Gemini 3 Flash Preview** with autonomous multi-channel tool execution.
 
 ## 🧠 System Architecture
-- **NLP/LLM:** Google Gemini 1.5 Flash (Vertex AI)
-- **Integration:** Dialogflow CX Telephony
-- **Orchestration:** Python FastAPI Webhook
+- **LLM:** Google Gemini 3 Flash Preview (ThinkingConfig: MINIMAL)
+- **Integration:** Vonage + Dialogflow CX Telephony
+- **Orchestration:** Python FastAPI Webhook + Autonomous Tool Execution
 - **Persona:** "Jason" - Friendly, professional, and compliant mortgage specialist.
 
 ## 📁 Repository Structure
