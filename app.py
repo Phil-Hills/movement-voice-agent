@@ -155,6 +155,17 @@ async def dialogflow_webhook(request: Request):
 # SALESFORCE API ENDPOINTS
 # =========================================================================
 
+@app.get("/api/dashboard/stats")
+async def dashboard_stats():
+    """Get real-time dashboard statistics from Salesforce"""
+    return JSONResponse(content=sf_client.get_dashboard_stats())
+
+@app.get("/api/dashboard/leads")
+async def dashboard_leads():
+    """Get recent leads activity from Salesforce"""
+    leads = sf_client.get_recent_leads(limit=10)
+    return JSONResponse(content={"leads": leads})
+
 @app.get("/api/salesforce/status")
 async def salesforce_status():
     """Check Salesforce connection status"""

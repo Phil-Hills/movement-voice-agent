@@ -259,6 +259,121 @@ Notes:
             priority="Normal"
         )
     
+    def get_recent_leads(self, limit: int = 5) -> List[Dict[str, Any]]:
+        """
+        Get recently created or updated leads.
+        
+        Args:
+            limit: Number of leads to return
+            
+        Returns:
+            List of lead records enriched with status info
+        """
+        if not self.is_connected:
+            return [
+                self._demo_lead("d1"), 
+                self._demo_lead("d2"), 
+                self._demo_lead("d3")
+            ]
+        
+        try:
+            # Get most recent leads
+            query = f"""
+                SELECT Id, FirstName, LastName, Company, Status, CreatedDate, 
+                       LastModifiedDate, City, State, Description
+                FROM Lead
+                ORDER BY LastModifiedDate DESC
+                LIMIT {limit}
+            """
+            result = self.sf.query(query)
+            leads = result.get('records', [])
+            
+            # Enrich with calculated fields for the dashboard
+            for lead in leads:
+                lead['FullName'] = f"{lead.get('FirstName', '')} {lead.get('LastName', '')}".strip()
+                lead['LastActionTime'] = self._format_relative_time(lead['LastModifiedDate'])
+            
+            return leads
+        except Exception as e:
+            logger.error(f"Failed to fetch recent leads: {e}")
+            return []
+
+    def get_dashboard_stats(self) -> Dict[str, Any]:
+        """
+        Calculate stats for the dashboard.
+        
+        Returns:
+            Dict containing counts for today's calls, appointments, etc.
+        """
+        if not self.is_connected:
+            return {
+                "calls_today": 12,
+                "appointments": 3,
+                "sync_status": "Demo Mode"
+            }
+            
+        try:
+            # Query for tasks created today (proxy for calls made)
+            today = datetime.now().strftime("%Y-%m-%d")
+            
+            calls_query = f"""
+                SELECT count() FROM Task 
+                WHERE CreatedDate >= {today}T00:00:00Z
+                AND Subject LIKE 'AI Agent Call%'
+            """
+            calls_result = self.sf.query(calls_query)
+            calls_count = calls_result['totalSize']
+            
+            # Query for appointments booked (leads in Qualified status)
+            appt_query = f"""
+                SELECT count() FROM Lead 
+                WHERE Status = 'Qualified' 
+                AND LastModifiedDate >= {today}T00:00:00Z
+            """
+            appt_result = self.sf.query(appt_query)
+            appt_count = appt_result['totalSize']
+            
+            return {
+                "calls_today": calls_count,
+                "appointments": appt_count,
+                "sync_status": "Connected"
+            }
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch dashboard stats: {e}")
+            return {
+                "calls_today": 0,
+                "appointments": 0,
+                "sync_status": "Error"
+            }
+
+    def _format_relative_time(self, date_str: str) -> str:
+        """Format ISO date string to relative time (e.g. '5 mins ago')."""
+        try:
+            # Salesforce returns: 2026-01-22T23:15:00.000+0000
+            # Simple python helper
+            from datetime import datetime
+            import dateutil.parser
+            
+            dt = dateutil.parser.parse(date_str)
+            now = datetime.now(dt.tzinfo)
+            diff = now - dt
+            
+            minutes = int(diff.total_seconds() / 60)
+            
+            if minutes < 1:
+                return "Just now"
+            elif minutes < 60:
+                return f"{minutes} mins ago"
+            elif minutes < 1440:
+                hours = minutes // 60
+                return f"{hours} hours ago"
+            else:
+                days = minutes // 1440
+                return f"{days} days ago"
+        except:
+            return "Recently"
+    
     # =========================================================================
     # CONTACT OPERATIONS
     # =========================================================================
