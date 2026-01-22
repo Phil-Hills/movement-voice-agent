@@ -34,13 +34,14 @@ class Brain:
             3. CALL TO ACTION: "Book a 5-min chat with Brad, or should I just text the info?"
 
             OUTPUT FORMAT (JSON ONLY):
-            {
+            {{
                 "agent_response": "The verbatim words to speak.",
-                "actions": [{"type": "send_sms|send_email|schedule|browser_automation", "body": "...", "data": {}}],
+                "actions": [{{"type": "send_sms|send_email|schedule|browser_automation", "body": "...", "data": {{}}}}],
                 "disposition": "...",
-                "extracted_data": {"email": "...", "loan_goal": "..."}
-            }
+                "extracted_data": {{"email": "...", "loan_goal": "..."}}
+            }}
             """
+
             
             self.model_id = "gemini-3-flash-preview"
             
