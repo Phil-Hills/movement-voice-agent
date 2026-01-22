@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.templating import Jinja2Templates
+from pathlib import Path
 import logging
 import json
 from agent import Brain
@@ -13,9 +15,37 @@ logger = logging.getLogger(__name__)
 # Initialize Brain
 brain = Brain()
 
-@app.get("/")
-async def root():
+# Setup templates
+templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
+
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
+    """Serve the demo landing page"""
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/health")
+async def health():
+    """Health check endpoint"""
     return {"status": "online", "service": "Voice Sales Agent (Google Native)"}
+
+@app.post("/demo")
+async def demo_chat(request: Request):
+    """Demo endpoint for the web chat interface"""
+    data = await request.json()
+    user_text = data.get("text", "")
+    
+    if not user_text:
+        return JSONResponse(content={"text": "I didn't catch that. Could you say it again?"})
+    
+    context = {
+        "client_name": "Demo User",
+        "city": "Seattle",
+        "original_year": "2023"
+    }
+    
+    response_data = await brain.process_turn(user_text, context=context)
+    return JSONResponse(content=response_data)
+
 
 @app.post("/webhook")
 async def dialogflow_webhook(request: Request):
