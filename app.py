@@ -26,6 +26,11 @@ async def root(request: Request):
     """Serve the demo landing page"""
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    """Serve the protected dashboard"""
+    return templates.TemplateResponse("dashboard.html", {"request": request})
+
 @app.get("/health")
 async def health():
     """Health check endpoint"""

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Movement Voice Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+            --teal: #2dd4bf;
+            --teal-dark: #14b8a6;
+            --text-primary: #ffffff;
+            --text-muted: #94a3b8;
+            --border: #1e293b;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-bottom: 3rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--teal), #0ea5e9);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--teal);
+        }
+
+        .user-profile {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--bg-dark);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-trend {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .stat-trend.up {
+            color: var(--teal);
+        }
+
+        /* Leads Table */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        td {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-badge.success {
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--teal);
+        }
+
+        .status-badge.warning {
+            background: rgba(234, 179, 8, 0.1);
+            color: #eab308;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="/" class="logo">
+            <span class="logo-icon">🎙️</span>
+            <span>Movement<span style="color: var(--teal)">Voice</span></span>
+        </a>
+        <nav>
+            <a href="#" class="nav-item active">📊 Dashboard</a>
+            <a href="#" class="nav-item">📞 Campaigns</a>
+            <a href="#" class="nav-item">👥 Leads (Salesforce)</a>
+            <a href="#" class="nav-item">📈 Analytics</a>
+            <a href="#" class="nav-item">⚙️ Settings</a>
+        </nav>
+        <div class="user-profile">
+            <div class="avatar">PH</div>
+            <div class="user-info">
+                <div style="font-weight: 600;">Phil Hills</div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">Admin</div>
+            </div>
+            <button onclick="logout()"
+                style="margin-left: auto; background: none; border: none; cursor: pointer; color: var(--text-muted);">↪️</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Dashboard</h1>
+            <button class="action-btn"
+                style="background: var(--teal); color: var(--bg-dark); border: none; font-weight: 600;">
+                + New Campaign
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Calls Made (Today)</div>
+                <div class="stat-value">1,248</div>
+                <div class="stat-trend up">↑ 12% vs yesterday</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Appointments Booked</div>
+                <div class="stat-value">86</div>
+                <div class="stat-trend up">↑ 5% conversion rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Salesforce Sync Status</div>
+                <div class="stat-value"
+                    style="color: var(--teal); font-size: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span
+                        style="width: 8px; height: 8px; background: var(--teal); border-radius: 50%; display: block;"></span>
+                    Connected
+                </div>
+                <div class="stat-trend">Last sync: 1 min ago</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Recent Activity (Live Feed)</h3>
+                <button class="action-btn">View All</button>
+            </div>
+            <table id="leadsTable">
+                <thead>
+                    <tr>
+                        <th>Lead</th>
+                        <th>Status</th>
+                        <th>Last Action</th>
+                        <th>Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Brad Overlin</td>
+                        <td><span class="status-badge success">Appointment Booked</span></td>
+                        <td>Inbound Call (Transfer)</td>
+                        <td>2 mins ago</td>
+                        <td><button class="action-btn">View Recording</button></td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Connor</td>
+                        <td><span class="status-badge warning">Callback Scheduled</span></td>
+                        <td>Outbound Call #3</td>
+                        <td>15 mins ago</td>
+                        <td><button class="action-btn">View Log</button></td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td><span class="status-badge"
+                                style="background: rgba(148, 163, 184, 0.1); color: var(--text-muted);">Voicemail</span>
+                        </td>
+                        <td>Outbound Call #1</td>
+                        <td>42 mins ago</td>
+                        <td><button class="action-btn">Retry</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Check Auth
+        if (!localStorage.getItem('authToken')) {
+            window.location.href = '/?auth_error=true';
+        }
+
+        function logout() {
+            localStorage.removeItem('authToken');
+            window.location.href = '/';
+        }
+    </script>
+</body>
+
+</html>

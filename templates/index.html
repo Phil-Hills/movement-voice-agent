@@ -525,6 +525,78 @@
             }
         }
 
+        /* Microphone Button */
+        .mic-btn {
+            padding: 1rem;
+            background: transparent;
+            color: var(--teal);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mic-btn:hover {
+            background: rgba(45, 212, 191, 0.1);
+            border-color: var(--teal);
+        }
+
+        .mic-btn.recording {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+            color: #ef4444;
+            animation: pulse-recording 1s infinite;
+        }
+
+        @keyframes pulse-recording {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .recording-indicator {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .recording-indicator.active {
+            display: flex;
+        }
+
+        .recording-dot {
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
         /* Features Grid */
         .features {
             padding: 5rem 0;
@@ -887,13 +959,20 @@
                             </div>
                         </div>
                         <div class="chat-input-container">
-                            <input type="text" class="chat-input" id="chatInput" placeholder="Type your response..."
-                                onkeypress="handleKeyPress(event)">
-                            <button class="audio-btn" id="audioBtn" onclick="toggleAudio()" title="Toggle Voice">
+                            <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Voice Input">
+                                🎤
+                            </button>
+                            <input type="text" class="chat-input" id="chatInput"
+                                placeholder="Type or speak your response..." onkeypress="handleKeyPress(event)">
+                            <button class="audio-btn" id="audioBtn" onclick="toggleAudio()" title="Toggle Voice Output">
                                 🔊
                             </button>
                             <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
                         </div>
+                        <div class="recording-indicator" id="recordingIndicator">
+                            <span class="recording-dot"></span> Listening...
+                        </div>
+
                     </div>
 
                 </div>
@@ -963,15 +1042,91 @@
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
         const audioBtn = document.getElementById('audioBtn');
+        const micBtn = document.getElementById('micBtn');
+        const recordingIndicator = document.getElementById('recordingIndicator');
 
         // Audio/TTS state
         let audioEnabled = true;
         let synth = window.speechSynthesis;
         let currentUtterance = null;
 
+        // Voice Input (Speech Recognition) state
+        let isRecording = false;
+        let recognition = null;
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function () {
+                isRecording = true;
+                micBtn.classList.add('recording');
+                recordingIndicator.classList.add('active');
+                chatInput.placeholder = 'Listening...';
+            };
+
+            recognition.onresult = function (event) {
+                let interimTranscript = '';
+                let finalTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+
+                chatInput.value = finalTranscript || interimTranscript;
+
+                // Auto-send when final result
+                if (finalTranscript) {
+                    setTimeout(() => sendMessage(), 300);
+                }
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Speech recognition error:', event.error);
+                stopRecording();
+            };
+
+            recognition.onend = function () {
+                stopRecording();
+            };
+        }
+
+        function toggleMic() {
+            if (!recognition) {
+                alert('Speech recognition is not supported in your browser. Try Chrome or Edge.');
+                return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                // Stop any ongoing speech before recording
+                if (synth.speaking) {
+                    synth.cancel();
+                }
+                recognition.start();
+            }
+        }
+
+        function stopRecording() {
+            isRecording = false;
+            micBtn.classList.remove('recording');
+            recordingIndicator.classList.remove('active');
+            chatInput.placeholder = 'Type or speak your response...';
+        }
+
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendMessage();
         }
+
 
         function toggleAudio() {
             audioEnabled = !audioEnabled;
@@ -1121,23 +1276,27 @@
                     const data = await response.json();
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userEmail', email);
-                    updateAuthUI(email);
-                    closeModal();
+                    // Redirect to dashboard on successful login
+                    window.location.href = '/dashboard';
                 } else {
                     alert('Login failed. Please check your credentials.');
                 }
             } catch (err) {
-                // For demo, just simulate login
-                localStorage.setItem('userEmail', email);
-                updateAuthUI(email);
-                closeModal();
+                // For demo/hackathon fallback
+                if (email && password) {
+                    localStorage.setItem('authToken', 'demo_token');
+                    localStorage.setItem('userEmail', email);
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('Please enter valid credentials');
+                }
             }
         }
 
         function updateAuthUI(email) {
             const authArea = document.getElementById('authArea');
             authArea.innerHTML = `
-                <span class="user-badge">
+                <span class="user-badge" onclick="window.location.href='/dashboard'" style="cursor: pointer">
                     👤 ${email.split('@')[0]}
                 </span>
             `;
@@ -1146,15 +1305,16 @@
         function logout() {
             localStorage.removeItem('authToken');
             localStorage.removeItem('userEmail');
-            document.getElementById('authArea').innerHTML = `
-                <button class="header-cta" onclick="openModal()">Start Free Trial →</button>
-            `;
+            window.location.reload();
         }
 
-        // Check for existing session
+        // Check for existing session and redirect if on login page (and not just browsing landing)
         const savedEmail = localStorage.getItem('userEmail');
-        if (savedEmail) {
+        const authToken = localStorage.getItem('authToken');
+
+        if (savedEmail && authToken) {
             updateAuthUI(savedEmail);
+            // Optional: Auto-redirect if they click "Start Free Trial" again
         }
 
         // Close modal on escape key
