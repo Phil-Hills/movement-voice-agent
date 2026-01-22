@@ -5,15 +5,18 @@ from pathlib import Path
 import logging
 import json
 from agent import Brain
+from salesforce_client import get_salesforce_client
 
-app = FastAPI(title="AI Sales Agent Voice System (Dialogflow CX)")
+app = FastAPI(title="Movement Voice Agent - AI Sales Platform")
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize Brain
+# Initialize Brain and Salesforce
 brain = Brain()
+sf_client = get_salesforce_client()
+
 
 # Setup templates
 templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
@@ -141,6 +144,84 @@ async def dialogflow_webhook(request: Request):
     }
     
     return JSONResponse(content=response)
+
+
+# =========================================================================
+# SALESFORCE API ENDPOINTS
+# =========================================================================
+
+@app.get("/api/salesforce/status")
+async def salesforce_status():
+    """Check Salesforce connection status"""
+    return {
+        "connected": sf_client.is_connected,
+        "mode": "live" if sf_client.is_connected else "demo"
+    }
+
+@app.get("/api/salesforce/lead/{lead_id}")
+async def get_lead(lead_id: str):
+    """Get lead data from Salesforce"""
+    lead = sf_client.get_lead(lead_id)
+    if lead:
+        return JSONResponse(content={"success": True, "lead": lead})
+    return JSONResponse(content={"success": False, "error": "Lead not found"}, status_code=404)
+
+@app.post("/api/salesforce/lead/{lead_id}/call")
+async def process_lead_call(lead_id: str, request: Request):
+    """
+    Process a call for a specific lead.
+    Uses Salesforce data to personalize the conversation.
+    """
+    data = await request.json()
+    user_text = data.get("text", "")
+    call_number = data.get("call_number", 1)
+    
+    # Get lead data from Salesforce
+    lead = sf_client.get_lead(lead_id)
+    
+    if not lead:
+        return JSONResponse(
+            content={"error": "Lead not found"},
+            status_code=404
+        )
+    
+    # Build context from Salesforce data
+    context = {
+        "lead_id": lead_id,
+        "client_name": f"{lead.get('FirstName', 'there')}",
+        "city": lead.get("City", "the area"),
+        "original_year": "2023",  # Could come from custom field
+        "call_number": call_number
+    }
+    
+    # Process with Gemini
+    response_data = await brain.process_turn(user_text, context=context)
+    
+    # Log the call to Salesforce
+    if sf_client.is_connected:
+        sf_client.log_call(
+            lead_id=lead_id,
+            call_outcome=response_data.get("metadata", {}).get("disposition", "IN_PROGRESS"),
+            duration_seconds=0,  # Would come from actual call
+            notes=f"User: {user_text}\nAgent: {response_data.get('text', '')[:500]}",
+            call_number=call_number
+        )
+    
+    return JSONResponse(content=response_data)
+
+@app.post("/api/auth/login")
+async def login(request: Request):
+    """Simple auth endpoint for demo login"""
+    data = await request.json()
+    email = data.get("email", "")
+    # In production, validate against Firebase/Auth0
+    # For demo, just return success
+    return JSONResponse(content={
+        "success": True,
+        "token": "demo_token",
+        "user": {"email": email}
+    })
+
 
 if __name__ == "__main__":
     import uvicorn

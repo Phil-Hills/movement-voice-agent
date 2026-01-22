@@ -4,8 +4,10 @@ import os
 import logging
 import json
 import re
+from salesforce_client import get_salesforce_client
 
 logger = logging.getLogger(__name__)
+
 
 class Brain:
     def __init__(self):
@@ -98,13 +100,19 @@ class Brain:
                 
                 final_speech = f'<speak><prosody rate="1.05" pitch="-3st">{ssml_text}</prosody></speak>'
 
+                # Execute any actions (Salesforce integration)
+                executed_actions = self.execute_actions(
+                    data.get("actions", []),
+                    context=ctx
+                )
+
                 return {
                     "text": final_speech,
                     "metadata": {
                         "extracted_data": data.get("extracted_data", {}),
                         "disposition": data.get("disposition", "UNKNOWN")
                     },
-                    "actions": data.get("actions", [])
+                    "actions": executed_actions
                 }
             except json.JSONDecodeError:
                 return {"text": f"<speak>{response.text}</speak>", "metadata": {}}
@@ -112,3 +120,72 @@ class Brain:
         except Exception as e:
             logger.error(f"Gemini 3.0 Error: {e}")
             return fallback_response
+
+    def execute_actions(self, actions: list, context: dict = None) -> list:
+        """
+        Execute actions requested by the LLM.
+        
+        This is part of the Q Protocol - actions are logged to Salesforce
+        and executed through the appropriate channels.
+        """
+        ctx = context or {}
+        executed = []
+        sf = get_salesforce_client()
+        
+        for action in actions:
+            action_type = action.get("type", "")
+            action_body = action.get("body", "")
+            action_data = action.get("data", {})
+            
+            try:
+                if action_type == "send_sms":
+                    # Log to Salesforce
+                    if ctx.get("lead_id") and sf.is_connected:
+                        sf.create_task(
+                            lead_id=ctx["lead_id"],
+                            subject=f"SMS Sent: {action_body[:50]}...",
+                            description=action_body
+                        )
+                    executed.append({"type": action_type, "status": "queued", "body": action_body})
+                    logger.info(f"📱 SMS queued: {action_body[:50]}...")
+                    
+                elif action_type == "send_email":
+                    if ctx.get("lead_id") and sf.is_connected:
+                        sf.create_task(
+                            lead_id=ctx["lead_id"],
+                            subject=f"Email Sent: {action_data.get('subject', 'Follow-up')}",
+                            description=action_body
+                        )
+                    executed.append({"type": action_type, "status": "queued", "body": action_body})
+                    logger.info(f"📧 Email queued")
+                    
+                elif action_type == "schedule":
+                    if ctx.get("lead_id") and sf.is_connected:
+                        sf.update_lead_disposition(
+                            lead_id=ctx["lead_id"],
+                            disposition="CALLBACK_SCHEDULED",
+                            notes=f"Scheduled: {action_data.get('datetime', 'TBD')}"
+                        )
+                    executed.append({"type": action_type, "status": "scheduled", "data": action_data})
+                    logger.info(f"📅 Meeting scheduled")
+                    
+                elif action_type == "update_disposition":
+                    disposition = action_data.get("disposition", "UNKNOWN")
+                    if ctx.get("lead_id") and sf.is_connected:
+                        sf.update_lead_disposition(
+                            lead_id=ctx["lead_id"],
+                            disposition=disposition,
+                            notes=action_body,
+                            call_count=ctx.get("call_number", 1)
+                        )
+                    executed.append({"type": action_type, "status": "updated", "disposition": disposition})
+                    logger.info(f"📊 Disposition updated: {disposition}")
+                    
+                else:
+                    executed.append({"type": action_type, "status": "unknown_action"})
+                    
+            except Exception as e:
+                logger.error(f"Action execution error ({action_type}): {e}")
+                executed.append({"type": action_type, "status": "error", "error": str(e)})
+        
+        return executed
