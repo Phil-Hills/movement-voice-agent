@@ -1,21 +1,30 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi import FastAPI, Request, UploadFile, File
+from fastapi.responses import JSONResponse, HTMLResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 import logging
 import json
+import os
+import httpx
 from agent import Brain
 from salesforce_client import get_salesforce_client
+from campaign_manager import get_campaign_manager
 
-app = FastAPI(title="Movement Voice Agent - AI Sales Platform")
+app = FastAPI(title="Clair - AI Mortgage Assistant")
+
+# ElevenLabs Configuration
+ELEVENLABS_API_KEY = os.environ.get("ELEVENLABS_API_KEY", "sk_d640ca46e262d1379cc8e54cfd90cdcf638e9503adb12cae")
+# Rachel voice - young, friendly American female (perfect for SoCal vibe)
+ELEVENLABS_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"  # Rachel voice
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize Brain and Salesforce
+# Initialize singletons
 brain = Brain()
 sf_client = get_salesforce_client()
+campaign_manager = get_campaign_manager()
 
 
 # Setup templates
@@ -45,14 +54,20 @@ async def demo_chat(request: Request):
     if not user_text:
         return JSONResponse(content={"text": "I didn't catch that. Could you say it again?"})
     
+    # Get context from frontend (includes memory brain identity)
+    frontend_context = data.get("context", {})
+    
+    # Merge with default demo context if keys missing
     context = {
         "client_name": "Demo User",
         "city": "Seattle",
-        "original_year": "2023"
+        "original_year": "2023",
+        **frontend_context  # Frontend overrides defaults
     }
-    
     response_data = await brain.process_turn(user_text, context=context)
     return JSONResponse(content=response_data)
+    
+
 
 
 @app.post("/webhook")
@@ -205,8 +220,8 @@ async def process_lead_call(lead_id: str, request: Request):
     context = {
         "lead_id": lead_id,
         "client_name": f"{lead.get('FirstName', 'there')}",
-        "city": lead.get("City", "the area"),
-        "original_year": "2023",  # Could come from custom field
+        "city": lead.get("City", "your area"),
+        "original_year": lead.get("Original_Year__c", "2023"),
         "call_number": call_number
     }
     
@@ -225,6 +240,52 @@ async def process_lead_call(lead_id: str, request: Request):
     
     return JSONResponse(content=response_data)
 
+
+# =========================================================================
+# CAMPAIGN / DIALER ENDPOINTS
+# =========================================================================
+
+@app.post("/api/campaigns/upload")
+async def upload_campaign(file: UploadFile = File(...)):
+    """Upload a CSV list for outbound dialing"""
+    content = await file.read()
+    result = await campaign_manager.load_campaign_from_csv(content.decode('utf-8'))
+    return JSONResponse(content=result)
+
+@app.post("/api/campaigns/import-salesforce")
+async def import_salesforce_campaign(request: Request):
+    """Import leads directly from a Salesforce Campaign"""
+    data = await request.json()
+    campaign_id = data.get("campaign_id")
+    if not campaign_id:
+        return JSONResponse(content={"success": False, "error": "Missing campaign_id"}, status_code=400)
+        
+    result = await campaign_manager.load_campaign_from_salesforce(campaign_id)
+    return JSONResponse(content=result)
+
+@app.post("/api/campaigns/start")
+async def start_campaign():
+    """Start the outbound dialer"""
+    await campaign_manager.start_campaign()
+    return JSONResponse(content={"status": "started"})
+
+@app.post("/api/campaigns/stop")
+async def stop_campaign():
+    """Stop the outbound dialer"""
+    await campaign_manager.stop_campaign()
+    return JSONResponse(content={"status": "stopped"})
+
+@app.get("/api/campaigns/status")
+async def campaign_status():
+    """Get current dialer status and stats"""
+    return JSONResponse(content={
+        "active": campaign_manager.is_running,
+        "stats": campaign_manager.stats,
+        "current_index": campaign_manager.current_lead_index,
+        "total": len(campaign_manager.active_campaign)
+    })
+
+
 @app.post("/api/auth/login")
 async def login(request: Request):
     """Simple auth endpoint for demo login"""
@@ -237,6 +298,73 @@ async def login(request: Request):
         "token": "demo_token",
         "user": {"email": email}
     })
+
+
+# =========================================================================
+# ELEVENLABS TEXT-TO-SPEECH
+# =========================================================================
+
+@app.api_route("/api/tts", methods=["GET", "POST"])
+async def text_to_speech(request: Request):
+    """
+    Convert text to speech using ElevenLabs premium voices.
+    Returns audio/mpeg stream for playback.
+    """
+    if request.method == "GET":
+        text = request.query_params.get("text", "")
+    else:
+        try:
+            data = await request.json()
+            text = data.get("text", "")
+        except:
+            text = ""
+    
+    if not text:
+        return JSONResponse(content={"error": "No text provided"}, status_code=400)
+    
+    # Clean SSML tags for ElevenLabs (it uses its own format)
+    import re
+    clean_text = re.sub(r'<[^>]+>', '', text)
+    
+    # ElevenLabs API call
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{ELEVENLABS_VOICE_ID}/stream"
+    
+    headers = {
+        "Accept": "audio/mpeg",
+        "Content-Type": "application/json",
+        "xi-api-key": ELEVENLABS_API_KEY
+    }
+    
+    payload = {
+        "text": clean_text,
+        "model_id": "eleven_turbo_v2_5",  # Newer, more natural model
+        "voice_settings": {
+            "stability": 0.4,       # Lower stability = more natural variation
+            "similarity_boost": 0.75,
+            "style": 0.5,           # Higher style = more expressive/emotional
+            "use_speaker_boost": True
+        }
+    }
+    
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=payload, headers=headers, timeout=30.0)
+            
+            if response.status_code == 200:
+                return StreamingResponse(
+                    iter([response.content]),
+                    media_type="audio/mpeg",
+                    headers={"Content-Disposition": "inline; filename=speech.mp3"}
+                )
+            else:
+                logger.error(f"ElevenLabs error: {response.status_code} - {response.text}")
+                return JSONResponse(
+                    content={"error": "TTS failed", "details": response.text},
+                    status_code=response.status_code
+                )
+    except Exception as e:
+        logger.error(f"TTS error: {e}")
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 
 
 if __name__ == "__main__":

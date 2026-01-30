@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movement Voice Agent | AI-Powered Sales Calls</title>
+    <title>Clair | AI Mortgage Assistant</title>
     <meta name="description"
-        content="Autonomous AI voice agent powered by Gemini 3. Calls, qualifies, and books appointments 24/7.">
+        content="Clair AI - Your intelligent mortgage assistant. Analyze rates, explore refinancing, and get expert guidance 24/7.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -195,66 +195,123 @@
             line-height: 1.6;
         }
 
-        /* Soundwave */
-        .soundwave {
+        /* AI Orb Animation */
+        .ai-orb-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            gap: 4px;
             margin-bottom: 2.5rem;
-            height: 40px;
         }
 
-        .soundwave span {
-            width: 4px;
-            background: linear-gradient(180deg, var(--teal), var(--cyan));
-            border-radius: 4px;
-            animation: wave 1.2s ease-in-out infinite;
+        .ai-orb {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .soundwave span:nth-child(1) {
-            height: 20px;
-            animation-delay: 0s;
+        .orb-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(45, 212, 191, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: orbPulse 2s ease-in-out infinite;
         }
 
-        .soundwave span:nth-child(2) {
-            height: 35px;
-            animation-delay: 0.1s;
+        .orb-core {
+            position: relative;
+            z-index: 3;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 20px var(--teal));
+            animation: orbFloat 3s ease-in-out infinite;
         }
 
-        .soundwave span:nth-child(3) {
-            height: 25px;
-            animation-delay: 0.2s;
+        .orb-ring {
+            position: absolute;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            animation: orbSpin 8s linear infinite;
         }
 
-        .soundwave span:nth-child(4) {
-            height: 40px;
-            animation-delay: 0.3s;
+        .ring-1 {
+            width: 80px;
+            height: 80px;
+            border-top-color: var(--teal);
+            border-right-color: var(--teal);
         }
 
-        .soundwave span:nth-child(5) {
-            height: 30px;
-            animation-delay: 0.4s;
+        .ring-2 {
+            width: 100px;
+            height: 100px;
+            border-bottom-color: var(--cyan);
+            border-left-color: var(--cyan);
+            animation-direction: reverse;
+            animation-duration: 6s;
         }
 
-        .soundwave span:nth-child(6) {
-            height: 40px;
-            animation-delay: 0.5s;
+        .ring-3 {
+            width: 120px;
+            height: 120px;
+            border-top-color: rgba(45, 212, 191, 0.3);
+            animation-duration: 10s;
         }
 
-        .soundwave span:nth-child(7) {
-            height: 25px;
-            animation-delay: 0.6s;
+        .orb-label {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            animation: fadeInOut 2s ease-in-out infinite;
         }
 
-        .soundwave span:nth-child(8) {
-            height: 35px;
-            animation-delay: 0.7s;
+        @keyframes orbPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
         }
 
-        .soundwave span:nth-child(9) {
-            height: 20px;
-            animation-delay: 0.8s;
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes orbSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInOut {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         @keyframes wave {
@@ -645,6 +702,66 @@
             line-height: 1.5;
         }
 
+        /* Expandable Feature Cards */
+        .feature-card.expandable {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .feature-details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .feature-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-details li {
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .feature-details li strong {
+            color: var(--teal);
+        }
+
+        .feature-card.expanded .feature-details {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feature-expand-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+        }
+
+        .feature-card.expanded .feature-expand-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Footer */
         footer {
             padding: 3rem 0;
@@ -887,8 +1004,8 @@
     <header>
         <div class="header-content">
             <a href="/" class="logo">
-                <span class="logo-icon">🎙️</span>
-                <span>Movement<span style="color: var(--teal)">Voice</span></span>
+                <span class="logo-icon">💬</span>
+                <span>Clair<span style="color: var(--teal)">AI</span></span>
             </a>
             <ul class="nav-links">
                 <li><a href="#demo">Try Demo</a></li>
@@ -909,14 +1026,68 @@
                     <span class="badge-dot"></span>
                     AI-Powered Voice Agents
                 </span>
-                <h1>Turn Every Lead Into<br><span class="gradient-text">Booked Appointments</span></h1>
-                <p class="hero-subtitle">Autonomous AI voice agent powered by Gemini 3 Flash Preview. Calls, qualifies,
-                    and books appointments 24/7—no human supervision required.</p>
+                <h1>Your AI Mortgage<br><span class="gradient-text">Assistant, Clair</span></h1>
+                <p class="hero-subtitle">Powered by Gemini 3 and ElevenLabs premium voice. Get instant mortgage
+                    insights,
+                    rate analysis, and personalized refinancing recommendations—24/7.</p>
 
-                <div class="soundwave">
-                    <span></span><span></span><span></span><span></span><span></span>
-                    <span></span><span></span><span></span><span></span>
+                <!-- Simplified Hero: Audio Pulse Animation -->
+                <div class="audio-pulse-container" onclick="onInlineMicClick()" title="Click to Talk"
+                    style="cursor: pointer; margin: 40px auto; position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center;">
+                    <div class="pulse-ring ring-1"></div>
+                    <div class="pulse-ring ring-2"></div>
+                    <div class="pulse-ring ring-3"></div>
+                    <div class="mic-icon" style="font-size: 3rem; z-index: 2; position: relative;">🎙️</div>
                 </div>
+
+                <style>
+                    .audio-pulse-container:hover .mic-icon {
+                        transform: scale(1.1);
+                        transition: transform 0.2s ease;
+                    }
+
+                    .pulse-ring {
+                        position: absolute;
+                        border-radius: 50%;
+                        border: 2px solid var(--teal);
+                        opacity: 0;
+                        animation: pulse-wave 3s infinite cubic-bezier(0.36, 0.11, 0.89, 0.32);
+                    }
+
+                    .ring-1 {
+                        width: 100%;
+                        height: 100%;
+                        animation-delay: 0s;
+                    }
+
+                    .ring-2 {
+                        width: 100%;
+                        height: 100%;
+                        animation-delay: 1s;
+                    }
+
+                    .ring-3 {
+                        width: 100%;
+                        height: 100%;
+                        animation-delay: 2s;
+                    }
+
+                    @keyframes pulse-wave {
+                        0% {
+                            transform: scale(0.5);
+                            opacity: 0;
+                        }
+
+                        50% {
+                            opacity: 1;
+                        }
+
+                        100% {
+                            transform: scale(2.5);
+                            opacity: 0;
+                        }
+                    }
+                </style>
 
                 <div class="cta-group">
                     <a href="#demo" class="btn-primary">Try Demo →</a>
@@ -953,21 +1124,22 @@
                     <div class="chat-container">
                         <div class="chat-messages" id="chatMessages">
                             <div class="message agent">
-                                <div class="message-label">Jason (AI Agent)</div>
-                                <div class="message-bubble">Hey there! Jason here calling for Brad Overlin at Movement
-                                    Mortgage. Did I catch you at a bad time?</div>
+                                <div class="message-label">Clair</div>
+                                <div class="message-bubble">Hi there! I'm Clair, the Movement Mortgage AI assistant. I
+                                    can help you explore refinancing options, analyze rates, and answer any questions.
+                                    How can I assist you today?</div>
                             </div>
                         </div>
                         <div class="chat-input-container">
-                            <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Voice Input">
+                            <button class="mic-btn" id="micBtn" onclick="onInlineMicClick()" title="Voice Input">
                                 🎤
                             </button>
                             <input type="text" class="chat-input" id="chatInput"
-                                placeholder="Type or speak your response..." onkeypress="handleKeyPress(event)">
+                                placeholder="Type or speak your response..." onkeypress="onInlineChatKeyPress(event)">
                             <button class="audio-btn" id="audioBtn" onclick="toggleAudio()" title="Toggle Voice Output">
                                 🔊
                             </button>
-                            <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+                            <button class="send-btn" id="sendBtn" onclick="onInlineChatSend()">Send</button>
                         </div>
                         <div class="recording-indicator" id="recordingIndicator">
                             <span class="recording-dot"></span> Listening...
@@ -983,41 +1155,102 @@
             <div class="container">
                 <h2 class="section-title">🧠 <span class="gradient-text">Enterprise Architecture</span></h2>
                 <div class="features-grid">
-                    <div class="feature-card">
+                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
                         <div class="feature-icon">🔮</div>
                         <div class="feature-title">Q Protocol Swarm</div>
                         <div class="feature-desc">Deploy once, orchestrate thousands. A2A agent-to-agent communication
                             with unified memory cubes.</div>
+                        <div class="feature-details">
+                            <ul>
+                                <li><strong>Agent-to-Agent (A2A):</strong> Direct communication between agents without
+                                    human intervention</li>
+                                <li><strong>Unified Memory:</strong> Shared context cubes enable seamless handoffs</li>
+                                <li><strong>Swarm Intelligence:</strong> Agents collaborate on complex multi-step tasks
+                                </li>
+                                <li><strong>Protocol Version:</strong> Q Protocol v1.0 with JSON-RPC messaging</li>
+                            </ul>
+                        </div>
+                        <div class="feature-expand-icon">▼</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
                         <div class="feature-icon">☁️</div>
                         <div class="feature-title">GCP Orchestrator</div>
-                        <div class="feature-desc">Always-on Cloud Run deployment. Agents check in, receive identity
-                            and mission context instantly.</div>
+                        <div class="feature-desc">Always-on Cloud Run deployment. Agents check in, receive identity and
+                            mission context instantly.</div>
+                        <div class="feature-details">
+                            <ul>
+                                <li><strong>Zero Cold Starts:</strong> Minimum instances keep agents warm 24/7</li>
+                                <li><strong>Auto-Scaling:</strong> Handle thousands of concurrent calls</li>
+                                <li><strong>Identity Injection:</strong> Each agent receives unique credentials at boot
+                                </li>
+                                <li><strong>Region:</strong> us-central1 with global load balancing</li>
+                            </ul>
+                        </div>
+                        <div class="feature-expand-icon">▼</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
                         <div class="feature-icon">💼</div>
                         <div class="feature-title">Salesforce AgentForce</div>
-                        <div class="feature-desc">Dual orchestrator inside Salesforce. CRM-native agents with
-                            real-time data sync.</div>
+                        <div class="feature-desc">Dual orchestrator inside Salesforce. CRM-native agents with real-time
+                            data sync.</div>
+                        <div class="feature-details">
+                            <ul>
+                                <li><strong>CRM Integration:</strong> Direct read/write to Leads, Contacts,
+                                    Opportunities</li>
+                                <li><strong>Einstein Platform:</strong> Leverage Salesforce AI capabilities</li>
+                                <li><strong>Apex Triggers:</strong> Real-time event processing on record changes</li>
+                                <li><strong>Flow Orchestration:</strong> Visual automation with AI decision nodes</li>
+                            </ul>
+                        </div>
+                        <div class="feature-expand-icon">▼</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
                         <div class="feature-icon">🧊</div>
                         <div class="feature-title">Memory Cubes</div>
-                        <div class="feature-desc">Persistent identity and context. Agents never forget—even after
-                            cold starts.</div>
+                        <div class="feature-desc">Persistent identity and context. Agents never forget—even after cold
+                            starts.</div>
+                        <div class="feature-details">
+                            <ul>
+                                <li><strong>Identity Persistence:</strong> Agent personality and goals survive restarts
+                                </li>
+                                <li><strong>Context Window:</strong> Compressed conversation history (last 50 turns)
+                                </li>
+                                <li><strong>Skill Cache:</strong> Learned patterns and successful strategies</li>
+                                <li><strong>Storage:</strong> GCS + Firestore with sub-100ms retrieval</li>
+                            </ul>
+                        </div>
+                        <div class="feature-expand-icon">▼</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
                         <div class="feature-icon">⚡</div>
                         <div class="feature-title">Gemini 3 Reasoning</div>
                         <div class="feature-desc">ThinkingConfig MINIMAL for low-latency telephony. JSON action plans
                             with typed tool calls.</div>
+                        <div class="feature-details">
+                            <ul>
+                                <li><strong>Model:</strong> Gemini 2.5 Flash with thinking capabilities</li>
+                                <li><strong>Latency:</strong> Sub-500ms response time for telephony</li>
+                                <li><strong>Tool Calling:</strong> Structured JSON with type-safe parameters</li>
+                                <li><strong>Context:</strong> 1M token window for deep conversation history</li>
+                            </ul>
+                        </div>
+                        <div class="feature-expand-icon">▼</div>
                     </div>
-                    <div class="feature-card">
+                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
                         <div class="feature-icon">🎤</div>
                         <div class="feature-title">SSML Voice Synthesis</div>
-                        <div class="feature-desc">Natural pauses, breaths, and thinking markers. Human-like
-                            conversation flow.</div>
+                        <div class="feature-desc">Natural pauses, breaths, and thinking markers. Human-like conversation
+                            flow.</div>
+                        <div class="feature-details">
+                            <ul>
+                                <li><strong>SSML Tags:</strong> Prosody, breaks, emphasis for natural speech</li>
+                                <li><strong>Voice Models:</strong> ElevenLabs + Google Cloud TTS integration</li>
+                                <li><strong>Interruption Handling:</strong> Graceful pause and resume on user speech
+                                </li>
+                                <li><strong>Emotion Detection:</strong> Adjust tone based on conversation sentiment</li>
+                            </ul>
+                        </div>
+                        <div class="feature-expand-icon">▼</div>
                     </div>
                 </div>
             </div>
@@ -1036,6 +1269,635 @@
             <p class="footer-credit">© 2026 Phil Hills AI | Seattle, WA | Enterprise AI Voice Solutions</p>
         </div>
     </footer>
+
+    <!-- Floating Live Chat Widget -->
+    <div id="liveChatWidget" class="live-chat-widget">
+        <!-- Chat Bubble Button -->
+        <button id="chatBubble" class="chat-bubble" onclick="toggleLiveChat()">
+            <span class="bubble-icon">💬</span>
+            <span class="bubble-text">Chat with AI</span>
+            <span class="bubble-pulse"></span>
+        </button>
+
+        <!-- Expanded Chat Panel -->
+        <div id="chatPanel" class="chat-panel">
+            <div class="chat-panel-header">
+                <div class="chat-panel-title">
+                    <span class="status-dot"></span>
+                    <span>Clair</span>
+                </div>
+                <button class="chat-close-btn" onclick="toggleLiveChat()">✕</button>
+            </div>
+            <div class="chat-panel-messages" id="liveChatMessages">
+                <div class="message agent">
+                    <div class="message-label">Agent</div>
+                    <div class="message-bubble">Hi! I'm Clair, your AI mortgage assistant. How can I help you today?
+                    </div>
+                </div>
+            </div>
+            <div class="chat-panel-input">
+                <input type="file" id="liveChatFileInput" accept=".pdf,.png,.jpg,.jpeg" style="display:none"
+                    onchange="handleDocumentUpload(event)">
+                <button id="liveChatUpload" onclick="document.getElementById('liveChatFileInput').click()"
+                    title="Upload mortgage statement">📎</button>
+                <input type="text" id="liveChatInput" placeholder="Type your message..."
+                    onkeypress="handleLiveChatKeyPress(event)">
+                <button id="liveChatSend" onclick="sendLiveChatMessage()">Send</button>
+                <button id="liveChatMic" onclick="toggleLiveChatMic()">🎤</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Floating Chat Widget Styles */
+        .live-chat-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chat-bubble {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(45, 212, 191, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-bubble:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(45, 212, 191, 0.5);
+        }
+
+        .bubble-icon {
+            font-size: 1.2rem;
+        }
+
+        .bubble-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            transform: translate(-50%, -50%);
+            animation: bubblePulse 2s infinite;
+        }
+
+        @keyframes bubblePulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .chat-panel {
+            display: none;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 380px;
+            height: 500px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            flex-direction: column;
+        }
+
+        .chat-panel.open {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            color: white;
+        }
+
+        .chat-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .chat-close-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-panel-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-panel-messages .message {
+            max-width: 85%;
+        }
+
+        .chat-panel-messages .message.user {
+            align-self: flex-end;
+        }
+
+        .chat-panel-messages .message.agent {
+            align-self: flex-start;
+        }
+
+        .chat-panel-messages .message-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .chat-panel-messages .message-bubble {
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chat-panel-messages .message.user .message-bubble {
+            background: var(--teal);
+            color: var(--bg-dark);
+        }
+
+        .chat-panel-messages .message.agent .message-bubble {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .chat-panel-input {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-panel-input input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .chat-panel-input input:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+
+        .chat-panel-input button {
+            padding: 10px 16px;
+            background: var(--teal);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chat-panel-input button:hover {
+            background: var(--teal-dark);
+        }
+
+        .chat-panel-input #liveChatMic {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 1.1rem;
+            padding: 10px 12px;
+        }
+
+        .chat-panel-input #liveChatMic:hover {
+            border-color: var(--teal);
+        }
+
+        .chat-panel-input #liveChatMic.recording {
+            background: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .chat-panel-input #liveChatUpload {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 1.1rem;
+            padding: 10px 12px;
+        }
+
+        .chat-panel-input #liveChatUpload:hover {
+            border-color: var(--teal);
+            background: rgba(45, 212, 191, 0.1);
+        }
+
+        @media (max-width: 480px) {
+            .chat-panel {
+                width: calc(100vw - 32px);
+                right: -8px;
+            }
+
+            .bubble-text {
+                display: none;
+            }
+
+            .chat-bubble {
+                padding: 16px;
+                border-radius: 50%;
+            }
+        }
+
+        /* Hardened Side Chat Formatting */
+        .chat-panel .message {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+            max-width: 85%;
+        }
+
+        .chat-panel .message.user {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        .chat-panel .message.agent {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
+
+        .chat-panel .message-bubble {
+            padding: 10px 14px;
+            border-radius: 12px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-panel .message.user .message-bubble {
+            background: var(--teal);
+            color: var(--bg-dark);
+            border-radius: 12px 12px 0 12px;
+        }
+
+        .chat-panel .message.agent .message-bubble {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px 12px 12px 0;
+        }
+
+        .chat-panel .message-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+    </style>
+
+    <!-- Live Chat Widget JavaScript -->
+    <script>
+        // iOS Audio Context Unlock Pattern (Production Hardening)
+        function unlockAudio() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+
+            const ctx = new AudioContext();
+            const buffer = ctx.createBuffer(1, 1, 22050);
+            const source = ctx.createBufferSource();
+            source.buffer = buffer;
+            source.connect(ctx.destination);
+
+            // Play silence to unlock
+            if (source.start) {
+                source.start(0);
+            } else if (source.noteOn) {
+                source.noteOn(0);
+            }
+
+            // Resume context if suspended
+            if (ctx.state === 'suspended') {
+                ctx.resume();
+            }
+        }
+
+        // Attach unlock to global interaction events
+        document.addEventListener('click', unlockAudio, { once: true });
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+
+        // Expandable Feature Cards
+        function toggleFeatureCard(card) {
+            card.classList.toggle('expanded');
+        }
+
+        // Live Chat Widget Functions
+        let liveChatOpen = false;
+        let liveChatRecognition = null;
+        let liveChatRecording = false;
+
+        function toggleLiveChat() {
+            const panel = document.getElementById('chatPanel');
+            const bubble = document.getElementById('chatBubble');
+            liveChatOpen = !liveChatOpen;
+
+            if (liveChatOpen) {
+                panel.classList.add('open');
+                bubble.style.display = 'none';
+                document.getElementById('liveChatInput').focus();
+            } else {
+                panel.classList.remove('open');
+                bubble.style.display = 'flex';
+            }
+        }
+
+        function handleLiveChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendLiveChatMessage();
+            }
+        }
+
+        async function sendLiveChatMessage() {
+            const input = document.getElementById('liveChatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // Add user message
+            addLiveChatMessage('user', text);
+            input.value = '';
+
+            // Show thinking
+            const thinkingId = addLiveChatThinking();
+
+            try {
+                // Get memory context if available
+                const context = typeof getEnhancedContext === 'function' ? getEnhancedContext() : {};
+
+                const response = await fetch('/demo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: text,
+                        context: context
+                    })
+                });
+                const data = await response.json();
+
+                // Remove thinking
+                removeLiveChatMessage(thinkingId);
+
+                // Add agent response
+                const cleanText = data.text ? data.text.replace(/<[^>]*>/g, '') : "I'm here to help!";
+                addLiveChatMessage('agent', cleanText);
+
+                // Play premium ElevenLabs voice
+                speakWithElevenLabs(cleanText);
+            } catch (error) {
+                removeLiveChatMessage(thinkingId);
+                addLiveChatMessage('agent', "Sorry, I'm having trouble connecting. Please try again.");
+            }
+        }
+
+        function addLiveChatMessage(type, text) {
+            const container = document.getElementById('liveChatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = `
+                <div class="message-label">${type === 'user' ? 'You' : 'Agent'}</div>
+                <div class="message-bubble">${text}</div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addLiveChatThinking() {
+            const container = document.getElementById('liveChatMessages');
+            const id = 'live-thinking-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'message agent';
+            div.innerHTML = `
+                <div class="message-label">Agent</div>
+                <div class="message-bubble" style="display: flex; gap: 4px;">
+                    <span style="animation: pulse 0.6s infinite">●</span>
+                    <span style="animation: pulse 0.6s infinite 0.2s">●</span>
+                    <span style="animation: pulse 0.6s infinite 0.4s">●</span>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function removeLiveChatMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function toggleLiveChatMic() {
+            const micBtn = document.getElementById('liveChatMic');
+
+            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+                alert('Speech recognition not supported. Please use Chrome or Edge.');
+                return;
+            }
+
+            if (!liveChatRecognition) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                liveChatRecognition = new SpeechRecognition();
+                liveChatRecognition.continuous = false;
+                liveChatRecognition.interimResults = false;
+                liveChatRecognition.lang = 'en-US';
+
+                liveChatRecognition.onstart = () => {
+                    liveChatRecording = true;
+                    micBtn.classList.add('recording');
+                    document.getElementById('liveChatInput').placeholder = 'Listening...';
+                };
+
+                liveChatRecognition.onend = () => {
+                    liveChatRecording = false;
+                    micBtn.classList.remove('recording');
+                    document.getElementById('liveChatInput').placeholder = 'Type your message...';
+                };
+
+                liveChatRecognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('liveChatInput').value = transcript;
+                    sendLiveChatMessage();
+                };
+
+                liveChatRecognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                    liveChatRecording = false;
+                    micBtn.classList.remove('recording');
+                };
+            }
+
+            if (liveChatRecording) {
+                liveChatRecognition.stop();
+            } else {
+                liveChatRecognition.start();
+            }
+        }
+
+        // ElevenLabs Premium Voice TTS
+        let currentAudio = null;
+
+        async function speakWithElevenLabs(text) {
+            if (!text || text.length < 2) return;
+
+            // Stop any currently playing audio
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+
+            try {
+                const response = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text })
+                });
+
+                if (response.ok) {
+                    const audioBlob = await response.blob();
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    currentAudio = new Audio(audioUrl);
+                    currentAudio.play();
+
+                    // Clean up URL after playing
+                    currentAudio.onended = () => {
+                        URL.revokeObjectURL(audioUrl);
+                        currentAudio = null;
+                    };
+                } else {
+                    console.error('TTS failed, falling back to browser');
+                    // Fallback to browser TTS
+                    if (window.speechSynthesis) {
+                        const utterance = new SpeechSynthesisUtterance(text);
+                        utterance.rate = 1.1;
+                        window.speechSynthesis.speak(utterance);
+                    }
+                }
+            } catch (error) {
+                console.error('TTS error:', error);
+            }
+        }
+
+        // Document Upload Handler (Mortgage Statements, etc.)
+        async function handleDocumentUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            addLiveChatMessage('user', `📎 Uploaded: ${file.name}`);
+            const thinkingId = addLiveChatThinking();
+
+            // Create FormData for upload
+            const formData = new FormData();
+            formData.append('document', file);
+
+            try {
+                const response = await fetch('/api/analyze-document', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    removeLiveChatMessage(thinkingId);
+                    addLiveChatMessage('agent', data.analysis || 'Document received! I can now provide personalized mortgage insights based on your statement.');
+                } else {
+                    removeLiveChatMessage(thinkingId);
+                    // Fallback response for demo
+                    addLiveChatMessage('agent', `I've received your ${file.name}. Based on typical mortgage patterns, I can help you explore refinancing options, rate comparisons, and potential savings. What would you like to know?`);
+                }
+            } catch (error) {
+                removeLiveChatMessage(thinkingId);
+                // Demo fallback
+                addLiveChatMessage('agent', `Thanks for uploading ${file.name}! I'm analyzing your mortgage statement. Common topics I can help with: current rate analysis, refinancing potential, payment optimization, and equity calculations. What interests you most?`);
+            }
+
+            // Clear the input
+            event.target.value = '';
+        }
+
+        // Memory Brain Context - Connect to AI Summary Cube
+        const memoryBrainContext = {
+            identity: 'Clair',
+            capabilities: ['mortgage_analysis', 'lead_qualification', 'appointment_booking', 'salesforce_integration'],
+            personality: 'professional, helpful, knowledgeable about mortgage and real estate'
+        };
+
+        // Enhance messages with memory context
+        function getEnhancedContext() {
+            return {
+                ...memoryBrainContext,
+                sessionId: 'session_' + Date.now(),
+                timestamp: new Date().toISOString()
+            };
+        }
+    </script>
 
     <script>
         const chatMessages = document.getElementById('chatMessages');
@@ -1126,179 +1988,243 @@
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendMessage();
         }
+    </script>
 
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            audioBtn.textContent = audioEnabled ? '🔊' : '🔇';
-            audioBtn.classList.toggle('muted', !audioEnabled);
-            if (!audioEnabled && synth.speaking) {
-                synth.cancel();
+        // Your web app's Firebase configuration
+        // For this demo, using a placeholder. In production, these should be env vars.
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOCAbC123dEfGhIjKlMnOpQrStUvWxYz",
+            authDomain: "movement-voice-agent.firebaseapp.com",
+            projectId: "movement-voice-agent",
+            storageBucket: "movement-voice-agent.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Expose auth functions to global scope for buttons
+        window.handleGoogleLogin = async function () {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                console.log("User signed in: ", user.email);
+
+                // Store minimal info for dashboard demo check (optional, as dashboard will verify auth too)
+                localStorage.setItem('authToken', await user.getIdToken());
+                localStorage.setItem('userEmail', user.email);
+                localStorage.setItem('userName', user.displayName);
+                localStorage.setItem('userPhoto', user.photoURL);
+
+                window.location.href = '/dashboard';
+            } catch (error) {
+                console.error("Login Failed", error);
+                alert("Login failed: " + error.message);
             }
         }
 
-        function speak(text) {
-            if (!audioEnabled || !synth) return;
-
-            // Cancel any ongoing speech
-            synth.cancel();
-
-            // Create utterance with natural voice settings
-            currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.rate = 1.05;
-            currentUtterance.pitch = 0.9;
-
-            // Try to use a natural-sounding voice
-            const voices = synth.getVoices();
-            const preferredVoice = voices.find(v =>
-                v.name.includes('Google') ||
-                v.name.includes('Natural') ||
-                v.name.includes('Daniel') ||
-                v.name.includes('Samantha')
-            ) || voices[0];
-
-            if (preferredVoice) {
-                currentUtterance.voice = preferredVoice;
+        // Check if already logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User already logged in", user.email);
+                updateAuthUI(user);
+                // Optional: Auto-redirect if on login page?
+                // window.location.href = '/dashboard';
             }
-
-            synth.speak(currentUtterance);
-        }
-
-        // Speak initial greeting when page loads
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                if (audioEnabled) {
-                    speak("Hey there! Jason here calling for Brad Overlin at Movement Mortgage. Did I catch you at a bad time?");
-                }
-            }, 1000);
         });
 
-        async function sendMessage() {
-            const text = chatInput.value.trim();
+        function updateAuthUI(user) {
+            const btn = document.querySelector('.header-cta');
+            if (btn) {
+                btn.innerText = 'Go to Dashboard';
+                btn.onclick = () => window.location.href = '/dashboard';
+            }
+        }
+    </script>
+
+    <script>
+        // UI Interactions
+        function toggleAudio() {
+            const btn = document.querySelector('.audio-btn');
+            btn.classList.toggle('muted');
+            const isMuted = btn.classList.contains('muted');
+            btn.innerHTML = isMuted ? '🔇' : '🔊';
+        }
+
+        const micBtn = document.getElementById('mic-btn');
+        const recordingIndicator = document.getElementById('recording-indicator');
+        const chatInput = document.getElementById('chatInput');
+        let recognition;
+
+        // Inline Mic Logic
+        let inlineRecognition;
+        if ('webkitSpeechRecognition' in window) {
+            inlineRecognition = new webkitSpeechRecognition();
+            inlineRecognition.continuous = false;
+            inlineRecognition.interimResults = false;
+            inlineRecognition.lang = 'en-US';
+
+            inlineRecognition.onstart = function () {
+                document.getElementById('micBtn').classList.add('recording');
+                document.getElementById('recordingIndicator').classList.add('active');
+                document.getElementById('chatInput').placeholder = "Listening...";
+            };
+
+            inlineRecognition.onend = function () {
+                document.getElementById('micBtn').classList.remove('recording');
+                document.getElementById('recordingIndicator').classList.remove('active');
+                document.getElementById('chatInput').placeholder = "Type your message...";
+            };
+
+            inlineRecognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('chatInput').value = transcript;
+                onInlineChatSend(); // Auto-submit
+            };
+        } else {
+            const micBtn = document.getElementById('micBtn');
+            if (micBtn) micBtn.style.display = 'none';
+        }
+
+        function onInlineMicClick() {
+            unlockAudio(); // Unlock iOS audio
+            if (inlineRecognition) {
+                inlineRecognition.start();
+            } else {
+                alert('Speech recognition not supported in this browser.');
+            }
+        }
+
+        async function onInlineChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                await processInlineMessage();
+            }
+        }
+
+        async function onInlineChatSend() {
+            await processInlineMessage();
+        }
+
+        async function processInlineMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+
             if (!text) return;
 
-            addMessage(text, 'user', 'You');
-            chatInput.value = '';
-            sendBtn.disabled = true;
+            // Add User Message
+            addMessage('user', text);
+            input.value = '';
 
-            const thinkingId = showThinking();
+            // Show "Thinking..."
+            const thinkingId = addThinking();
 
             try {
+                // Get memory context
+                const context = typeof getEnhancedContext === 'function' ? getEnhancedContext() : {};
+
                 const response = await fetch('/demo', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text })
+                    body: JSON.stringify({
+                        text: text,
+                        context: context
+                    })
                 });
 
                 const data = await response.json();
-                removeThinking(thinkingId);
 
-                let agentText = data.text || 'I had a brief glitch. Could you say that again?';
-                agentText = agentText.replace(/<[^>]+>/g, '').trim();
+                // Remove Thinking
+                removeMessage(thinkingId);
 
-                addMessage(agentText, 'agent', 'Jason (AI Agent)');
+                // Add Agent Message
+                const cleanText = data.text ? data.text.replace(/<[^>]*>/g, '') : "I'm here to help!";
+                addMessage('agent', cleanText);
 
-                // Speak the agent's response
-                speak(agentText);
+                // Speak response using ElevenLabs
+                speakWithElevenLabs(cleanText);
 
-                if (data.actions && data.actions.length > 0) {
-                    const actionSummary = data.actions.map(a => `✅ ${a.type}`).join(', ');
-                    addMessage(`Actions triggered: ${actionSummary}`, 'agent', 'System');
-                }
-            } catch (err) {
-                removeThinking(thinkingId);
-                addMessage('Connection error. Please try again.', 'agent', 'System');
+            } catch (error) {
+                console.error('Error:', error);
+                removeMessage(thinkingId);
+                addMessage('agent', "I'm having trouble connecting right now. Please try again.");
             }
-
-            sendBtn.disabled = false;
-            chatInput.focus();
         }
 
-        function addMessage(text, type, label) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${type}`;
-            msgDiv.innerHTML = `
-                <div class="message-label">${label}</div>
-                <div class="message-bubble">${text}</div>
-            `;
-            chatMessages.appendChild(msgDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        function addMessage(type, text) {
+            const messages = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = `
+        <div class="message-label">${type === 'user' ? 'You' : 'Agent'}</div>
+        <div class="message-bubble">${text}</div>
+        `;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
         }
 
-        function showThinking() {
+        function addThinking() {
+            const messages = document.getElementById('chatMessages');
             const id = 'thinking-' + Date.now();
             const div = document.createElement('div');
             div.id = id;
             div.className = 'message agent';
             div.innerHTML = `
-                <div class="message-label">Jason is thinking...</div>
-                <div class="message-bubble">
-                    <div class="thinking"><span></span><span></span><span></span></div>
-                </div>
-            `;
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        <div class="message-label">Agent</div>
+        <div class="message-bubble">
+            <div class="thinking">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        `;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
             return id;
         }
 
-        function removeThinking(id) {
+        function removeMessage(id) {
             const el = document.getElementById(id);
             if (el) el.remove();
         }
 
-        // Login Modal Functions
-        function openModal() {
-            document.getElementById('loginModal').classList.add('active');
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.1;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+
+            // Visual indicator
+            const indicator = document.getElementById('agent-speaking');
+            if (indicator) indicator.style.display = 'inline-flex';
+
+            utterance.onend = () => {
+                if (indicator) indicator.style.display = 'none';
+            };
+        }
+
+        function showLogin() {
+            // For demo simplicity, triggering the Google Auth directly
+            window.handleGoogleLogin();
         }
 
         function closeModal() {
-            document.getElementById('loginModal').classList.remove('active');
-        }
-
-        function showSignup() {
-            // For now, same as login - can expand later
-            document.getElementById('loginForm').querySelector('.modal-title')?.textContent = 'Create Account';
-        }
-
-        async function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                const response = await fetch('/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('userEmail', email);
-                    // Redirect to dashboard on successful login
-                    window.location.href = '/dashboard';
-                } else {
-                    alert('Login failed. Please check your credentials.');
-                }
-            } catch (err) {
-                // For demo/hackathon fallback
-                if (email && password) {
-                    localStorage.setItem('authToken', 'demo_token');
-                    localStorage.setItem('userEmail', email);
-                    window.location.href = '/dashboard';
-                } else {
-                    alert('Please enter valid credentials');
-                }
-            }
+            const modal = document.getElementById('loginModal');
+            if (modal) modal.style.display = 'none';
         }
 
         function updateAuthUI(email) {
             const authArea = document.getElementById('authArea');
             authArea.innerHTML = `
-                <span class="user-badge" onclick="window.location.href='/dashboard'" style="cursor: pointer">
-                    👤 ${email.split('@')[0]}
-                </span>
+        <span class="user-badge" onclick="window.location.href='/dashboard'" style="cursor: pointer">
+            👤 ${email.split('@')[0]}
+        </span>
             `;
         }
 

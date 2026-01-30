@@ -10,3 +10,4 @@ simple-salesforce
 playwright
 sendgrid
 firebase-admin>=6.0.0
+httpx>=0.25.0

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Movement Voice Agent</title>
+    <title>Dashboard | Clair</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -234,8 +234,8 @@
 <body>
     <div class="sidebar">
         <a href="/" class="logo">
-            <span class="logo-icon">🎙️</span>
-            <span>Movement<span style="color: var(--teal)">Voice</span></span>
+            <span class="logo-icon">💬</span>
+            <span>Clair<span style="color: var(--teal)">AI</span></span>
         </a>
         <nav>
             <a href="#" class="nav-item active">📊 Dashboard</a>
@@ -315,9 +315,107 @@
         </div>
 
         <div id="campaigns-view" style="display: none;">
-            <h2>Campaigns</h2>
-            <p style="color: var(--text-muted); margin-top: 1rem;">Campaign management coming soon.</p>
+            <div class="header">
+                <h2>Campaign Management</h2>
+            </div>
+
+            <!-- Upload Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div class="card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Option A: Upload CSV</h3>
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                        <input type="file" id="campaignFile" accept=".csv"
+                            style="padding: 0.5rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); width: 100%;">
+                        <button class="action-btn" onclick="uploadCampaign()" style="width: 100%;">Upload &
+                            Analyze</button>
+                    </div>
+                </div>
+
+                <div class="card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Option B: Salesforce Import</h3>
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                        <input type="text" id="sfCampaignId" placeholder="Enter Salesforce Campaign ID"
+                            style="padding: 0.75rem; background: var(--bg-dark); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); width: 100%;">
+                        <button class="action-btn" onclick="importSFCampaign()"
+                            style="width: 100%; border-color: #00A1E0; color: #00A1E0;">
+                            Sync from Salesforce ☁️
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Section (Hidden initially) -->
+            <div id="campaign-controls" class="card" style="padding: 2rem; margin-bottom: 2rem; display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">2. Power Dialer Configuration</h3>
+                        <p style="color: var(--text-muted);">Ready to dial <span id="campaign-loaded-count"
+                                style="color: var(--teal); font-weight: 700;">0</span> leads.</p>
+                    </div>
+                    <button class="action-btn" onclick="startCampaign()"
+                        style="background: var(--teal); color: var(--bg-dark); font-weight: 700; padding: 0.75rem 1.5rem; font-size: 1rem;">
+                        ▶ Start Power Dialer
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Dialer Status (Hidden initially) -->
+            <div id="dialer-active-panel" class="card" style="padding: 2rem; display: none; border-color: var(--teal);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span
+                            style="width: 10px; height: 10px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite;"></span>
+                        Live Dialer Active
+                    </h3>
+                    <button class="action-btn" onclick="stopCampaign()" style="border-color: #ef4444; color: #ef4444;">⏹
+                        Stop</button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div
+                    style="width: 100%; height: 8px; background: var(--bg-dark); border-radius: 4px; margin-bottom: 1.5rem; overflow: hidden;">
+                    <div id="dialer-progress-bar"
+                        style="width: 0%; height: 100%; background: var(--teal); transition: width 0.3s ease;"></div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Current Lead</div>
+                        <div id="dialer-current-lead" style="font-size: 1.1rem; font-weight: 600;">--</div>
+                        <div id="dialer-current-status" style="font-size: 0.8rem; color: var(--teal);">Waiting...</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Dialed</div>
+                        <div id="stat-dialed" style="font-size: 1.5rem; font-weight: 700;">0</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Connected</div>
+                        <div id="stat-connected" style="font-size: 1.5rem; font-weight: 700;">0</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">Appointments</div>
+                        <div id="stat-appointments" style="font-size: 1.5rem; font-weight: 700; color: var(--teal);">0
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <style>
+            @keyframes pulse {
+                0% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.5;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+        </style>
 
         <div id="leads-view" style="display: none;">
             <h2>All Leads</h2>
@@ -325,16 +423,58 @@
         </div>
     </div>
 
-    <script>
-        // Check Auth
-        if (!localStorage.getItem('authToken')) {
-            window.location.href = '/?auth_error=true';
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOCAbC123dEfGhIjKlMnOpQrStUvWxYz",
+            authDomain: "movement-voice-agent.firebaseapp.com",
+            projectId: "movement-voice-agent",
+            storageBucket: "movement-voice-agent.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Global Logout function
+        window.logout = function () {
+            signOut(auth).then(() => {
+                localStorage.removeItem('authToken');
+                window.location.href = '/';
+            }).catch((error) => {
+                console.error("Logout error", error);
+                // Fallback
+                localStorage.removeItem('authToken');
+                window.location.href = '/';
+            });
         }
 
-        function logout() {
-            localStorage.removeItem('authToken');
-            window.location.href = '/';
-        }
+        // Auth Guardian
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Authorized via Firebase: ", user.email);
+                // Update UI with user info
+                document.querySelector('.user-info div').textContent = user.displayName || user.email.split('@')[0];
+                document.querySelector('.avatar').textContent = (user.displayName || user.email).charAt(0).toUpperCase();
+            } else {
+                // Check Demo/Hackathon Legacy Token
+                if (!localStorage.getItem('authToken')) {
+                    console.warn("No session found. Redirecting...");
+                    window.location.href = '/?auth_error=true';
+                } else {
+                    console.log("Authorized via LocalStorage (Demo Mode)");
+                }
+            }
+        });
+    </script>
+
+    <script>
+        // Legacy/Demo check removed here as it is handled in the module above
+        // leaving helper functions
+
 
         // Navigation
         document.querySelectorAll('.nav-item').forEach(item => {
@@ -382,13 +522,17 @@
 
                 if (leadsData.leads && leadsData.leads.length > 0) {
                     leadsData.leads.forEach(lead => {
+                        const actionBtn = lead.RecordingUrl
+                            ? `<a href="${lead.RecordingUrl}" target="_blank" class="action-btn" style="text-decoration: none; color: inherit; display: inline-block;">▶ Play Recording</a>`
+                            : `<button class="action-btn">View Log</button>`;
+
                         const row = `
                             <tr>
                                 <td>${lead.FullName || 'Unknown'}</td>
                                 <td><span class="status-badge ${getStatusClass(lead.Status)}">${lead.Status}</span></td>
                                 <td>${lead.Company || '-'}</td>
                                 <td>${lead.LastActionTime || 'Recently'}</td>
-                                <td><button class="action-btn">View Log</button></td>
+                                <td>${actionBtn}</td>
                             </tr>
                         `;
                         tbody.innerHTML += row;
@@ -412,6 +556,123 @@
         fetchData();
         // Auto-refresh every 30s
         setInterval(fetchData, 30000);
+
+        // --- CAMPAIGN FUNCTIONS ---
+
+        async function uploadCampaign() {
+            const fileInput = document.getElementById('campaignFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a CSV file first.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/api/campaigns/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('campaign-controls').style.display = 'block';
+                    document.getElementById('campaign-loaded-count').innerText = data.count;
+                    alert(`Successfully loaded ${data.count} leads.`);
+                } else {
+                    alert('Error loading campaign: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Upload failed', error);
+                alert('Upload failed. See console.');
+            }
+        }
+
+        async function importSFCampaign() {
+            const campaignId = document.getElementById('sfCampaignId').value;
+            if (!campaignId) {
+                alert('Please enter a Salesforce Campaign ID.');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/campaigns/import-salesforce', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ campaign_id: campaignId })
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('campaign-controls').style.display = 'block';
+                    document.getElementById('campaign-loaded-count').innerText = data.count;
+                    alert(`Successfully imported ${data.count} leads from Salesforce.`);
+                } else {
+                    alert('Error importing from Salesforce: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Import failed', error);
+                alert('Import failed. See console.');
+            }
+        }
+
+        async function startCampaign() {
+            try {
+                await fetch('/api/campaigns/start', { method: 'POST' });
+                document.getElementById('dialer-active-panel').style.display = 'block';
+                document.getElementById('campaign-controls').style.display = 'none';
+
+                // Start polling status
+                pollInterval = setInterval(pollCampaignStatus, 1000);
+            } catch (error) {
+                alert('Failed to start campaign.');
+            }
+        }
+
+        async function stopCampaign() {
+            try {
+                await fetch('/api/campaigns/stop', { method: 'POST' });
+                if (pollInterval) clearInterval(pollInterval);
+                document.getElementById('dialer-current-status').innerText = "Stopped";
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        let pollInterval = null;
+
+        async function pollCampaignStatus() {
+            try {
+                const response = await fetch('/api/campaigns/status');
+                const data = await response.json();
+
+                if (!data.active) {
+                    clearInterval(pollInterval);
+                    document.getElementById('dialer-current-status').innerText = "Completed";
+                    document.getElementById('dialer-progress-bar').style.width = '100%';
+                    return;
+                }
+
+                // Update stats
+                document.getElementById('stat-dialed').innerText = data.stats.dialed;
+                document.getElementById('stat-connected').innerText = data.stats.connected;
+                document.getElementById('stat-appointments').innerText = data.stats.appointments;
+
+                // Update progress
+                const progress = (data.current_index / data.total) * 100;
+                document.getElementById('dialer-progress-bar').style.width = `${progress}%`;
+
+                // Update Current Lead info (approximate based on index)
+                document.getElementById('dialer-current-lead').innerText = `Lead #${data.current_index + 1}`;
+                document.getElementById('dialer-current-status').innerText = "Dialing...";
+
+            } catch (error) {
+                console.error('Polling error', error);
+            }
+        }
     </script>
 </body>
 
