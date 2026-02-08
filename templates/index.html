@@ -4,21 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clair | AI Mortgage Assistant</title>
+    <title>Clairvoyant | AI-Powered Sales Agent</title>
     <meta name="description"
-        content="Clair AI - Your intelligent mortgage assistant. Analyze rates, explore refinancing, and get expert guidance 24/7.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+        content="AI Sales Agent with voice cloning technology. Qualify leads, schedule appointments, and close deals 24/7.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #020617;
+            --bg-dark: #030712;
             --bg-card: #0f172a;
             --teal: #2dd4bf;
-            --teal-dark: #14b8a6;
-            --cyan: #0ea5e9;
-            --text-primary: #ffffff;
+            --cyan: #06b6d4;
+            --purple: #a855f7;
+            --text-primary: #f8fafc;
             --text-muted: #94a3b8;
             --border: #1e293b;
+            --glow: rgba(45, 212, 191, 0.4);
         }
 
         * {
@@ -28,129 +28,110 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Background glow effects */
-        body::before {
-            content: '';
+        /* Animated Background */
+        .bg-gradient {
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 20%, rgba(45, 212, 191, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(14, 165, 233, 0.06) 0%, transparent 50%);
-            pointer-events: none;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(45, 212, 191, 0.15), transparent),
+                radial-gradient(ellipse 60% 60% at 100% 100%, rgba(168, 85, 247, 0.1), transparent),
+                radial-gradient(ellipse 40% 40% at 0% 50%, rgba(6, 182, 212, 0.08), transparent);
+            z-index: 0;
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
             z-index: 0;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--teal);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         /* Header */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
+            position: relative;
+            z-index: 10;
             padding: 1rem 2rem;
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            background: rgba(3, 7, 18, 0.8);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
+            font-size: 1.5rem;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--teal), var(--cyan));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .header-cta {
-            padding: 0.75rem 1.5rem;
-            background: var(--teal);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .header-cta:hover {
-            background: var(--teal-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Hero */
-        .hero {
-            padding: 10rem 0 5rem;
-            text-align: center;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .badge {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
-            background: rgba(45, 212, 191, 0.1);
-            border: 1px solid rgba(45, 212, 191, 0.3);
-            border-radius: 30px;
-            font-size: 0.85rem;
+            background: linear-gradient(135deg, rgba(45, 212, 191, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
             color: var(--teal);
-            margin-bottom: 2rem;
         }
 
         .badge-dot {
@@ -166,104 +147,113 @@
             0%,
             100% {
                 opacity: 1;
+                box-shadow: 0 0 0 0 var(--glow);
             }
 
             50% {
-                opacity: 0.4;
+                opacity: 0.8;
+                box-shadow: 0 0 0 8px transparent;
             }
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
+        /* Main Layout */
+        main {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 3rem;
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+            align-items: center;
         }
 
-        .gradient-text {
-            background: linear-gradient(90deg, var(--teal), var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.6;
-        }
-
-        /* AI Orb Animation */
-        .ai-orb-container {
+        /* Hero Section */
+        .hero {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 2.5rem;
+            text-align: center;
         }
 
-        .ai-orb {
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--cyan) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+        }
+
+        /* 3D Orb */
+        .orb-container {
             position: relative;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
         }
 
-        .orb-glow {
-            position: absolute;
+        .orb {
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(45, 212, 191, 0.4) 0%, transparent 70%);
             border-radius: 50%;
-            animation: orbPulse 2s ease-in-out infinite;
+            background: radial-gradient(circle at 30% 30%, rgba(45, 212, 191, 0.8), rgba(6, 182, 212, 0.4) 50%, rgba(15, 23, 42, 0.9));
+            box-shadow:
+                0 0 60px var(--glow),
+                inset 0 0 60px rgba(45, 212, 191, 0.3),
+                0 0 120px rgba(45, 212, 191, 0.2);
+            animation: orbFloat 4s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
 
-        .orb-core {
-            position: relative;
-            z-index: 3;
-            font-size: 2.5rem;
-            filter: drop-shadow(0 0 20px var(--teal));
-            animation: orbFloat 3s ease-in-out infinite;
+        .orb.listening {
+            background: radial-gradient(circle at 30% 30%, rgba(239, 68, 68, 0.8), rgba(239, 68, 68, 0.4) 50%, rgba(15, 23, 42, 0.9));
+            box-shadow: 0 0 80px rgba(239, 68, 68, 0.5), inset 0 0 60px rgba(239, 68, 68, 0.3);
+            animation: orbPulse 0.8s ease-in-out infinite;
         }
 
-        .orb-ring {
-            position: absolute;
-            border: 2px solid transparent;
-            border-radius: 50%;
-            animation: orbSpin 8s linear infinite;
+        .orb.speaking {
+            animation: orbSpeak 0.3s ease-in-out infinite;
         }
 
-        .ring-1 {
-            width: 80px;
-            height: 80px;
-            border-top-color: var(--teal);
-            border-right-color: var(--teal);
-        }
+        @keyframes orbFloat {
 
-        .ring-2 {
-            width: 100px;
-            height: 100px;
-            border-bottom-color: var(--cyan);
-            border-left-color: var(--cyan);
-            animation-direction: reverse;
-            animation-duration: 6s;
-        }
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
 
-        .ring-3 {
-            width: 120px;
-            height: 120px;
-            border-top-color: rgba(45, 212, 191, 0.3);
-            animation-duration: 10s;
-        }
-
-        .orb-label {
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            animation: fadeInOut 2s ease-in-out infinite;
+            50% {
+                transform: translateY(-10px) scale(1.02);
+            }
         }
 
         @keyframes orbPulse {
@@ -271,28 +261,39 @@
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.6;
             }
 
             50% {
-                transform: scale(1.2);
-                opacity: 1;
+                transform: scale(1.1);
             }
         }
 
-        @keyframes orbFloat {
+        @keyframes orbSpeak {
 
             0%,
             100% {
-                transform: translateY(0);
+                transform: scale(1);
             }
 
-            50% {
-                transform: translateY(-5px);
+            25% {
+                transform: scale(1.05);
+            }
+
+            75% {
+                transform: scale(0.98);
             }
         }
 
-        @keyframes orbSpin {
+        .orb-ring {
+            position: absolute;
+            inset: -20px;
+            border: 2px solid var(--teal);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: ringRotate 10s linear infinite;
+        }
+
+        @keyframes ringRotate {
             from {
                 transform: rotate(0deg);
             }
@@ -302,146 +303,96 @@
             }
         }
 
-        @keyframes fadeInOut {
-
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes wave {
-
-            0%,
-            100% {
-                transform: scaleY(0.5);
-            }
-
-            50% {
-                transform: scaleY(1);
-            }
-        }
-
-        /* CTAs */
-        .cta-group {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 4rem;
-        }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: var(--teal);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 10px;
+        .status-text {
+            font-size: 0.875rem;
             font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: var(--teal-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(45, 212, 191, 0.3);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Stats */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             color: var(--teal);
         }
 
-        .stat-label {
-            font-size: 0.9rem;
+        /* Feature Pills */
+        .feature-pills {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .pill {
+            padding: 0.5rem 1rem;
+            background: rgba(45, 212, 191, 0.1);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
             color: var(--text-muted);
+            transition: all 0.2s;
         }
 
-        /* Demo Section */
-        .demo-section {
-            padding: 5rem 0;
+        .pill:hover {
+            background: rgba(45, 212, 191, 0.2);
+            color: var(--teal);
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-        }
-
-        .demo-card {
+        /* Chat Window */
+        .chat-container {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .chat-container {
-            height: 350px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
+            height: 600px;
+        }
+
+        .chat-header {
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-header-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .chat-header-text h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .chat-header-text span {
+            font-size: 0.75rem;
+            color: rgba(0, 0, 0, 0.6);
         }
 
         .chat-messages {
             flex: 1;
+            padding: 1.5rem;
             overflow-y: auto;
-            padding: 1rem;
-            background: var(--bg-dark);
-            border-radius: 12px;
-            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .message {
-            margin-bottom: 1rem;
-            animation: fadeIn 0.3s ease;
+            max-width: 85%;
+            animation: messageIn 0.3s ease-out;
         }
 
-        @keyframes fadeIn {
+        @keyframes messageIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
@@ -454,1804 +405,734 @@
         }
 
         .message.user {
-            text-align: right;
+            align-self: flex-end;
+        }
+
+        .message.agent {
+            align-self: flex-start;
         }
 
         .message-bubble {
-            display: inline-block;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            max-width: 80%;
-            font-size: 0.95rem;
+            padding: 0.875rem 1.25rem;
+            border-radius: 16px;
+            font-size: 0.9rem;
             line-height: 1.5;
         }
 
         .message.user .message-bubble {
-            background: var(--teal);
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
             color: var(--bg-dark);
+            border-radius: 16px 16px 4px 16px;
         }
 
         .message.agent .message-bubble {
-            background: var(--border);
-            color: var(--text-primary);
-        }
-
-        .message-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
-        }
-
-        .chat-input-container {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
+            border-radius: 16px 16px 16px 4px;
         }
 
-        .chat-input:focus {
-            border-color: var(--teal);
-        }
-
-        .chat-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .send-btn {
-            padding: 1rem 1.5rem;
-            background: var(--teal);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .send-btn:hover {
-            background: var(--teal-dark);
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .audio-btn {
-            padding: 1rem;
-            background: transparent;
-            color: var(--teal);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .audio-btn:hover {
-            background: rgba(45, 212, 191, 0.1);
-            border-color: var(--teal);
-        }
-
-        .audio-btn.muted {
-            color: var(--text-muted);
-        }
-
-        .speaking-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-left: 8px;
-        }
-
-        .speaking-indicator span {
-            width: 3px;
-            height: 12px;
-            background: var(--teal);
-            border-radius: 2px;
-            animation: speak 0.8s infinite ease-in-out;
-        }
-
-        .speaking-indicator span:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .speaking-indicator span:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        @keyframes speak {
-
-            0%,
-            100% {
-                transform: scaleY(0.4);
-            }
-
-            50% {
-                transform: scaleY(1);
-            }
-        }
-
-        /* Microphone Button */
-        .mic-btn {
-            padding: 1rem;
-            background: transparent;
-            color: var(--teal);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .mic-btn:hover {
-            background: rgba(45, 212, 191, 0.1);
-            border-color: var(--teal);
-        }
-
-        .mic-btn.recording {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: #ef4444;
-            color: #ef4444;
-            animation: pulse-recording 1s infinite;
-        }
-
-        @keyframes pulse-recording {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        .recording-indicator {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 0.5rem 1rem;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 8px;
-            color: #ef4444;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-        }
-
-        .recording-indicator.active {
-            display: flex;
-        }
-
-        .recording-dot {
-            width: 10px;
-            height: 10px;
-            background: #ef4444;
-            border-radius: 50%;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.3;
-            }
-        }
-
-        /* Features Grid */
-        .features {
-            padding: 5rem 0;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(45, 212, 191, 0.3);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(45, 212, 191, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* Expandable Feature Cards */
-        .feature-card.expandable {
-            cursor: pointer;
-            position: relative;
-        }
-
-        .feature-details {
-            display: none;
-            margin-top: 1rem;
-            padding-top: 1rem;
+        /* Quick Actions */
+        .quick-actions {
+            padding: 0.75rem 1.5rem;
             border-top: 1px solid var(--border);
-        }
-
-        .feature-details ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .feature-details li {
-            padding: 0.5rem 0;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .feature-details li strong {
-            color: var(--teal);
-        }
-
-        .feature-card.expanded .feature-details {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .feature-expand-icon {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            transition: transform 0.3s;
-        }
-
-        .feature-card.expanded .feature-expand-icon {
-            transform: rotate(180deg);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-links {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--teal);
-        }
-
-        .footer-credit {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        .thinking {
-            display: flex;
-            gap: 4px;
-            padding: 0.5rem;
-        }
-
-        .thinking span {
-            width: 8px;
-            height: 8px;
-            background: var(--text-muted);
-            border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out;
-        }
-
-        .thinking span:nth-child(1) {
-            animation-delay: -0.32s;
-        }
-
-        .thinking span:nth-child(2) {
-            animation-delay: -0.16s;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            80%,
-            100% {
-                transform: scale(0);
-            }
-
-            40% {
-                transform: scale(1);
-            }
-        }
-
-        /* Login Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            width: 90%;
-            max-width: 400px;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .modal-close {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--bg-dark);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--teal);
-        }
-
-        .btn-full {
-            width: 100%;
-            padding: 1rem;
-            background: var(--teal);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        .btn-full:hover {
-            background: var(--teal-dark);
-        }
-
-        .modal-footer {
-            text-align: center;
-            margin-top: 1rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .modal-footer a {
-            color: var(--teal);
-        }
-
-        .user-badge {
-            display: flex;
-            align-items: center;
             gap: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .quick-btn {
             padding: 0.5rem 1rem;
             background: rgba(45, 212, 191, 0.1);
             border: 1px solid rgba(45, 212, 191, 0.3);
-            border-radius: 20px;
-            font-size: 0.85rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
             color: var(--teal);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
         }
 
-        @media (max-width: 768px) {
+        .quick-btn:hover {
+            background: rgba(45, 212, 191, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.75rem;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.875rem 1.25rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input-area input:focus {
+            border-color: var(--teal);
+        }
+
+        .chat-input-area button {
+            width: 48px;
+            height: 48px;
+            background: var(--teal);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--bg-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-input-area button:hover {
+            background: var(--cyan);
+            transform: scale(1.05);
+        }
+
+        .chat-input-area button.recording {
+            background: #ef4444;
+            animation: recordPulse 1s infinite;
+        }
+
+        @keyframes recordPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px transparent;
+            }
+        }
+
+        /* Waveform */
+        .waveform {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 24px;
+            padding: 0 0.5rem;
+        }
+
+        .wave-bar {
+            width: 3px;
+            background: var(--teal);
+            border-radius: 2px;
+            animation: waveAnim 0.5s ease-in-out infinite;
+        }
+
+        @keyframes waveAnim {
+
+            0%,
+            100% {
+                height: 8px;
+            }
+
+            50% {
+                height: 24px;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .hero {
+                order: 2;
+            }
+
+            .chat-container {
+                order: 1;
+                height: 500px;
+            }
+
             h1 {
                 font-size: 2.5rem;
             }
-
-            .nav-links {
-                display: none;
-            }
-
-            .stats {
-                gap: 2rem;
-            }
-
-            .cta-group {
-                flex-direction: column;
-                align-items: center;
-            }
         }
     </style>
-
 </head>
 
 <body>
-    <!-- Login Modal -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal">
-            <div class="modal-header">
-                <span class="modal-title">Start Free Trial</span>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" placeholder="you@company.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="btn-full">Sign In</button>
-            </form>
-            <div class="modal-footer">
-                Don't have an account? <a href="#" onclick="showSignup()">Start free trial</a>
-            </div>
-        </div>
-    </div>
+    <div class="bg-gradient"></div>
+    <div class="particles" id="particles"></div>
 
     <header>
-        <div class="header-content">
-            <a href="/" class="logo">
-                <span class="logo-icon">💬</span>
-                <span>Clair<span style="color: var(--teal)">AI</span></span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#demo">Try Demo</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="https://github.com/Phil-Hills/movement-voice-agent" target="_blank">GitHub</a></li>
-            </ul>
-            <div id="authArea">
-                <button class="header-cta" onclick="openModal()">Start Free Trial →</button>
+        <div class="logo">Clairvoyant</div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <button onclick="toggleLeadPanel()"
+                style="padding: 0.5rem 1rem; background: rgba(45, 212, 191, 0.2); border: 1px solid var(--teal); border-radius: 8px; color: var(--teal); cursor: pointer; font-size: 0.85rem;">
+                Leads
+            </button>
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Voice Clone Active
             </div>
         </div>
     </header>
 
+    <!-- Lead Management Panel -->
+    <div class="lead-panel" id="leadPanel"
+        style="display: none; position: fixed; top: 60px; right: 20px; width: 350px; max-height: 70vh; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; z-index: 100; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+        <div
+            style="padding: 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1rem; font-weight: 600;">Lead Management</h3>
+            <button onclick="toggleLeadPanel()"
+                style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;">X</button>
+        </div>
+
+        <!-- Upload Section -->
+        <div style="padding: 1rem; border-bottom: 1px solid var(--border);">
+            <label
+                style="display: block; padding: 1rem; background: rgba(45, 212, 191, 0.1); border: 2px dashed var(--border); border-radius: 8px; text-align: center; cursor: pointer;">
+                <input type="file" id="csvUpload" accept=".csv" style="display: none;" onchange="uploadLeads(event)">
+                <span style="color: var(--teal); font-weight: 500;">Upload CSV</span>
+                <br><span style="font-size: 0.75rem; color: var(--text-muted);">name, email, phone, company,
+                    notes</span>
+            </label>
+        </div>
+
+        <!-- Current Lead -->
+        <div id="currentLeadDisplay" style="padding: 1rem; border-bottom: 1px solid var(--border); display: none;">
+            <div style="font-size: 0.75rem; color: var(--teal); text-transform: uppercase; margin-bottom: 0.5rem;">
+                Active Lead</div>
+            <div id="currentLeadInfo" style="font-weight: 600;"></div>
+            <button onclick="clearLead()"
+                style="margin-top: 0.5rem; padding: 0.25rem 0.5rem; background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; border-radius: 4px; color: #ef4444; font-size: 0.75rem; cursor: pointer;">Clear</button>
+        </div>
+
+        <!-- Lead List -->
+        <div id="leadList" style="max-height: 300px; overflow-y: auto; padding: 0.5rem;"></div>
+    </div>
+
     <main>
-
         <section class="hero">
-            <div class="container">
-                <span class="badge">
-                    <span class="badge-dot"></span>
-                    AI-Powered Voice Agents
-                </span>
-                <h1>Your AI Mortgage<br><span class="gradient-text">Assistant, Clair</span></h1>
-                <p class="hero-subtitle">Powered by Gemini 3 and ElevenLabs premium voice. Get instant mortgage
-                    insights,
-                    rate analysis, and personalized refinancing recommendations—24/7.</p>
+            <div class="orb-container">
+                <div class="orb-ring"></div>
+                <div class="orb" id="orb"></div>
+            </div>
 
-                <!-- Simplified Hero: Audio Pulse Animation -->
-                <div class="audio-pulse-container" onclick="onInlineMicClick()" title="Click to Talk"
-                    style="cursor: pointer; margin: 40px auto; position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center;">
-                    <div class="pulse-ring ring-1"></div>
-                    <div class="pulse-ring ring-2"></div>
-                    <div class="pulse-ring ring-3"></div>
-                    <div class="mic-icon" style="font-size: 3rem; z-index: 2; position: relative;">🎙️</div>
+            <h1>Meet <span class="gradient-text">Clairvoyant</span></h1>
+            <p class="subtitle">Your AI-powered sales agent that qualifies leads, schedules meetings, and closes deals
+                around the clock — with your voice.</p>
+
+            <div class="status-text" id="statusText">Ready to Assist</div>
+
+            <div class="feature-pills">
+                <span class="pill">🧠 Gemini 3 Pro</span>
+                <span class="pill">⚡ Asymmetric Reasoning</span>
+                <span class="pill">🔍 Google Grounding</span>
+                <span class="pill">🔐 Q Protocol</span>
+            </div>
+
+            <!-- Thinking Level Selector -->
+            <div id="thinkingLevelPanel"
+                style="margin-top: 1.5rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                <span
+                    style="color: var(--text-muted); font-size: 0.8rem; margin-right: 0.5rem; align-self: center;">Thinking:</span>
+                <button class="thinking-btn active" data-level="high" onclick="setThinkingLevel('high')">🧠
+                    High</button>
+                <button class="thinking-btn" data-level="medium" onclick="setThinkingLevel('medium')">⚖️ Medium</button>
+                <button class="thinking-btn" data-level="low" onclick="setThinkingLevel('low')">⚡ Low</button>
+                <button class="thinking-btn" data-level="minimal" onclick="setThinkingLevel('minimal')">🚀
+                    Minimal</button>
+            </div>
+
+            <style>
+                .thinking-btn {
+                    padding: 0.4rem 0.8rem;
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid var(--border);
+                    border-radius: 20px;
+                    color: var(--text-muted);
+                    font-size: 0.75rem;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+
+                .thinking-btn:hover {
+                    border-color: var(--teal);
+                    color: var(--teal);
+                }
+
+                .thinking-btn.active {
+                    background: rgba(45, 212, 191, 0.2);
+                    border-color: var(--teal);
+                    color: var(--teal);
+                }
+
+                .research-panel {
+                    position: fixed;
+                    bottom: 20px;
+                    left: 20px;
+                    width: 350px;
+                    max-height: 400px;
+                    background: var(--bg-card);
+                    border: 1px solid var(--border);
+                    border-radius: 16px;
+                    z-index: 100;
+                    overflow: hidden;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+                    display: none;
+                }
+
+                .research-header {
+                    padding: 1rem;
+                    border-bottom: 1px solid var(--border);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .research-content {
+                    padding: 1rem;
+                    max-height: 300px;
+                    overflow-y: auto;
+                    font-size: 0.85rem;
+                    line-height: 1.6;
+                }
+
+                .audit-badge {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    padding: 0.5rem 1rem;
+                    background: rgba(168, 85, 247, 0.2);
+                    border: 1px solid var(--purple);
+                    border-radius: 20px;
+                    font-size: 0.75rem;
+                    color: var(--purple);
+                    cursor: pointer;
+                    z-index: 50;
+                }
+
+                .pitch-btn {
+                    background: linear-gradient(135deg, var(--purple), var(--cyan));
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: 600;
+                    cursor: pointer;
+                    margin-top: 0.5rem;
+                }
+            </style>
+        </section>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-header-icon">C</div>
+                <div class="chat-header-text">
+                    <h2>Clairvoyant AI</h2>
+                    <span>Powered by Gemini + ElevenLabs</span>
                 </div>
+            </div>
 
-                <style>
-                    .audio-pulse-container:hover .mic-icon {
-                        transform: scale(1.1);
-                        transition: transform 0.2s ease;
-                    }
-
-                    .pulse-ring {
-                        position: absolute;
-                        border-radius: 50%;
-                        border: 2px solid var(--teal);
-                        opacity: 0;
-                        animation: pulse-wave 3s infinite cubic-bezier(0.36, 0.11, 0.89, 0.32);
-                    }
-
-                    .ring-1 {
-                        width: 100%;
-                        height: 100%;
-                        animation-delay: 0s;
-                    }
-
-                    .ring-2 {
-                        width: 100%;
-                        height: 100%;
-                        animation-delay: 1s;
-                    }
-
-                    .ring-3 {
-                        width: 100%;
-                        height: 100%;
-                        animation-delay: 2s;
-                    }
-
-                    @keyframes pulse-wave {
-                        0% {
-                            transform: scale(0.5);
-                            opacity: 0;
-                        }
-
-                        50% {
-                            opacity: 1;
-                        }
-
-                        100% {
-                            transform: scale(2.5);
-                            opacity: 0;
-                        }
-                    }
-                </style>
-
-                <div class="cta-group">
-                    <a href="#demo" class="btn-primary">Try Demo →</a>
-                    <a href="https://github.com/Phil-Hills/movement-voice-agent" class="btn-secondary" target="_blank">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                        View Code
-                    </a>
-                </div>
-
-                <div class="stats">
-                    <div class="stat">
-                        <div class="stat-value">Gemini 3</div>
-                        <div class="stat-label">Flash Preview</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">MINIMAL</div>
-                        <div class="stat-label">ThinkingConfig</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">24/7</div>
-                        <div class="stat-label">Autonomous</div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message agent">
+                    <div class="message-bubble">
+                        Hi! I'm Clairvoyant, your AI sales agent with supernatural insight. I can see exactly what you
+                        need. How can I help you today?
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="demo-section" id="demo">
-            <div class="container">
-                <h2 class="section-title">💬 <span class="gradient-text">Try the Demo</span></h2>
-                <div class="demo-card">
-                    <div class="chat-container">
-                        <div class="chat-messages" id="chatMessages">
-                            <div class="message agent">
-                                <div class="message-label">Clair</div>
-                                <div class="message-bubble">Hi there! I'm Clair, the Movement Mortgage AI assistant. I
-                                    can help you explore refinancing options, analyze rates, and answer any questions.
-                                    How can I assist you today?</div>
-                            </div>
-                        </div>
-                        <div class="chat-input-container">
-                            <button class="mic-btn" id="micBtn" onclick="onInlineMicClick()" title="Voice Input">
-                                🎤
-                            </button>
-                            <input type="text" class="chat-input" id="chatInput"
-                                placeholder="Type or speak your response..." onkeypress="onInlineChatKeyPress(event)">
-                            <button class="audio-btn" id="audioBtn" onclick="toggleAudio()" title="Toggle Voice Output">
-                                🔊
-                            </button>
-                            <button class="send-btn" id="sendBtn" onclick="onInlineChatSend()">Send</button>
-                        </div>
-                        <div class="recording-indicator" id="recordingIndicator">
-                            <span class="recording-dot"></span> Listening...
-                        </div>
-
-                    </div>
-
-                </div>
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="sendQuickMessage('Tell me about pricing')">Pricing</button>
+                <button class="quick-btn" onclick="sendQuickMessage('Schedule a demo')">Book Demo</button>
+                <button class="quick-btn" onclick="generatePitch()">✨ Generate Pitch</button>
+                <button class="quick-btn" onclick="showAuditTrail()">🔐 Audit Trail</button>
             </div>
-        </section>
 
-        <section class="features" id="features">
-            <div class="container">
-                <h2 class="section-title">🧠 <span class="gradient-text">Enterprise Architecture</span></h2>
-                <div class="features-grid">
-                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
-                        <div class="feature-icon">🔮</div>
-                        <div class="feature-title">Q Protocol Swarm</div>
-                        <div class="feature-desc">Deploy once, orchestrate thousands. A2A agent-to-agent communication
-                            with unified memory cubes.</div>
-                        <div class="feature-details">
-                            <ul>
-                                <li><strong>Agent-to-Agent (A2A):</strong> Direct communication between agents without
-                                    human intervention</li>
-                                <li><strong>Unified Memory:</strong> Shared context cubes enable seamless handoffs</li>
-                                <li><strong>Swarm Intelligence:</strong> Agents collaborate on complex multi-step tasks
-                                </li>
-                                <li><strong>Protocol Version:</strong> Q Protocol v1.0 with JSON-RPC messaging</li>
-                            </ul>
-                        </div>
-                        <div class="feature-expand-icon">▼</div>
-                    </div>
-                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
-                        <div class="feature-icon">☁️</div>
-                        <div class="feature-title">GCP Orchestrator</div>
-                        <div class="feature-desc">Always-on Cloud Run deployment. Agents check in, receive identity and
-                            mission context instantly.</div>
-                        <div class="feature-details">
-                            <ul>
-                                <li><strong>Zero Cold Starts:</strong> Minimum instances keep agents warm 24/7</li>
-                                <li><strong>Auto-Scaling:</strong> Handle thousands of concurrent calls</li>
-                                <li><strong>Identity Injection:</strong> Each agent receives unique credentials at boot
-                                </li>
-                                <li><strong>Region:</strong> us-central1 with global load balancing</li>
-                            </ul>
-                        </div>
-                        <div class="feature-expand-icon">▼</div>
-                    </div>
-                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
-                        <div class="feature-icon">💼</div>
-                        <div class="feature-title">Salesforce AgentForce</div>
-                        <div class="feature-desc">Dual orchestrator inside Salesforce. CRM-native agents with real-time
-                            data sync.</div>
-                        <div class="feature-details">
-                            <ul>
-                                <li><strong>CRM Integration:</strong> Direct read/write to Leads, Contacts,
-                                    Opportunities</li>
-                                <li><strong>Einstein Platform:</strong> Leverage Salesforce AI capabilities</li>
-                                <li><strong>Apex Triggers:</strong> Real-time event processing on record changes</li>
-                                <li><strong>Flow Orchestration:</strong> Visual automation with AI decision nodes</li>
-                            </ul>
-                        </div>
-                        <div class="feature-expand-icon">▼</div>
-                    </div>
-                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
-                        <div class="feature-icon">🧊</div>
-                        <div class="feature-title">Memory Cubes</div>
-                        <div class="feature-desc">Persistent identity and context. Agents never forget—even after cold
-                            starts.</div>
-                        <div class="feature-details">
-                            <ul>
-                                <li><strong>Identity Persistence:</strong> Agent personality and goals survive restarts
-                                </li>
-                                <li><strong>Context Window:</strong> Compressed conversation history (last 50 turns)
-                                </li>
-                                <li><strong>Skill Cache:</strong> Learned patterns and successful strategies</li>
-                                <li><strong>Storage:</strong> GCS + Firestore with sub-100ms retrieval</li>
-                            </ul>
-                        </div>
-                        <div class="feature-expand-icon">▼</div>
-                    </div>
-                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
-                        <div class="feature-icon">⚡</div>
-                        <div class="feature-title">Gemini 3 Reasoning</div>
-                        <div class="feature-desc">ThinkingConfig MINIMAL for low-latency telephony. JSON action plans
-                            with typed tool calls.</div>
-                        <div class="feature-details">
-                            <ul>
-                                <li><strong>Model:</strong> Gemini 2.5 Flash with thinking capabilities</li>
-                                <li><strong>Latency:</strong> Sub-500ms response time for telephony</li>
-                                <li><strong>Tool Calling:</strong> Structured JSON with type-safe parameters</li>
-                                <li><strong>Context:</strong> 1M token window for deep conversation history</li>
-                            </ul>
-                        </div>
-                        <div class="feature-expand-icon">▼</div>
-                    </div>
-                    <div class="feature-card expandable" onclick="toggleFeatureCard(this)">
-                        <div class="feature-icon">🎤</div>
-                        <div class="feature-title">SSML Voice Synthesis</div>
-                        <div class="feature-desc">Natural pauses, breaths, and thinking markers. Human-like conversation
-                            flow.</div>
-                        <div class="feature-details">
-                            <ul>
-                                <li><strong>SSML Tags:</strong> Prosody, breaks, emphasis for natural speech</li>
-                                <li><strong>Voice Models:</strong> ElevenLabs + Google Cloud TTS integration</li>
-                                <li><strong>Interruption Handling:</strong> Graceful pause and resume on user speech
-                                </li>
-                                <li><strong>Emotion Detection:</strong> Adjust tone based on conversation sentiment</li>
-                            </ul>
-                        </div>
-                        <div class="feature-expand-icon">▼</div>
-                    </div>
-                </div>
+            <div class="chat-input-area">
+                <button id="micBtn" onclick="toggleMic()">&#127908;</button>
+                <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">&#10148;</button>
             </div>
-        </section>
+        </div>
     </main>
 
-
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="https://github.com/Phil-Hills/movement-voice-agent" target="_blank">GitHub</a>
-                <a href="/docs">API Docs</a>
-                <a href="https://philhills.ai" target="_blank">Phil Hills AI</a>
-                <a href="mailto:phil@philhills.ai">Contact</a>
-            </div>
-            <p class="footer-credit">© 2026 Phil Hills AI | Seattle, WA | Enterprise AI Voice Solutions</p>
+    <!-- Research Panel -->
+    <div class="research-panel" id="researchPanel">
+        <div class="research-header">
+            <h3 style="font-size: 1rem; font-weight: 600;">🔍 Company Research</h3>
+            <button onclick="hideResearchPanel()"
+                style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;">×</button>
         </div>
-    </footer>
-
-    <!-- Floating Live Chat Widget -->
-    <div id="liveChatWidget" class="live-chat-widget">
-        <!-- Chat Bubble Button -->
-        <button id="chatBubble" class="chat-bubble" onclick="toggleLiveChat()">
-            <span class="bubble-icon">💬</span>
-            <span class="bubble-text">Chat with AI</span>
-            <span class="bubble-pulse"></span>
-        </button>
-
-        <!-- Expanded Chat Panel -->
-        <div id="chatPanel" class="chat-panel">
-            <div class="chat-panel-header">
-                <div class="chat-panel-title">
-                    <span class="status-dot"></span>
-                    <span>Clair</span>
-                </div>
-                <button class="chat-close-btn" onclick="toggleLiveChat()">✕</button>
-            </div>
-            <div class="chat-panel-messages" id="liveChatMessages">
-                <div class="message agent">
-                    <div class="message-label">Agent</div>
-                    <div class="message-bubble">Hi! I'm Clair, your AI mortgage assistant. How can I help you today?
-                    </div>
-                </div>
-            </div>
-            <div class="chat-panel-input">
-                <input type="file" id="liveChatFileInput" accept=".pdf,.png,.jpg,.jpeg" style="display:none"
-                    onchange="handleDocumentUpload(event)">
-                <button id="liveChatUpload" onclick="document.getElementById('liveChatFileInput').click()"
-                    title="Upload mortgage statement">📎</button>
-                <input type="text" id="liveChatInput" placeholder="Type your message..."
-                    onkeypress="handleLiveChatKeyPress(event)">
-                <button id="liveChatSend" onclick="sendLiveChatMessage()">Send</button>
-                <button id="liveChatMic" onclick="toggleLiveChatMic()">🎤</button>
-            </div>
+        <div class="research-content" id="researchContent">
+            <p style="color: var(--text-muted);">Select a lead to see company research...</p>
+        </div>
+        <div style="padding: 1rem; border-top: 1px solid var(--border);">
+            <button class="pitch-btn" onclick="generatePitch()" style="width: 100%;">✨ Generate Personalized
+                Pitch</button>
         </div>
     </div>
 
-    <style>
-        /* Floating Chat Widget Styles */
-        .live-chat-widget {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 9999;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .chat-bubble {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 20px;
-            background: linear-gradient(135deg, var(--teal), var(--cyan));
-            border: none;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 8px 32px rgba(45, 212, 191, 0.4);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chat-bubble:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(45, 212, 191, 0.5);
-        }
-
-        .bubble-icon {
-            font-size: 1.2rem;
-        }
-
-        .bubble-pulse {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
-            transform: translate(-50%, -50%);
-            animation: bubblePulse 2s infinite;
-        }
-
-        @keyframes bubblePulse {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .chat-panel {
-            display: none;
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            width: 380px;
-            height: 500px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            flex-direction: column;
-        }
-
-        .chat-panel.open {
-            display: flex;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .chat-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            background: linear-gradient(135deg, var(--teal), var(--cyan));
-            color: white;
-        }
-
-        .chat-panel-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        .chat-close-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-close-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .chat-panel-messages {
-            flex: 1;
-            padding: 16px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .chat-panel-messages .message {
-            max-width: 85%;
-        }
-
-        .chat-panel-messages .message.user {
-            align-self: flex-end;
-        }
-
-        .chat-panel-messages .message.agent {
-            align-self: flex-start;
-        }
-
-        .chat-panel-messages .message-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
-
-        .chat-panel-messages .message-bubble {
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .chat-panel-messages .message.user .message-bubble {
-            background: var(--teal);
-            color: var(--bg-dark);
-        }
-
-        .chat-panel-messages .message.agent .message-bubble {
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .chat-panel-input {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            background: var(--bg-dark);
-            border-top: 1px solid var(--border);
-        }
-
-        .chat-panel-input input {
-            flex: 1;
-            padding: 10px 14px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-
-        .chat-panel-input input:focus {
-            outline: none;
-            border-color: var(--teal);
-        }
-
-        .chat-panel-input button {
-            padding: 10px 16px;
-            background: var(--teal);
-            border: none;
-            border-radius: 8px;
-            color: var(--bg-dark);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .chat-panel-input button:hover {
-            background: var(--teal-dark);
-        }
-
-        .chat-panel-input #liveChatMic {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            font-size: 1.1rem;
-            padding: 10px 12px;
-        }
-
-        .chat-panel-input #liveChatMic:hover {
-            border-color: var(--teal);
-        }
-
-        .chat-panel-input #liveChatMic.recording {
-            background: #ef4444;
-            border-color: #ef4444;
-        }
-
-        .chat-panel-input #liveChatUpload {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            font-size: 1.1rem;
-            padding: 10px 12px;
-        }
-
-        .chat-panel-input #liveChatUpload:hover {
-            border-color: var(--teal);
-            background: rgba(45, 212, 191, 0.1);
-        }
-
-        @media (max-width: 480px) {
-            .chat-panel {
-                width: calc(100vw - 32px);
-                right: -8px;
-            }
-
-            .bubble-text {
-                display: none;
-            }
-
-            .chat-bubble {
-                padding: 16px;
-                border-radius: 50%;
-            }
-        }
-
-        /* Hardened Side Chat Formatting */
-        .chat-panel .message {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 12px;
-            max-width: 85%;
-        }
-
-        .chat-panel .message.user {
-            align-self: flex-end;
-            align-items: flex-end;
-        }
-
-        .chat-panel .message.agent {
-            align-self: flex-start;
-            align-items: flex-start;
-        }
-
-        .chat-panel .message-bubble {
-            padding: 10px 14px;
-            border-radius: 12px;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-
-        .chat-panel .message.user .message-bubble {
-            background: var(--teal);
-            color: var(--bg-dark);
-            border-radius: 12px 12px 0 12px;
-        }
-
-        .chat-panel .message.agent .message-bubble {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-            border-radius: 12px 12px 12px 0;
-        }
-
-        .chat-panel .message-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 2px;
-        }
-    </style>
-
-    <!-- Live Chat Widget JavaScript -->
-    <script>
-        // iOS Audio Context Unlock Pattern (Production Hardening)
-        function unlockAudio() {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (!AudioContext) return;
-
-            const ctx = new AudioContext();
-            const buffer = ctx.createBuffer(1, 1, 22050);
-            const source = ctx.createBufferSource();
-            source.buffer = buffer;
-            source.connect(ctx.destination);
-
-            // Play silence to unlock
-            if (source.start) {
-                source.start(0);
-            } else if (source.noteOn) {
-                source.noteOn(0);
-            }
-
-            // Resume context if suspended
-            if (ctx.state === 'suspended') {
-                ctx.resume();
-            }
-        }
-
-        // Attach unlock to global interaction events
-        document.addEventListener('click', unlockAudio, { once: true });
-        document.addEventListener('touchstart', unlockAudio, { once: true });
-
-        // Expandable Feature Cards
-        function toggleFeatureCard(card) {
-            card.classList.toggle('expanded');
-        }
-
-        // Live Chat Widget Functions
-        let liveChatOpen = false;
-        let liveChatRecognition = null;
-        let liveChatRecording = false;
-
-        function toggleLiveChat() {
-            const panel = document.getElementById('chatPanel');
-            const bubble = document.getElementById('chatBubble');
-            liveChatOpen = !liveChatOpen;
-
-            if (liveChatOpen) {
-                panel.classList.add('open');
-                bubble.style.display = 'none';
-                document.getElementById('liveChatInput').focus();
-            } else {
-                panel.classList.remove('open');
-                bubble.style.display = 'flex';
-            }
-        }
-
-        function handleLiveChatKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendLiveChatMessage();
-            }
-        }
-
-        async function sendLiveChatMessage() {
-            const input = document.getElementById('liveChatInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            // Add user message
-            addLiveChatMessage('user', text);
-            input.value = '';
-
-            // Show thinking
-            const thinkingId = addLiveChatThinking();
-
-            try {
-                // Get memory context if available
-                const context = typeof getEnhancedContext === 'function' ? getEnhancedContext() : {};
-
-                const response = await fetch('/demo', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        text: text,
-                        context: context
-                    })
-                });
-                const data = await response.json();
-
-                // Remove thinking
-                removeLiveChatMessage(thinkingId);
-
-                // Add agent response
-                const cleanText = data.text ? data.text.replace(/<[^>]*>/g, '') : "I'm here to help!";
-                addLiveChatMessage('agent', cleanText);
-
-                // Play premium ElevenLabs voice
-                speakWithElevenLabs(cleanText);
-            } catch (error) {
-                removeLiveChatMessage(thinkingId);
-                addLiveChatMessage('agent', "Sorry, I'm having trouble connecting. Please try again.");
-            }
-        }
-
-        function addLiveChatMessage(type, text) {
-            const container = document.getElementById('liveChatMessages');
-            const div = document.createElement('div');
-            div.className = `message ${type}`;
-            div.innerHTML = `
-                <div class="message-label">${type === 'user' ? 'You' : 'Agent'}</div>
-                <div class="message-bubble">${text}</div>
-            `;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function addLiveChatThinking() {
-            const container = document.getElementById('liveChatMessages');
-            const id = 'live-thinking-' + Date.now();
-            const div = document.createElement('div');
-            div.id = id;
-            div.className = 'message agent';
-            div.innerHTML = `
-                <div class="message-label">Agent</div>
-                <div class="message-bubble" style="display: flex; gap: 4px;">
-                    <span style="animation: pulse 0.6s infinite">●</span>
-                    <span style="animation: pulse 0.6s infinite 0.2s">●</span>
-                    <span style="animation: pulse 0.6s infinite 0.4s">●</span>
-                </div>
-            `;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-            return id;
-        }
-
-        function removeLiveChatMessage(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
-
-        function toggleLiveChatMic() {
-            const micBtn = document.getElementById('liveChatMic');
-
-            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-                alert('Speech recognition not supported. Please use Chrome or Edge.');
-                return;
-            }
-
-            if (!liveChatRecognition) {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                liveChatRecognition = new SpeechRecognition();
-                liveChatRecognition.continuous = false;
-                liveChatRecognition.interimResults = false;
-                liveChatRecognition.lang = 'en-US';
-
-                liveChatRecognition.onstart = () => {
-                    liveChatRecording = true;
-                    micBtn.classList.add('recording');
-                    document.getElementById('liveChatInput').placeholder = 'Listening...';
-                };
-
-                liveChatRecognition.onend = () => {
-                    liveChatRecording = false;
-                    micBtn.classList.remove('recording');
-                    document.getElementById('liveChatInput').placeholder = 'Type your message...';
-                };
-
-                liveChatRecognition.onresult = (event) => {
-                    const transcript = event.results[0][0].transcript;
-                    document.getElementById('liveChatInput').value = transcript;
-                    sendLiveChatMessage();
-                };
-
-                liveChatRecognition.onerror = (event) => {
-                    console.error('Speech recognition error:', event.error);
-                    liveChatRecording = false;
-                    micBtn.classList.remove('recording');
-                };
-            }
-
-            if (liveChatRecording) {
-                liveChatRecognition.stop();
-            } else {
-                liveChatRecognition.start();
-            }
-        }
-
-        // ElevenLabs Premium Voice TTS
-        let currentAudio = null;
-
-        async function speakWithElevenLabs(text) {
-            if (!text || text.length < 2) return;
-
-            // Stop any currently playing audio
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio = null;
-            }
-
-            try {
-                const response = await fetch('/api/tts', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: text })
-                });
-
-                if (response.ok) {
-                    const audioBlob = await response.blob();
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    currentAudio = new Audio(audioUrl);
-                    currentAudio.play();
-
-                    // Clean up URL after playing
-                    currentAudio.onended = () => {
-                        URL.revokeObjectURL(audioUrl);
-                        currentAudio = null;
-                    };
-                } else {
-                    console.error('TTS failed, falling back to browser');
-                    // Fallback to browser TTS
-                    if (window.speechSynthesis) {
-                        const utterance = new SpeechSynthesisUtterance(text);
-                        utterance.rate = 1.1;
-                        window.speechSynthesis.speak(utterance);
-                    }
-                }
-            } catch (error) {
-                console.error('TTS error:', error);
-            }
-        }
-
-        // Document Upload Handler (Mortgage Statements, etc.)
-        async function handleDocumentUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            addLiveChatMessage('user', `📎 Uploaded: ${file.name}`);
-            const thinkingId = addLiveChatThinking();
-
-            // Create FormData for upload
-            const formData = new FormData();
-            formData.append('document', file);
-
-            try {
-                const response = await fetch('/api/analyze-document', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    removeLiveChatMessage(thinkingId);
-                    addLiveChatMessage('agent', data.analysis || 'Document received! I can now provide personalized mortgage insights based on your statement.');
-                } else {
-                    removeLiveChatMessage(thinkingId);
-                    // Fallback response for demo
-                    addLiveChatMessage('agent', `I've received your ${file.name}. Based on typical mortgage patterns, I can help you explore refinancing options, rate comparisons, and potential savings. What would you like to know?`);
-                }
-            } catch (error) {
-                removeLiveChatMessage(thinkingId);
-                // Demo fallback
-                addLiveChatMessage('agent', `Thanks for uploading ${file.name}! I'm analyzing your mortgage statement. Common topics I can help with: current rate analysis, refinancing potential, payment optimization, and equity calculations. What interests you most?`);
-            }
-
-            // Clear the input
-            event.target.value = '';
-        }
-
-        // Memory Brain Context - Connect to AI Summary Cube
-        const memoryBrainContext = {
-            identity: 'Clair',
-            capabilities: ['mortgage_analysis', 'lead_qualification', 'appointment_booking', 'salesforce_integration'],
-            personality: 'professional, helpful, knowledgeable about mortgage and real estate'
-        };
-
-        // Enhance messages with memory context
-        function getEnhancedContext() {
-            return {
-                ...memoryBrainContext,
-                sessionId: 'session_' + Date.now(),
-                timestamp: new Date().toISOString()
-            };
-        }
-    </script>
+    <!-- Audit Badge -->
+    <div class="audit-badge" id="auditBadge" onclick="showAuditTrail()">
+        🔐 <span id="auditCount">0</span> Decisions Logged
+    </div>
 
     <script>
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 15 + 's';
+            p.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(p);
+        }
+
+        // Elements
+        const orb = document.getElementById('orb');
+        const statusText = document.getElementById('statusText');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const audioBtn = document.getElementById('audioBtn');
         const micBtn = document.getElementById('micBtn');
-        const recordingIndicator = document.getElementById('recordingIndicator');
 
-        // Audio/TTS state
-        let audioEnabled = true;
-        let synth = window.speechSynthesis;
-        let currentUtterance = null;
-
-        // Voice Input (Speech Recognition) state
-        let isRecording = false;
-        let recognition = null;
-
-        // Initialize Speech Recognition
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognition = new SpeechRecognition();
-            recognition.continuous = false;
-            recognition.interimResults = true;
-            recognition.lang = 'en-US';
-
-            recognition.onstart = function () {
-                isRecording = true;
-                micBtn.classList.add('recording');
-                recordingIndicator.classList.add('active');
-                chatInput.placeholder = 'Listening...';
-            };
-
-            recognition.onresult = function (event) {
-                let interimTranscript = '';
-                let finalTranscript = '';
-
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    if (event.results[i].isFinal) {
-                        finalTranscript += event.results[i][0].transcript;
-                    } else {
-                        interimTranscript += event.results[i][0].transcript;
-                    }
-                }
-
-                chatInput.value = finalTranscript || interimTranscript;
-
-                // Auto-send when final result
-                if (finalTranscript) {
-                    setTimeout(() => sendMessage(), 300);
-                }
-            };
-
-            recognition.onerror = function (event) {
-                console.error('Speech recognition error:', event.error);
-                stopRecording();
-            };
-
-            recognition.onend = function () {
-                stopRecording();
-            };
-        }
-
-        function toggleMic() {
-            if (!recognition) {
-                alert('Speech recognition is not supported in your browser. Try Chrome or Edge.');
-                return;
-            }
-
-            if (isRecording) {
-                recognition.stop();
+        function setStatus(state) {
+            orb.classList.remove('listening', 'speaking');
+            if (state === 'listening') {
+                orb.classList.add('listening');
+                statusText.textContent = "Listening...";
+                statusText.style.color = "#ef4444";
+            } else if (state === 'speaking') {
+                orb.classList.add('speaking');
+                statusText.textContent = "Speaking...";
+                statusText.style.color = "var(--teal)";
             } else {
-                // Stop any ongoing speech before recording
-                if (synth.speaking) {
-                    synth.cancel();
-                }
-                recognition.start();
+                statusText.textContent = "Ready to Assist";
+                statusText.style.color = "var(--teal)";
             }
         }
 
-        function stopRecording() {
-            isRecording = false;
-            micBtn.classList.remove('recording');
-            recordingIndicator.classList.remove('active');
-            chatInput.placeholder = 'Type or speak your response...';
+        function addMessage(type, text) {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = `<div class="message-bubble">${text}</div>`;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function handleKeyPress(e) {
             if (e.key === 'Enter') sendMessage();
         }
-    </script>
 
-    <!-- Firebase SDKs -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        // Your web app's Firebase configuration
-        // For this demo, using a placeholder. In production, these should be env vars.
-        const firebaseConfig = {
-            apiKey: "AIzaSyDOCAbC123dEfGhIjKlMnOpQrStUvWxYz",
-            authDomain: "movement-voice-agent.firebaseapp.com",
-            projectId: "movement-voice-agent",
-            storageBucket: "movement-voice-agent.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        // Expose auth functions to global scope for buttons
-        window.handleGoogleLogin = async function () {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                console.log("User signed in: ", user.email);
-
-                // Store minimal info for dashboard demo check (optional, as dashboard will verify auth too)
-                localStorage.setItem('authToken', await user.getIdToken());
-                localStorage.setItem('userEmail', user.email);
-                localStorage.setItem('userName', user.displayName);
-                localStorage.setItem('userPhoto', user.photoURL);
-
-                window.location.href = '/dashboard';
-            } catch (error) {
-                console.error("Login Failed", error);
-                alert("Login failed: " + error.message);
-            }
+        function sendQuickMessage(text) {
+            chatInput.value = text;
+            sendMessage();
         }
 
-        // Check if already logged in
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("User already logged in", user.email);
-                updateAuthUI(user);
-                // Optional: Auto-redirect if on login page?
-                // window.location.href = '/dashboard';
-            }
-        });
+        // Current thinking level
+        let currentThinkingLevel = 'high';
+        let sessionId = 'session_' + Date.now();
 
-        function updateAuthUI(user) {
-            const btn = document.querySelector('.header-cta');
-            if (btn) {
-                btn.innerText = 'Go to Dashboard';
-                btn.onclick = () => window.location.href = '/dashboard';
-            }
-        }
-    </script>
-
-    <script>
-        // UI Interactions
-        function toggleAudio() {
-            const btn = document.querySelector('.audio-btn');
-            btn.classList.toggle('muted');
-            const isMuted = btn.classList.contains('muted');
-            btn.innerHTML = isMuted ? '🔇' : '🔊';
+        function setThinkingLevel(level) {
+            currentThinkingLevel = level;
+            document.querySelectorAll('.thinking-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.level === level);
+            });
+            console.log('Thinking level:', level);
         }
 
-        const micBtn = document.getElementById('mic-btn');
-        const recordingIndicator = document.getElementById('recording-indicator');
-        const chatInput = document.getElementById('chatInput');
-        let recognition;
-
-        // Inline Mic Logic
-        let inlineRecognition;
-        if ('webkitSpeechRecognition' in window) {
-            inlineRecognition = new webkitSpeechRecognition();
-            inlineRecognition.continuous = false;
-            inlineRecognition.interimResults = false;
-            inlineRecognition.lang = 'en-US';
-
-            inlineRecognition.onstart = function () {
-                document.getElementById('micBtn').classList.add('recording');
-                document.getElementById('recordingIndicator').classList.add('active');
-                document.getElementById('chatInput').placeholder = "Listening...";
-            };
-
-            inlineRecognition.onend = function () {
-                document.getElementById('micBtn').classList.remove('recording');
-                document.getElementById('recordingIndicator').classList.remove('active');
-                document.getElementById('chatInput').placeholder = "Type your message...";
-            };
-
-            inlineRecognition.onresult = function (event) {
-                const transcript = event.results[0][0].transcript;
-                document.getElementById('chatInput').value = transcript;
-                onInlineChatSend(); // Auto-submit
-            };
-        } else {
-            const micBtn = document.getElementById('micBtn');
-            if (micBtn) micBtn.style.display = 'none';
-        }
-
-        function onInlineMicClick() {
-            unlockAudio(); // Unlock iOS audio
-            if (inlineRecognition) {
-                inlineRecognition.start();
-            } else {
-                alert('Speech recognition not supported in this browser.');
-            }
-        }
-
-        async function onInlineChatKeyPress(event) {
-            if (event.key === 'Enter') {
-                await processInlineMessage();
-            }
-        }
-
-        async function onInlineChatSend() {
-            await processInlineMessage();
-        }
-
-        async function processInlineMessage() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-
+        async function sendMessage() {
+            const text = chatInput.value.trim();
             if (!text) return;
 
-            // Add User Message
             addMessage('user', text);
-            input.value = '';
+            chatInput.value = '';
 
-            // Show "Thinking..."
-            const thinkingId = addThinking();
+            // Show thinking indicator based on level
+            const thinkingText = currentThinkingLevel === 'high' ? 'Deep thinking...' :
+                currentThinkingLevel === 'medium' ? 'Thinking...' : 'Processing...';
+            statusText.textContent = thinkingText;
 
             try {
-                // Get memory context
-                const context = typeof getEnhancedContext === 'function' ? getEnhancedContext() : {};
-
                 const response = await fetch('/demo', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         text: text,
-                        context: context
+                        thinking_level: currentThinkingLevel,
+                        session_id: sessionId
                     })
                 });
-
                 const data = await response.json();
 
-                // Remove Thinking
-                removeMessage(thinkingId);
+                // Show thought signature in console (for demo/judging)
+                if (data.thought_signature) {
+                    console.log('[Q-PROTOCOL] Thought Signature:', data.thought_signature);
+                    console.log('[Q-PROTOCOL] Model:', data.model_used, '| Level:', data.thinking_level);
+                }
 
-                // Add Agent Message
-                const cleanText = data.text ? data.text.replace(/<[^>]*>/g, '') : "I'm here to help!";
-                addMessage('agent', cleanText);
-
-                // Speak response using ElevenLabs
-                speakWithElevenLabs(cleanText);
-
-            } catch (error) {
-                console.error('Error:', error);
-                removeMessage(thinkingId);
-                addMessage('agent', "I'm having trouble connecting right now. Please try again.");
+                addMessage('agent', data.text);
+                updateAuditCount();
+                setStatus('speaking');
+                await speakWithElevenLabs(data.text);
+                setStatus('ready');
+            } catch (err) {
+                console.error(err);
+                addMessage('agent', "I'm having trouble connecting. Please try again.");
+                setStatus('ready');
             }
         }
 
-        function addMessage(type, text) {
-            const messages = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = `message ${type}`;
-            div.innerHTML = `
-        <div class="message-label">${type === 'user' ? 'You' : 'Agent'}</div>
-        <div class="message-bubble">${text}</div>
-        `;
-            messages.appendChild(div);
-            messages.scrollTop = messages.scrollHeight;
+        // TTS
+        let audio = null;
+        async function speakWithElevenLabs(text) {
+            try {
+                const res = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+                if (!res.ok) throw new Error("TTS Failed");
+
+                const blob = await res.blob();
+                const url = URL.createObjectURL(blob);
+
+                return new Promise((resolve) => {
+                    if (audio) audio.pause();
+                    audio = new Audio(url);
+                    audio.onended = () => {
+                        resolve();
+                        setStatus('ready');
+                    };
+                    audio.play();
+                });
+            } catch (e) {
+                console.log("Fallback TTS");
+                const u = new SpeechSynthesisUtterance(text);
+                u.onend = () => setStatus('ready');
+                window.speechSynthesis.speak(u);
+            }
         }
 
-        function addThinking() {
-            const messages = document.getElementById('chatMessages');
-            const id = 'thinking-' + Date.now();
-            const div = document.createElement('div');
-            div.id = id;
-            div.className = 'message agent';
-            div.innerHTML = `
-        <div class="message-label">Agent</div>
-        <div class="message-bubble">
-            <div class="thinking">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        `;
-            messages.appendChild(div);
-            messages.scrollTop = messages.scrollHeight;
-            return id;
-        }
+        // Speech Recognition
+        let recognition = null;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
 
-        function removeMessage(id) {
-            const el = document.getElementById(id);
-            if (el) el.remove();
-        }
-
-        function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1.1;
-            utterance.pitch = 1;
-            window.speechSynthesis.speak(utterance);
-
-            // Visual indicator
-            const indicator = document.getElementById('agent-speaking');
-            if (indicator) indicator.style.display = 'inline-flex';
-
-            utterance.onend = () => {
-                if (indicator) indicator.style.display = 'none';
+            recognition.onstart = () => {
+                micBtn.classList.add('recording');
+                setStatus('listening');
+            };
+            recognition.onend = () => {
+                micBtn.classList.remove('recording');
+            };
+            recognition.onresult = (e) => {
+                const transcript = e.results[0][0].transcript;
+                chatInput.value = transcript;
+                sendMessage();
             };
         }
 
-        function showLogin() {
-            // For demo simplicity, triggering the Google Auth directly
-            window.handleGoogleLogin();
+        function toggleMic() {
+            if (!recognition) return alert("Speech recognition not supported");
+            recognition.start();
         }
 
-        function closeModal() {
-            const modal = document.getElementById('loginModal');
-            if (modal) modal.style.display = 'none';
+        // ============ LEAD MANAGEMENT ============
+
+        function toggleLeadPanel() {
+            const panel = document.getElementById('leadPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
         }
 
-        function updateAuthUI(email) {
-            const authArea = document.getElementById('authArea');
-            authArea.innerHTML = `
-        <span class="user-badge" onclick="window.location.href='/dashboard'" style="cursor: pointer">
-            👤 ${email.split('@')[0]}
-        </span>
+        async function uploadLeads(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/leads/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                alert(data.message);
+                loadLeads();
+            } catch (e) {
+                console.error('Upload error:', e);
+                alert('Failed to upload leads');
+            }
+        }
+
+        async function loadLeads() {
+            try {
+                const res = await fetch('/api/leads');
+                const data = await res.json();
+                renderLeadList(data.leads);
+            } catch (e) {
+                console.error('Load leads error:', e);
+            }
+        }
+
+        function renderLeadList(leads) {
+            const list = document.getElementById('leadList');
+            if (!leads || leads.length === 0) {
+                list.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--text-muted);">No leads uploaded</div>';
+                return;
+            }
+            list.innerHTML = leads.map(lead => `
+                <div onclick="selectLead('${lead.id}')" style="padding: 0.75rem; margin: 0.25rem 0; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s;"
+                     onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--border)'">
+                    <div style="font-weight: 600; font-size: 0.9rem;">${lead.name || 'Unknown'}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">${lead.company || ''} • ${lead.email || ''}</div>
+                </div>
+            `).join('');
+        }
+
+        async function selectLead(leadId) {
+            try {
+                statusText.textContent = '🔍 Researching company...';
+
+                const res = await fetch(`/api/leads/select/${leadId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ auto_research: true, session_id: sessionId })
+                });
+                const data = await res.json();
+
+                // Update current lead display
+                const display = document.getElementById('currentLeadDisplay');
+                const info = document.getElementById('currentLeadInfo');
+                display.style.display = 'block';
+                info.innerHTML = `${data.lead.name}<br><span style="font-size: 0.8rem; color: var(--text-muted);">${data.lead.company || ''}</span>`;
+
+                // Show research if available
+                if (data.research && data.research.summary) {
+                    showResearchPanel(data.research);
+                    addMessage('agent', `I've researched ${data.lead.company}. I can see their key opportunities. Would you like me to generate a personalized pitch?`);
+                } else {
+                    addMessage('agent', `I see you're speaking with ${data.lead.name}. How can I help with their needs?`);
+                }
+
+                setStatus('ready');
+                updateAuditCount();
+                toggleLeadPanel();
+            } catch (e) {
+                console.error('Select lead error:', e);
+                setStatus('ready');
+            }
+        }
+
+        function showResearchPanel(research) {
+            const panel = document.getElementById('researchPanel');
+            const content = document.getElementById('researchContent');
+            content.innerHTML = `
+                <div style="margin-bottom: 0.5rem; font-weight: 600; color: var(--teal);">${research.company}</div>
+                <div style="white-space: pre-wrap;">${research.summary}</div>
+                <div style="margin-top: 1rem; font-size: 0.7rem; color: var(--text-muted);">
+                    🔐 Signature: ${research.thought_signature || 'N/A'}
+                </div>
             `;
+            panel.style.display = 'block';
         }
 
-        function logout() {
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('userEmail');
-            window.location.reload();
+        function hideResearchPanel() {
+            document.getElementById('researchPanel').style.display = 'none';
         }
 
-        // Check for existing session and redirect if on login page (and not just browsing landing)
-        const savedEmail = localStorage.getItem('userEmail');
-        const authToken = localStorage.getItem('authToken');
+        async function generatePitch() {
+            statusText.textContent = '✨ Generating personalized pitch...';
+            try {
+                const res = await fetch('/api/pitch', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ session_id: sessionId })
+                });
+                const data = await res.json();
 
-        if (savedEmail && authToken) {
-            updateAuthUI(savedEmail);
-            // Optional: Auto-redirect if they click "Start Free Trial" again
+                if (data.pitch) {
+                    addMessage('agent', data.pitch);
+                    updateAuditCount();
+                    setStatus('speaking');
+                    await speakWithElevenLabs(data.pitch);
+                } else {
+                    addMessage('agent', 'Please select a lead first so I can create a personalized pitch.');
+                }
+                setStatus('ready');
+            } catch (e) {
+                console.error('Pitch error:', e);
+                addMessage('agent', 'Please select a lead first.');
+                setStatus('ready');
+            }
         }
 
-        // Close modal on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        async function showAuditTrail() {
+            try {
+                const res = await fetch('/api/audit');
+                const data = await res.json();
 
-        // Close modal on outside click
-        document.getElementById('loginModal').addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-overlay')) closeModal();
-        });
+                let auditHtml = '<div style="font-weight: 600; margin-bottom: 1rem;">🔐 Q-Protocol Decision Audit</div>';
+                auditHtml += `<div style="margin-bottom: 1rem; color: var(--text-muted);">Total decisions: ${data.total_decisions}</div>`;
+
+                data.audit_log.slice(-5).reverse().forEach(entry => {
+                    auditHtml += `
+                        <div style="margin-bottom: 0.75rem; padding: 0.5rem; background: rgba(255,255,255,0.02); border-radius: 8px; font-size: 0.8rem;">
+                            <div style="color: var(--teal); font-weight: 500;">${entry.action}</div>
+                            <div style="color: var(--text-muted); margin-top: 0.25rem;">${entry.reasoning.substring(0, 100)}...</div>
+                            <div style="color: var(--purple); font-size: 0.7rem; margin-top: 0.25rem;">Level: ${entry.thinking_level} | Sig: ${entry.thought_signature}</div>
+                        </div>
+                    `;
+                });
+
+                const content = document.getElementById('researchContent');
+                content.innerHTML = auditHtml;
+                document.getElementById('researchPanel').style.display = 'block';
+            } catch (e) {
+                console.error('Audit error:', e);
+            }
+        }
+
+        async function updateAuditCount() {
+            try {
+                const res = await fetch('/api/audit');
+                const data = await res.json();
+                document.getElementById('auditCount').textContent = data.total_decisions;
+            } catch (e) { }
+        }
+
+        async function clearLead() {
+            try {
+                await fetch('/api/leads/clear', { method: 'POST' });
+                document.getElementById('currentLeadDisplay').style.display = 'none';
+                document.getElementById('currentLeadInfo').innerHTML = '';
+            } catch (e) {
+                console.error('Clear lead error:', e);
+            }
+        }
+
+        // Load leads on page load
+        loadLeads();
+        updateAuditCount();
     </script>
 </body>
 

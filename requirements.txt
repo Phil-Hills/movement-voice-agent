@@ -1,13 +1,12 @@
 fastapi>=0.100.0
 uvicorn>=0.23.0
-google-genai>=1.51.0
+google-generativeai>=0.3.0
+google-cloud-firestore>=2.14.0
 google-cloud-aiplatform
 python-multipart
 jinja2
 python-dotenv
-vonage
 simple-salesforce
-playwright
-sendgrid
-firebase-admin>=6.0.0
 httpx>=0.25.0
+msgpack
+blake3
