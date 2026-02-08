@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Clairvoyant Agent">
+        <lightning-button label="Research Company" slot="actions" onclick={handleResearch}></lightning-button>
+        <div class="slds-p-around_medium">
+            <template if:true={research}>
+                <div class="slds-box slds-theme_shade">{research.summary}</div>
+            </template>
+            <div class="chat-window slds-m-top_medium" style="height:300px;overflow-y:auto">
+                <template for:each={messages} for:item="msg">
+                    <div key={msg.id} class={msg.class}>{msg.text}</div>
+                </template>
+            </div>
+            <lightning-input label="Chat" value={input} onchange={handleInputChange} oncommit={handleSend}></lightning-input>
+        </div>
+    </lightning-card>
+</template>
