@@ -27,7 +27,7 @@ Jason isn't just an AI; he's your strategic co-pilot, managing four distinct tou
 | **💰 Economics** | [Unit ROI](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/COST_ECONOMICS.md) | Massive savings vs. traditional cold-calling. |
 | **🔭 MORE Bridge**| [SF Evolution](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SALESFORCE_MORE_STRATEGY.md) | Bridging the Agentforce gap until June. |
 
-👉 [Learn step by step how to get started with Movement Voice]
+👉 [Learn step by step how to get started with Movement Voice](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/INSTALL_GUIDE.md)
 
 ---
 
@@ -43,7 +43,7 @@ Trust is everything. Jason is engineered to protect your license and your reputa
 ## 📈 The Result: Move More with Cognitive Luxury
 By delegating document chasing, partner recruitment, and initial qualification to Jason, you reclaim your most valuable asset: **Your Attention.**
 
-👉 [Explore the Full Swarm Orchestration Strategy]
+👉 [Explore the Full Swarm Orchestration Strategy](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SWARM_ORCHESTRATION_AND_LIFECYCLE.md)
 
 ---
 **Questions?**
