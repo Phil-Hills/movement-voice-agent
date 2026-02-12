@@ -17,3 +17,4 @@ agent_config.blob
 clients.csv
 /tmp/
 demo_activity.json
+data/secrets/
