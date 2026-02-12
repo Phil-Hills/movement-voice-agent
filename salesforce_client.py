@@ -31,34 +31,34 @@ class SalesforceClient:
         self._connect()
     
     def _connect(self) -> bool:
-        """Establish connection to Salesforce."""
+        """Establish connection to Salesforce with robust error handling."""
         try:
-            username = os.environ.get("SF_USERNAME")
-            password = os.environ.get("SF_PASSWORD")
-            security_token = os.environ.get("SF_TOKEN")
-            domain = os.environ.get("SF_DOMAIN", "login")  # 'login' for prod, 'test' for sandbox
+            self.username = os.environ.get("SF_USERNAME")
+            self.password = os.environ.get("SF_PASSWORD")
+            self.security_token = os.environ.get("SF_TOKEN")
+            self.domain = os.environ.get("SF_DOMAIN", "login")
             
-            if not all([username, password, security_token]):
-                logger.warning("Salesforce credentials not configured. Running in demo mode.")
+            if not all([self.username, self.password, self.security_token]):
+                logger.info("📡 Salesforce credentials missing. Operating in ADAPTIVE DEMO MODE.")
                 return False
             
             self.sf = Salesforce(
-                username=username,
-                password=password,
-                security_token=security_token,
-                domain=domain
+                username=self.username,
+                password=self.password,
+                security_token=self.security_token,
+                domain=self.domain
             )
-            logger.info("✅ Connected to Salesforce successfully")
+            logger.info(f"✅ Salesforce Connected | Org: {self.domain} | User: {self.username}")
             return True
             
         except Exception as e:
-            logger.error(f"❌ Salesforce connection failed: {e}")
+            logger.error(f"❌ Salesforce Connection Failed: {str(e)}")
             self.sf = None
             return False
     
     @property
     def is_connected(self) -> bool:
-        """Check if Salesforce connection is active."""
+        """Check if active Salesforce session exists."""
         return self.sf is not None
     
     # =========================================================================

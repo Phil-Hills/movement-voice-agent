@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Secrets
+*.key
+private.key
+agent_config.blob
+
+# Logs
+*.log
+
+# Data
+clients.csv
+/tmp/
+demo_activity.json

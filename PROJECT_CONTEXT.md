@@ -5,19 +5,13 @@
 - **Type**: Python / FastAPI Backend
 
 ## 🎯 Project Goals
-1.  **AI Sales Agent**: Provide a voice-enabled, autonomous sales agent ("Clairvoyant").
-2.  **Salesforce Integration**: Bi-directional sync with Salesforce Leads and Activities.
-3.  **Hachathon Features**:
-    -   **Gemini 3 Integration**: "Thinking" models for complex reasoning.
-    -   **Google Search Grounding**: Real-time company research.
-    -   **No Redundant Work**: Q Protocol integration to use local Brain memory before external API calls.
+1.  **AI Voice Agent (Jason)**: High-fidelity mortgage specialist with VA/Conv/Jumbo logic.
+2.  **Salesforce Integration**: Hardened bi-directional sync (11-touch cadence).
+3.  **Modular Logic**: Separation of AgentEngine, LeadManager, and ResearchEngine for production stability.
 
 ## 🏗️ Architecture
 -   **Entry Point**: `app.py` (FastAPI)
--   **Knowledge Base**: `../ai-summary-cube/brain/cubes/core_knowledge` (QMem Binary)
--   **Frontend**: `templates/` (Jinja2 Dashboard)
-
-## 🚀 Current Status
--   Running on `http://localhost:8000`
--   Q Protocol Memory Loaded: 21 atoms
--   Salesforce OAuth: Configured
+-   **Core Module**: `/core` (Agent, Lead, Research logic)
+-   **Knowledge Base**: Q-Memory (A2AC Protocol)
+-   **Frontend**: `templates/` (Premium Dashboard)
+-   **Monitor**: `scripts/monitor.sh` (Brutalist CLI)
