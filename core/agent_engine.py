@@ -1,6 +1,7 @@
 import os
 import logging
 import hashlib
+import blake3
 from datetime import datetime
 from typing import Optional, Dict, List, Any
 import google.generativeai as genai
@@ -128,10 +129,10 @@ Your mission is to help borrowers navigate their home financing journey with emp
         return base
 
     def generate_thought_signature(self, reasoning: str, previous_sig: Optional[str] = None) -> str:
-        """Generates a cryptographic signature for a reasoning step."""
+        """Generates a high-performance cryptographic signature using BLAKE3."""
         timestamp = datetime.now().isoformat()
         content = f"{timestamp}:{reasoning}:{previous_sig or 'root'}"
-        sig = hashlib.sha256(content.encode()).hexdigest()[:16]
+        sig = blake3.blake3(content.encode()).hexdigest()[:16]
         return f"tsig_{sig}"
 
     async def get_response(self, text: str, lead: Optional[dict] = None, thinking_level: str = "medium") -> dict:

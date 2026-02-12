@@ -19,7 +19,7 @@ Jason is grounded by a "Supportive Core" of truth, powered by the **Q Protocol**
 Jason uses **Gemini 2.0 Flash Thinking** to "Think" about his next move before he speaks, just like a professional member of your team would.
 
 ✅ **Asymmetric Planning**: Before every response, Jason performs a hidden planning pass. He checks the rules, validates the next step, and ensures he’s staying within his non-licensed administrative role.
-✅ **Total Transparency**: This "Thinking Trace" is hashed into a **Thought Signature**, providing you with an auditable and trustworthy record of every AI decision.
+✅ **Total Transparency**: This "Thinking Trace" is hashed into a **Thought Signature** using high-performance **BLAKE3** hashing (with support for **KangarooTwelve** parallelism). This provides a nearly instantaneous, auditable record of every AI decision.
 ✅ **Empathy by Design**: Because Jason "thinks" before he talks, he can adjust his tone to match the borrower's needs, providing a truly supportive experience.
 
 ---
