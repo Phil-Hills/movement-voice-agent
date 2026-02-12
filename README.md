@@ -11,6 +11,7 @@ Experience the future of mortgage orchestration today through our high-fidelity 
 
 👉 **[Launch Movement Voice Demo Site](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/demo-site/index.html)**
 👉 **[View Agentic Swarm Orchestration](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SWARM_ORCHESTRATION_AND_LIFECYCLE.md)**
+👉 **[Phase 1 Install Guide: Step-by-Step Onboarding](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/INSTALL_GUIDE.md)**
 
 ---
 
@@ -35,7 +36,7 @@ Jason is your strategic co-pilot, managing every touch-point to ensure 100% lead
 | **💰 Economics** | [Unit ROI](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/COST_ECONOMICS.md) | Massive savings vs. traditional cold-calling. |
 | **🔭 MORE Sync** | [SF MORE Strategy](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SALESFORCE_MORE_STRATEGY.md) | Deep integration with Movement's MORE platform. |
 
-👉 [Learn step by step how to get started with Movement Voice](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/INSTALL_GUIDE.md)
+👉 **[Learn step by step how to get started with Movement Voice](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/INSTALL_GUIDE.md)**
 
 ---
 
