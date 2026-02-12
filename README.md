@@ -33,6 +33,15 @@ graph TD
 - `app.py`: Production-grade FastAPI entry point.
 - `salesforce_client.py`: Hardened CRM integration.
 
+## Strategic Design: Q Protocol & A2AC
+
+This platform implementation adheres to the **Q Protocol**, a framework for decentralized agentic orchestration. 
+
+### 🛡️ Hallucination & Compliance Control
+- **Reasoner-Talker Loop**: Every response is generated through a dual-pass logic. The 'Reasoner' (Gemini Thinking) plans the response and triggers compliance checks, while the 'Talker' delivers the concise, validated output.
+- **Cryptographic Grounding**: Each reasoning trace is hashed into a `thought_signature`. This ensures that the agent's "thinking" is deterministic and auditable.
+- **A2AC Orchestration**: Using **Agent-to-Agent Communication**, this agent can poll the A2AC Swarm for real-time market data, ensuring that "Jason" never guesses rates or programs.
+
 ## Security Architecture & Compliance [CISO-Ready]
 
 This system is built with a security-first approach, designed to meet rigorous enterprise standards for data sovereignty and auditability.

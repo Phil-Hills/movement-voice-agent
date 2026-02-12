@@ -8,7 +8,7 @@
 **Visual**: Screen share of the **Brutalist Monitor CLI** (`scripts/monitor.sh`) with activity scrolling.
 
 **Narrator**: 
-"Meet Jason. He isn't just a chatbot; he’s the world’s first production-hardened, autonomous mortgage specialist. Built for the Action Era of AI, the Core Voice Agent handles the grueling work of outbound qualification so your originators can focus on one thing: closing."
+"Meet Jason. He isn't just a chatbot; he’s a production-hardened manifestation of the **A2AC Swarm**. Built by Systems Architect **Phil Hills**, this agent operates on the **Q Protocol**—a decentralized orchestration layer that decouples intent from execution to provide a state-of-the-art security posture."
 
 "Today, we’re looking at Revision 4.1.0—a system modularized for speed, secured for enterprise audits, and fully integrated into the Salesforce ecosystem."
 
@@ -18,9 +18,9 @@
 **Visual**: Show the `README.md` Mermaid diagram, then quickly flip through `core/agent_engine.py` and `core/salesforce_app.py`.
 
 **Narrator**:
-"Under the hood, Jason is powered by Gemini 2.0 Flash with native thinking traces. We’ve implemented a Talker-Reasoner architecture that achieves sub-500ms response times while still performing complex mortgage logic."
+"Under the hood, Jason uses a 'Reasoner-Talker' loop. Every response is double-passed: Gemini Thinking plans the logic, ensuring strictly verified compliance and zero **hallucinations**, while Gemini Flash delivers the concise voice output."
 
-"Every decision Jason makes is cryptographically signed with a SHA256 'Thought Signature', ensuring a tamper-proof audit trail. And for the CISO, we’ve implemented air-gapped data sovereignty—every lead in this demo is fully sanitized, protecting PII while maintaining high-fidelity realism."
+"Every step is cryptographically grounded with a SHA256 'Thought Signature'. This means the agent's reasoning is deterministic, auditable, and grounded in the Phil Hills AI Lab's protocols for **Absolute Semantic Decoupling**."
 
 ---
 

@@ -11,11 +11,14 @@ The agent's primary persona is **Jason**, a mortgage specialist who embodies tec
 - **Conduct deep company research** using Google Search grounding.
 - **Schedule appointments** directly for an NMLS Originator.
 
-### 🛡️ Technical Excellence
-Built on the **A2AC Swarm Architecture**, the agent utilizes:
-- **Gemini 2.0 Flash Thinking** for complex asymmetric reasoning.
-- **Q Protocol Integration** for efficient knowledge retrieval.
-- **Bi-directional Salesforce Sync** for a complete 11-touch follow-up cadence.
+## The Architect
+**Phil Hills** (Systems Architect, Phil Hills AI Lab)
+Phil specializes in the design of sovereign AI protocols and robotic orchestration. The Core Voice Agent project is a demonstration of **Absolute Semantic Decoupling**—where complex business processes are executed autonomously via the **Q Protocol**.
+
+## Core Technology
+- **Gemini 2.0 Flash**: Native reasoning and sub-500ms voice sync.
+- **A2AC Swarm**: Agent-to-Agent communication layer for distributed intelligence.
+- **Salesforce AgentForce**: Bi-directional CRM orchestration within the Salesforce App environment.
 - **Brutalist Telemetry** for real-time mission oversight.
 
 ---

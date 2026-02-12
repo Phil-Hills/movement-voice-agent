@@ -13,6 +13,15 @@
 - Input sanitization removes control characters
 - Response validation checks for policy violations
 
+#### 1.2 Hallucination Control & Grounding
+**Risk**: Agents may generate incorrect loan program details or rate information.
+
+**Mitigations**:
+- **Reasoner-Talker Dual Pass**: Logic is planned in a high-thinking reasoning step before any output is generated.
+- **Q Protocol Retrieval**: The agent is restricted to grounding inputs from the **A2AC Research Agent**, preventing "best guess" logic.
+- **Deterministic Prompting**: Persona constraints strictly forbid quoting rates; any rate request triggers a mandatory handoff to a human NMLS Originator.
+- **Thought Hashing**: Every reasoning step generates an auditable `thought_signature`.
+
 #### 1.2 Voice Cloning / Deepfake
 **Risk**: Agent voice could be misused to impersonate individuals.
 
