@@ -34,11 +34,19 @@
 
 ---
 
-## 🎬 Act 4: The Human in the Loop (2:15 - 3:00)
+## 🎬 Act 4: Compliant Licensing Duties (2:15 - 2:45)
+**Visual**: Split screen showing the "Licensing Duty Gate" diagram vs a live Handoff notification.
+
+**Narrator**: 
+"But Jason isn't here to replace you. He’s here to make you a Strategic Pilot. He operates behind a strict **Licensing Duty Gate**. While Jason handles the administrative heavy lifting—document chasing and partner outreach—he is explicitly forbidden from performing licensed duties like rate quoting or terms negotiation. Whenever a client asks for a rate, Jason triggers a mandatory handoff to the licensed Originator. This ensures 100% compliance with NMLS licensing duties while freeing your experts to focus on the human side of the deal."
+
+---
+
+## 🎬 Act 5: The Human in the Loop (2:45 - 3:00)
 **Visual**: Screen showing a Salesforce Task list with "Jason Handoffs" at the top.
 
 **Narrator**:
-"But Jason isn't here to replace you. He’s here to make you a Strategic Pilot. This is the 'Day in the Life' of the 2026 Originator. While you focus on the complex, multi-million dollar closings, Jason is chasing missing W2s, recruiting new Real Estate partners, and signing his thoughts with cryptographic signatures for your review. This is the end of cold-calling, and the beginning of Cognitive Luxury."
+"This is the 'Day in the Life' of the 2026 Originator. While you focus on the complex, multi-million dollar closings, Jason is chasing missing W2s, recruiting new Real Estate partners, and signing his thoughts with cryptographic signatures for your review. This is the end of cold-calling, and the beginning of Cognitive Luxury."
 
 ---
 
