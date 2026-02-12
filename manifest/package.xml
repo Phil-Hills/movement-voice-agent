@@ -2,6 +2,7 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>JasonOrchestrator</members>
+        <members>ClairSentinel</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -19,6 +20,15 @@
     <types>
         <members>MovementVoiceApp</members>
         <name>ConnectedApp</name>
+    </types>
+    <types>
+        <members>Contact.Current_Rate__c</members>
+        <members>Contact.Refi_Ready__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Contact.The_Clair_List</members>
+        <name>ListView</name>
     </types>
     <version>60.0</version>
 </Package>

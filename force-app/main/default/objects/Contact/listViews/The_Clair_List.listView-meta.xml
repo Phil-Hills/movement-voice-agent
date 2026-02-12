@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>The_Clair_List</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>Current_Rate__c</columns>
+    <columns>PHONE1</columns>
+    <columns>EMAIL</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Refi_Ready__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>🔥 The Clair List (Refi Ready)</label>
+</ListView>

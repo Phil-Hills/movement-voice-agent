@@ -18,6 +18,11 @@ For the NMLS Originator, Jason is a force multiplier that protects your time.
 *   **Relationship Reinforcement**: Jason stays top-of-mind with your borrowers for years, triggering anniversary calls and mailers to secure future recaptures.
 *   **✅ Your Win**: You reclaim your attention to focus on high-stakes negotiation and building deep local relationships.
 
+### 👩‍💼 Clair: The Database Sentinel
+While Jason handles the *voice*, **Clair** handles the *vision*. She lives deep inside your Salesforce database.
+*   **The "Live Sheet"**: Clair continuously monitors your past clients, watching for equity growth and rate drops.
+*   **Quiet Intelligence**: She doesn't call; she calculates. When a past client becomes "In the Money" for a refinance, she puts them on your desk (and Jason's queue).
+
 ---
 
 ## 🏢 2. The Branch Level: Strategic Growth
