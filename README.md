@@ -50,6 +50,14 @@ This platform implementation adheres to the **Q Protocol**, a framework for dece
 - **Cryptographic Grounding**: Each reasoning trace is hashed into a `thought_signature`. This ensures that the agent's "thinking" is deterministic and auditable.
 - **A2AC Orchestration**: Using **Agent-to-Agent Communication**, this agent can poll the A2AC Swarm for real-time market data, ensuring that "Jason" never guesses rates or programs.
 
+## 🧠 DUAL-CORE INTELLIGENCE
+Jason combines **Structured Memories** (grounded in the Q Protocol) with **Native Reasoning** (Gemini Thinking). This ensures every response is:
+1. **Grounded**: Pulled from verified datasets.
+2. **Planned**: Reasoned through a hidden compliance pass.
+3. **Signed**: Cryptographically hashed for absolute auditability.
+
+[Read the Full Tech Deep-Dive](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/DUAL_CORE_INTELLIGENCE.md)
+
 ## Security Architecture & Compliance [CISO-Ready]
 
 This system is built with a security-first approach, designed to meet rigorous enterprise standards for data sovereignty and auditability.
