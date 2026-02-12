@@ -1,6 +1,6 @@
-# Salesforce Admin Guide: Core Voice Agent Implementation
+# Salesforce Admin Guide: Movement Voice Agent Implementation
 
-Follow these instructions to configure your Salesforce environment for the **Core Voice Agent** integration.
+Follow these instructions to configure your Salesforce environment for the **Movement Voice Agent** integration.
 
 ## 1. Connected App Setup [Security]
 To enable OAuth communication between the Agent and Salesforce:

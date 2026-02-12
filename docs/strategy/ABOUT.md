@@ -1,6 +1,6 @@
 # About Movement Voice: A Smarter Way to Loan [v5.2.0]
 
-> **About**: 🎙️ Core Voice Agent Jason: A production-hardened A2AC Swarm node for NMLS-compliant mortgage orchestration. Built on the Q Protocol by Phil Hills AI Lab.
+> **About**: 🎙️ Movement Voice Agent Jason: A production-hardened A2AC Swarm node for NMLS-compliant mortgage orchestration. Built on the Q Protocol by Phil Hills AI Lab.
 
 ---
 

@@ -1,6 +1,6 @@
 # Infrastructure Guide: Beta-to-Main Rollout Strategy
 
-This guide outlines the protocol for scaling the Core Voice Agent platform from a sandboxed **Beta** branch to a fully orchestrated multi-branch infrastructure.
+This guide outlines the protocol for scaling the Movement Voice Agent platform from a sandboxed **Beta** branch to a fully orchestrated multi-branch infrastructure.
 
 ## 🏗️ The Multi-Branch Architecture
 We utilize a **Branch-per-Environment** model to ensure absolute semantic isolation of data and compute resources.

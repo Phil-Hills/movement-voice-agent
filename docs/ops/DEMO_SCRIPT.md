@@ -1,4 +1,5 @@
-# Video Demo Script: Core Voice Agent [Project: Jason]
+# Movement Voice Swarm: Demo Script
+: Movement Voice Agent [Project: Jason]
 
 **Duration**: ~3 Minutes | **Target**: Stakeholders, CISO, and Loan Officers
 
@@ -54,8 +55,8 @@
 **Visual**: Logo of **Phil Hills AI Lab** with the text: **ABSOLUTE SEMANTIC DECOUPLING**.
 
 **Narrator**:
-"The Core Voice Agent. Built on the Q Protocol. Deployed by the Phil Hills AI Lab. The Action Era of AI is here. Let's build the future of finance, together."
-"The Core Voice Agent: Professional. Autonomous. Compliant. The future of mortgage sales starts here."
+"The Movement Voice Agent. Built on the Q Protocol. Deployed by the Phil Hills AI Lab. The Action Era of AI is here. Let's build the future of finance, together."
+"The Movement Voice Agent: Professional. Autonomous. Compliant. The future of mortgage sales starts here."
 
 ---
 *Script Version 1.1 | Feb 2026*

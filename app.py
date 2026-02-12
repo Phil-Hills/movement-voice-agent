@@ -27,7 +27,7 @@ logger = logging.getLogger("core-voice-agent")
 
 # ============ APP SETUP ============
 app = FastAPI(
-    title="Core Voice Agent - Jason",
+    title="Movement Voice Agent - Jason",
     description="Professional AI Voice Agent for Mortgage Services",
     version="4.1.0"
 )

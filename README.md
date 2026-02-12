@@ -4,7 +4,13 @@
 
 The **Movement Voice Agent** (Jason) is designed to improve borrower conversations and help you stay better connected throughout the loan journey. By introducing AI-driven orchestration, Jason handles the administrative heavy lifting so you can focus on building relationships.
 
-👉 **[Experience the Swarm: Visit the Live Demo Site](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/demo-site/index.html)**
+---
+
+## 📽️ Experience the Swarm
+Experience the future of mortgage orchestration today through our high-fidelity simulation suite.
+
+👉 **[Launch Movement Voice Demo Site](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/demo-site/index.html)**
+👉 **[View Agentic Swarm Orchestration](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SWARM_ORCHESTRATION_AND_LIFECYCLE.md)**
 
 ---
 

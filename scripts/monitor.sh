@@ -12,7 +12,7 @@ BOLD='\033[1m'
 RESET='\033[0m'
 
 # --- CONFIG ---
-SERVICE_NAME="Core Voice Agent"
+SERVICE_NAME="Movement Voice Swarm Monitor [v5.2.0]"
 APP_URL="http://localhost:8080"
 POLL_INTERVAL=2
 
