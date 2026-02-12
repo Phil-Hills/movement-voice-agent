@@ -1,25 +1,31 @@
-# About Core Voice Agent: Jason
+# About Movement Voice: A Smarter Way to Loan [v5.2.0]
 
-The **Core Voice Agent** (Project: Jason) is a production-hardened AI sales platform designed for high-fidelity outbound mortgage lead orchestration. 
+> **Category:** Vision & Identity | **Read time:** 2 min | **Maintainer:** Phil Hills AI Lab
 
-### 🎯 Mission
-To provide a warm, empathetic, and professional voice for mortgage inquiries, assisting clients with VA, Conventional, and Jumbo loan inquiries while ensuring 100% regulatory compliance.
-
-### 🧠 Core Identity
-The agent's primary persona is **Jason**, a mortgage specialist who embodies technical and service excellence. Jason is trained to:
-- **Qualify leads** with precision scoring logic.
-- **Conduct deep company research** using Google Search grounding.
-- **Schedule appointments** directly for an NMLS Originator.
-
-## The Architect
-**Phil Hills** (Systems Architect, Phil Hills AI Lab)
-Phil specializes in the design of sovereign AI protocols and robotic orchestration. The Core Voice Agent project is a demonstration of **Absolute Semantic Decoupling**—where complex business processes are executed autonomously via the **Q Protocol**.
-
-## Core Technology
-- **Gemini 2.0 Flash**: Native reasoning and sub-500ms voice sync.
-- **A2AC Swarm**: Agent-to-Agent communication layer for distributed intelligence.
-- **Salesforce AgentForce**: Bi-directional CRM orchestration within the Salesforce App environment.
-- **Brutalist Telemetry** for real-time mission oversight.
+The **Movement Voice Agent** (Jason) is your high-fidelity administrative assistant, designed to help you stay better connected with your borrowers and "Move More." 
 
 ---
-*Created and maintained by the Phil Hills AI Lab.*
+
+## 🎯 Our Mission: Winning the Human Relationship
+We believe in a world where Loan Officers are freed from procedural friction. Our mission is to provide a warm, empathetic, and professional voice for your mortgage inquiries, ensuring you can focus on what matters most: **Human Connection and Expert Advice.**
+
+## 🧠 The Jason Persona: Your Strategic Co-Pilot
+Jason isn't just a dialer; he's a highly competent mortgage specialist on your team.
+
+✅ **Empathy First**: Jason is trained to handle inquiries with the warmth and competence you expect from a Movement professional.
+✅ **Smarter Qualification**: He uses advanced scoring to identify the most ready-to-move borrowers in your pipeline.
+✅ **Research-Driven**: Jason gives you the edge by researching listings and brokers before every conversation.
+✅ **Seamless Handoffs**: When it’s time for a rate lock or a strategy session, Jason brings you into the conversation effortlessly.
+
+---
+
+## 🏛️ The Architect: Phil Hills
+**Phil Hills** (Systems Architect, Phil Hills AI Lab) specializes in the design of sovereign AI protocols that prioritize **Cognitive Luxury**. Movement Voice is a showcase of how high-tech tools can empower high-touch professionals.
+
+## 🛠️ The Tech Behind the Voice
+*   **Gemini 2.0 Flash**: Delivering clear, sub-500ms voice conversations.
+*   **A2AC Swarm Mesh**: A smarter way for different agents (Research, Salesforce, Document) to work together for you.
+*   **WTS Integration**: Built to live within your Win Together System for seamless quarterly planning.
+
+---
+*Movement Mortgage Powered by Phil Hills AI Lab ™*

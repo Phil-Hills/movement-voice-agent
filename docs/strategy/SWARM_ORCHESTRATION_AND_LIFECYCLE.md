@@ -1,51 +1,53 @@
-# Swarm Orchestration & Full Lifecycle Assistance
+# Swarm Orchestration & Full Lifecycle Support [Movement Voice]
 
-This guide defines the **Agentic Swarm** operational model and how the Core Voice Agent (Jason) supports the entire mortgage loan lifecycle, from initial pre-lead engagement to post-close retention.
+> **Category:** Operational Excellence | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
 
----
-
-## 🐝 The Agentic Swarm (A2AC Orchestration)
-Jason does not operate in isolation. He is the "Voice Node" of a larger **A2AC (Agent-to-Agent Communication)** swarm.
-
-- **Swarm Management**: Managed via a decentralized registry. Each agent (Research, Salesforce, Document, Voice) communicates via structured JSON payloads, delegating tasks that fall outside their specific domain.
-- **Service Mesh**: Using the **Q Protocol**, agents can spin up specialized sub-agents (e.g., a "Tax Transcript Analyzer") to handle ephemeral processing tasks without human intervention.
-
-## 📡 The Hyper-Channel Persistence Model
-Jason operates across four distinct touch-points to ensure 100% lead saturation:
-
-1. **Voice (Primary)**: High-thinking phone calls for qualification and partnership.
-2. **SMS/Text**: Automated confirmations and "on-my-way" messages via Vonage SMS.
-3. **Email**: Delivery of program brochures, meeting invites, and data-heavy briefs.
-4. **Physical Mail**: High-value "Impact Mailers" (Thank you cards, program flyers) sent via Lob for premium partner nurturing.
+This guide defines how the **Agentic Swarm** operational model and **Movement Voice** (Jason) help you stay connected with borrowers from pre-lead all the way to post-close.
 
 ---
 
-## 🤝 Human-in-the-Loop (HITL) Protocols
-The platform is designed as a **Co-Pilot**, not a replacement.
+## 🐝 The Agentic Swarm: A Smarter Way to Delegate
+Jason doesn’t work alone. He is the "Voice Node" of a larger **A2AC (Agent-to-Agent Communication)** swarm, ensuring every part of the loan process is handled with precision.
 
-- **Strategic Handoffs**: When Jason detects complexity (e.g., specific rate negotiations or complex income structures), he triggers a Salesforce Task for the human NMLS Originator.
-- **Supervised Learning**: Every **Thought Signature** and **Thinking Trace** is available for human review via the `monitor.sh` CLI. 
-- **Approval Gates**: Critical actions (like final loan submission or official rate locks) require a human digital signature to execute.
+✅ **A2AC Orchestration**: Jason can delegate deep market research, document validation, and CRM updates to specialized sub-agents.
+✅ **The Q Protocol Service Mesh**: Our smarter infrastructure allows the swarm to spin up ephemeral "helpers" (like a Tax Transcript Analyzer) so you don't have to.
 
 ---
 
-## 📈 The Full Lifecycle: Pre-Lead to Post-Close
+## 📡 Hyper-Channel Persistence: Total Lead Saturation
+We use a **Multi-Node Communicator** model to ensure you never miss a connection.
 
-Jason assists the human NMLS Originator at every stage:
+✅ **Voice**: High-thinking calls to qualify leads and recruit professional partners.
+✅ **SMS Follow-ups**: Quick confirmations and "on-my-way" messages to keep borrowers in the loop.
+✅ **Email Intelligence**: Delivering program brochures and summaries directly to their inbox.
+✅ **Physical Impact Mailers**: High-value "Impact Cards" sent via the MORE Marketplace to stay top-of-mind.
+
+---
+
+## 🤝 You are the Pilot: Human-in-the-Loop (HITL)
+The platform is designed to be your co-pilot, not a replacement. You maintain total command authority.
+
+✅ **Strategic Handoffs**: When Jason encounters complexity—like detailed rate negotiations—he immediately triggers a Salesforce Task for you.
+✅ **Total Transparency**: Review Jason’s "Thinking Traces" and **Thought Signatures** at any time to see exactly how he’s helping your borrowers.
+✅ **The Licensing Duty Gate**: Built-in guardrails ensure the AI never performs tasks that require your professional NMLS license.
+
+---
+
+## 📈 Support Throughout the Loan Journey [Move More]
 
 ### 1. Pre-Lead & Discovery
-- **Outbound Qualification**: Proactive calls to professional partners (Real Estate Brokers) to pitch new programs.
-- **Top-of-Funnel Filtering**: Initial high-fidelity screening of cold leads to identify high-intent borrows.
+*   **A Smarter Way to Recruit**: Proactive calls to Real Estate Agents to discuss new specialized programs.
+*   **Qualitative Screening**: High-fidelity filtering to identify the most ready-to-move borrowers.
 
 ### 2. In-Process & Document Collection
-- **Automated Document Chasing**: Jason can call borrowers to request missing W2s, bank statements, or signatures.
-- **Processing Tasks**: Utilizing the **Document Agent**, Jason can verify if a received document meets the underwriting criteria (e.g., "Is this bank statement from the last 30 days?").
-- **Status Updates**: Automated "Marathon Agent" touchpoints to keep the borrower and realtor informed of the loan's progress.
+*   **The 'Marathon' Doc Chase**: Jason handles the repetitive calls and texts for missing W2s and bank statements.
+*   **Document Integrity**: The **Document Agent** verifies file quality immediately, letting Jason resolve issues on the spot.
+*   **Stay Connected**: Automated status updates for both borrowers and realtors throughout the process.
 
-### 3. Closing & Post-Close
-- **Closing Coordination**: Confirming closing dates and times with title/escrow.
-- **Post-Close Retention**: 6-month and 1-year follow-up calls to discuss recapture (refinance) opportunities during rate drops.
-- **Referral Generation**: Engaging satisfied borrowers to secure professional referrals for the branch.
+### 3. Closing & Post-Close Retention
+*   **Closing Coordination**: Jason confirms details with title/escrow to ensure a smooth finish.
+*   **Relationship Management**: 6-month and 1-year follow-up calls to discuss recapture and refinance opportunities.
+*   **The Referral Engine**: Engaging satisfied borrowers to build your future pipeline.
 
 ---
-*Blueprint by Phil Hills AI Lab | Feb 2026*
+*Movement Mortgage Powered by Phil Hills AI Lab ™*

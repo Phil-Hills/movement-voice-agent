@@ -1,32 +1,47 @@
-# Originator Guide: Working with the Core Voice Agent
+# Your Strategic Co-Pilot: A Guide to Movement Voice [Jason]
 
-Welcome to the team! This guide explains how to effectively work with **Jason**, our autonomous AI Voice Agent, to maximize your pipeline efficiency.
+> **Category:** LO Success | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
 
-## 🤖 Meet Jason (The AI Agent)
-Jason is an autonomous mortgage specialist who handles the front-end of our 11-touch sales cadence. He qualifies leads, handles initial objections, and orchestrates follow-ups so you can focus on closing.
-
-## 📥 How You Receive Leads (The Handoff)
-Jason is programmed to transition "hot" leads to you once they are qualified. You will see these in Salesforce in two primary ways:
-
-1.  **High-Priority Tasks**: When Jason books an appointment or identifies an urgent need, he creates a Salesforce Task assigned to you with the subject: `🔥 ACTION REQUIRED: Appointment Booked via AI`.
-2.  **Call Logs**: Every interaction Jason has is logged as a closed task on the Lead record. You can review the **AI Thought Signature** and **Notes** to understand the client's current sentiment and goals.
-
-## 📋 Managing Your "To-Dos"
-*   **Review Notes**: Before calling a lead Jason has qualified, check the latest call logs. Jason records the client's loan program interest (VA, Conventional, Jumbo) and any specific concerns mentioned.
-*   **Update Disposition**: Once you speak with a lead, update the Lead Status in Salesforce as usual. This informs Jason's cadence logic (e.g., if you haven't reached them, Jason may initiate a follow-up SMS or Email).
-
-## 🚀 The 11-Touch Cadence
-Jason persists across an 11-step follow-up series. 
-*   **Automated Touches**: Jason will handle outbound calls, SMS, and emails during the early stages of the funnel.
-*   **Your Role**: You enter the flow when a client requests a "Warm Handoff" or when they trigger a "Qualified" event.
-
-## 🛡️ Compliance & Safety
-*   **Rate Discussions**: Jason is restricted from quoting specific rates. He will always defer to you for official quotes.
-*   **Disclosure**: Jason identifies as an AI in his opening statement to ensure transparency and compliance with telephony regulations.
-
-## 💡 Best Practices
-*   **Speed to Lead**: When you see a high-priority task from Jason, try to follow up within 60 minutes.
-*   **Trust the Context**: Use the "AI Reason" provided in the task description to start your conversation. (e.g., *"I see you were just speaking with Jason about a VA streamline refinance..."*)
+Welcome to the team! This guide explains a smarter way to work with **Jason**, our autonomous AI assistant, so you can focus on building relationships and "Moving More."
 
 ---
-*Created for Phil Hills AI Lab | Feb 2026*
+
+## 🤖 Meet Jason: Your Administrative Assistant
+Jason handles the front-end of our **11-touch follow-up series**. He qualifies leads, manages initial objections, and orchestrates touch-points across voice, SMS, and email—allowing you to be the expert pilot of your pipeline.
+
+---
+
+## 📥 How You Win: The Handoff Process
+Jason is designed to identify "Hot Leads" and connect them with you effortlessly. You’ll see his work in Salesforce in two key ways:
+
+✅ **High-Priority Task Alerts**: When Jason identifies a ready-to-move borrower, he creates a Salesforce Task for you: `🔥 ACTION REQUIRED: Appointment Booked via AI.`
+✅ **Real-Time Call Logs**: Every interaction is logged as a closed task. Review Jason’s **AI Notes** to understand the borrower’s goals before you pick up the phone.
+
+---
+
+## 📋 Managing Your Workflow
+*   **Review the Story**: Before calling a lead, check the Salesforce notes. Jason records interest in VA, Conventional, or Jumbo programs and captures any specific concerns.
+*   **Update and Move More**: Simply update the Lead Status after you speak with a client. This tells Jason whether to continue his follow-up cadence or step back while you close the deal.
+
+---
+
+## 📈 The 11-Touch Series
+Jason manages the procedural heavy lifting during the early stages of the funnel.
+
+*   **Move More with Automation**: Jason handles the outbound calls, SMS, and email follow-ups to keep your brand top-of-mind.
+*   **Your Time to Shine**: You enter the flow when a borrower is qualified or requests a professional conversation with a licensed originator.
+
+---
+
+## 🤝 Protecting Your License
+*   **Expert Advice**: Jason is forbidden from quoting rates. He will always defer to your expertise for official loan programs and APRs.
+*   **Total Transparency**: Jason identifies as an AI in his first 2 seconds, ensuring a clear and honest connection with every borrower.
+
+---
+
+## 💡 Best Practices for Success
+1.  **Speed to Lead**: When you receive a task from Jason, try to follow up within 60 minutes for the best connection rate.
+2.  **Trust the Context**: Start your call with a warm intro: *"I see you were just speaking with my assistant Jason about a VA streamline refinance..."*
+
+---
+*Movement Mortgage Powered by Phil Hills AI Lab ™*

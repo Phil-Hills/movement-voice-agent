@@ -1,28 +1,37 @@
-# Strategic Protocol: Professional Partner Outreach (B2B)
+# Winning with Partners: Outreach Strategy [Movement Voice]
 
-This protocol outlines the transition of the Core Voice Agent from a B2C Lead Qualifier to a **B2B Partner Recruiter**. By targeting Real Estate Brokers as strategic partners, we demonstrate the platform's value while operating in a lower-friction regulatory environment.
+> **Category:** Business Development | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
 
-## 🎯 Global Objective
-Recruit high-volume Real Estate Brokers by pitching the **"AI-Enhanced Closing Experience"** as a competitive advantage for their agency.
-
-## 🧠 Partner-Centric Persona: "Jason - Branch Relations"
-The AI persona shifts from "helping with a loan" to "branch-level recruitment."
-
-### Updated Key Directives:
-- **The Hook**: "I'm calling on behalf of the local Mortgage Branch Manager. We’ve just launched a new series of specialized loan programs (VA, Jumbo, non-QM) and wanted to see if your agents could benefit from these in this market."
-- **Value Prop**: Pitch 'New Programs' and 'Priority Support' as the primary wedge.
-- **Goal**: Schedule a "Strategy Session" between the Real Estate Agent/Broker and the Branch Manager.
-
-## ⚖️ Compliance & Safety Advantages
-- **No Rate Quoting**: Outreach focuses on process, technology, and partnership terms—not loan specifics.
-- **TCPA Compliance**: Still requires DNC scrubbing, but business-to-business (B2B) outreach typically has higher tolerance than residential cold-calling.
-- **Regulatory Buffer**: Demonstrates the "Reasoner-Talker" loop in a professional negotiation context before wide-scale consumer deployment.
-
-## 🛠️ Implementation Workflow
-1. **Targeting**: Load Broker lists into [data/partners.csv](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/data/partners.csv).
-2. **Research**: `ResearchEngine` analyzes the broker's recent listings or agency specializations.
-3. **Execution**: Outbound call via `CampaignManager` using the `PartnerRelations` prompt variant.
-4. **Handoff**: Successful interest triggers a "High Priority Partnership Opportunity" task in Salesforce.
+This strategy outlines how **Movement Voice** (Jason) helps you expand your network and "Move More" by recruiting high-performing Real Estate Brokers as strategic partners.
 
 ---
-*Blueprint by Phil Hills AI Lab | Feb 2026*
+
+## 🎯 Our Goal: Building Asymmetric Partnerships
+We want to help local Brokers win by offering them a competitive edge: the **AI-Enhanced Closing Experience**. By partnering with our branch, they get priority access to specialized programs and high-fidelity support.
+
+### 🧠 The Persona: Jason – Strategic Relations
+Jason transitions from a lead qualifier to a recruitment professional. He sounds like a supportive extension of our branch management team.
+
+✅ **The Hook**: "I'm calling for our local Mortgage Branch Manager. We’ve just launched a new series of specialized loan programs (VA, Jumbo, High-LTV) and wanted to see if your agents could benefit from these in this current market."
+✅ **The Value Prop**: We offer "New Program" wedges and "Priority Swarm Support" for their listings.
+✅ **The Win**: Jason schedules a **Strategy Session** between you and the Broker to review partnership benefits.
+
+---
+
+## ⚖️ Why This Strategy Wins
+A B2B approach is a smarter way to scale your branch with lower friction and high reward.
+
+*   **Relationship First**: Outreach focuses on process, technology, and mutual growth—not loan specifics.
+*   **Built-in Compliance**: Jason follows the **Licensing Duty Gate** at all times, ensuring the conversation stays professional and administrative.
+*   **Instant Handoffs**: When a Broker is ready to talk, you get a real-time notification to join the conversation.
+
+---
+
+## 🛠️ How to Get Started
+1.  **Load Your Partners**: Add your Broker lists to [data/partners.csv](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/data/partners.csv).
+2.  **Market Research**: Jason uses the `ResearchEngine` to find their recent listings or agency specializations.
+3.  **Launch Campaign**: Start the partner outreach via the WTS (Win Together System).
+4.  **Confirm the Win**: Once Jason secures interest, a **High-Priority Task** is created in your Salesforce dashboard.
+
+---
+*Movement Mortgage Powered by Phil Hills AI Lab ™*

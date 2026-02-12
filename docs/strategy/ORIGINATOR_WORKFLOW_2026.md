@@ -1,39 +1,48 @@
-# The Originator of the Future: Workflow 2026
+# A Day in the Life: The Originator of the Future [Workflow 2026]
 
-This guide illustrates the hyper-efficient workflow of an NMLS Originator augmented by the **Core Voice Agent (Jason)** and the **A2AC Swarm**.
+> **Category:** LO Productivity | **Read time:** 2 min | **Maintainer:** Phil Hills AI Lab
 
----
-
-## 🌅 08:30 AM - The Swarm Debrief
-The Originator starts their day not by dialing, but by reviewing the **Swarm Intelligence Summary**.
-
-- **Jason's Overnight Harvest**: Jason has already made 50 qualification calls while the Originator slept.
-- **Top 5 Priority Leads**: The Originator opens Salesforce and sees 5 leads marked **"High Priority: Ready for Rate Lock"**. 
-- **Thought Signature Audit**: For the most complex lead, the Originator clicks the `thought_signature` link to review Jason's reasoning trace, ensuring the "Jason" persona correctly identified the borrower's Jumbo loan eligibility.
-
-## 📈 10:00 AM - Strategic Scaling (Partner Outreach)
-While the Originator handles high-value closings, Jason is executing the **B2B Outreach Strategy**.
-
-- **Broker Recruitment**: Jason is calling 20 local Real Estate agents to pitch the new "High-LTV" programs.
-- **Instant Handoff**: A Broker expresses interest. Jason captures the specific pain points (e.g., "Our current lender is too slow") and triggers a **Real-Time Handoff**. The Originator receives a text: *"Jason: Sarah Broker (Elite Realty) is interested in the new Jumbo program. Call now?"*
-
-## 🛠️ 01:00 PM - The "Marathon" Documentation Chase
-The "heavy lifting" of document collection is delegated to the swarm.
-
-- **Automated Document Chasing**: The Originator marks a loan as "Processing." Jason automatically takes over the task of calling and texting the borrower to secure the 2025 W2.
-- **Document Integrity Check**: As soon as the borrower uploads the file, the **Document Agent** verifies its validity. If it's blurry or incorrect, Jason calls the borrower immediately to resolve it—without the Originator ever touching a phone.
-
-## 🏁 04:30 PM - Post-Close Retention & Recapture
-The relationship doesn't end at funding.
-
-- **Hyper-Channel Reinforcement**: 
-    - **Voice**: Jason makes the 6-month check-in call.
-    - **Physical Mail**: Jason triggers a "Happy Anniversary" mailer to be sent via Lob.
-    - **Recapture Detection**: Jason identifies a rate drop opportunity and presents the "Recapture Script" to the Originator for approval.
+This guide illustrates a smarter way to manage your day, using **Movement Voice** (Jason) and the **A2AC Swarm** to elevate your borrower conversations.
 
 ---
 
-## 🎯 The Result: Cognitive Luxury
-The Human Originator is no longer a data-entry clerk or a cold-caller. They are a **Strategic Pilot**, managing a fleet of agents that handle the friction, allowing them to focus on one thing: **Human Relationship & High-Stakes Negotiation.**
+## 🌅 08:30 AM – The Swarm Debrief
+Start your morning not by dialing, but by reviewing your **Move More Dashboard**.
 
-*Vision by Phil Hills AI Lab | Feb 2026*
+✅ **Jason’s Overnight Harvest**: Jason has already made 50 qualification calls while you slept.
+✅ **Top 5 Priority Leads**: Open Salesforce and see 5 leads marked **"High Priority: Ready for Rate Lock."**
+✅ **Thought Signature Audit**: For complex scenarios, click the `thought_signature` link to see exactly how Jason reasoned through Jumbo eligibility.
+
+---
+
+## 📈 10:00 AM – Strategic Growth with Partner Outreach
+While you’re busy with high-value closings, Jason is out in the market recruitment-mode.
+
+✅ **Broker Connections**: Jason is calling 20 local Real Estate agents to pitch our new specialized loan programs.
+✅ **Real-Time Handoffs**: When a broker expresses interest, Jason triggers an instant notification. Your phone pings: *"Sarah Broker (Elite Realty) is interested in the new Jumbo program. Call now?"*
+
+---
+
+## 🛠️ 01:00 PM – Smarter Document Chasing
+Let Jason handle the procedural heavy lifting of document collection.
+
+✅ **Automated Follow-ups**: Mark a loan as "Processing," and Jason automatically takes over chasing the borrower for that 2025 W2.
+✅ **Document Integrity Check**: The moment a borrower uploads, our **Document Agent** verifies the file. Blur or errors? Jason calls the borrower immediately to fix it—without you ever touching a phone.
+
+---
+
+## 🏁 04:30 PM – Relationship Reinforcement
+The conversation doesn’t end at funding. Jason helps you stay connected forever.
+
+✅ **Hyper-Channel Touchpoints**: Jason makes the 6-month check-in call and triggers a "Happy Anniversary" physical mailer via the MORE Marketplace.
+✅ **Recapture Alerts**: When rates drop, Jason identifies the opportunity and presents you with a ready-to-use recapture script.
+
+---
+
+## 🎯 The Result: Move More with Cognitive Luxury
+You are no longer a cold-caller or a data-entry clerk. You are a **Strategic Pilot**, focused on one thing: **Winning the Human Relationship.**
+
+👉 [Explore the full set of Movement Voice features in the Strategy Index]
+
+---
+*Movement Mortgage Powered by Phil Hills AI Lab ™*

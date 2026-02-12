@@ -1,29 +1,34 @@
-# Technical Deep-Dive: Dual-Core Intelligence
+# Technology Meet Empathy: Dual-Core Intelligence [Movement Voice]
 
-The Core Voice Agent (Jason) operates on a **Dual-Core Intelligence** model. This architecture differentiates it from standard "wrapper" bots by separating *deterministic knowledge* from *probabilistic reasoning*.
+> **Category:** Tech Deep-Dive | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
+
+**Movement Voice** (Jason) isn't just a standard bot. He operates on a **Dual-Core Intelligence** model that combines high-fidelity reasoning with grounded, supportive facts. This architecture ensures every conversation is both human-centric and 100% compliant.
+
+---
+
+## 🏗️ 1. The Supportive Core: Structured Memory
+Jason is grounded by a "Supportive Core" of truth, powered by the **Q Protocol**.
+
+✅ **Real-Time Pipeline Knowledge**: Jason stays synced with your Salesforce dashboard, ensuring he knows exactly where every borrower is in their journey.
+✅ **Verifiable Facts**: By polling the **A2AC Swarm**, Jason retrieves accurate market data instead of guessing, giving your borrowers the confidence they deserve.
+✅ **Move More Philosophy**: Every interaction is guided by a "Structured Memory" that prioritizes the human relationship.
 
 ---
 
-## 1. Structured Core (The Memory)
-The agent is grounded through the **Q Protocol**, which provides a "Structured Core" of truth.
+## 🧠 2. The Thinking Core: Native Reasoning
+Jason uses **Gemini 2.0 Flash Thinking** to "Think" about his next move before he speaks, just like a professional member of your team would.
 
-- **Canonical Narrative**: A living document (`canonical_narrative.md`) that defines the agent's world-view, architecture, and mission. This is injected into every conversation turn.
-- **CRM Persistence**: Direct sync with Salesforce ensures the agent "remembers" the lead's status, previous touches, and specific NMLS compliance requirements.
-- **Data Sovereignty**: By using structured memories, we ensure Jason doesn't guess names or company details; he polls the **A2AC Research Agent** to retrieve verified facts.
-
-## 2. Thinking Core (The Reasoner)
-Jason utilizes **Gemini 2.0 Flash Thinking** to perform "Asymmetric Reasoning" before speaking.
-
-- **The Reasoner-Talker Loop**: 
-  - **The Reasoner**: Performs a hidden planning step. It checks the *Structured Core*, triggers compliance guardrails (e.g., "Am I about to quote a rate?"), and hashes its plan into a `thought_signature`.
-  - **The Talker**: Converts the validated plan into a concise, warm voice output.
-- **Cryptographic Grounding**: Every "thought" is signed with a SHA256 hash. If the agent's reasoning deviates from the structured memory, the signature changes, providing an auditable trail.
-
-## 3. The Result: Zero-Hallucination Conversations
-By combining **Structured Memories** (the *what*) with **Native Thinking** (the *how*), Jason achieves:
-- **Sub-500ms Response Times**: Fast enough for natural voice.
-- **Deterministic Compliance**: He "thinks" about the rules (TRID, Reg Z) before he speaks.
-- **Self-Correction**: If the user pushes for a rate, Jason's reasoning step detects the violation and triggers a mandatory handoff.
+✅ **Asymmetric Planning**: Before every response, Jason performs a hidden planning pass. He checks the rules, validates the next step, and ensures he’s staying within his non-licensed administrative role.
+✅ **Total Transparency**: This "Thinking Trace" is hashed into a **Thought Signature**, providing you with an auditable and trustworthy record of every AI decision.
+✅ **Empathy by Design**: Because Jason "thinks" before he talks, he can adjust his tone to match the borrower's needs, providing a truly supportive experience.
 
 ---
-*Architectural Blueprint | Phil Hills AI Lab | Feb 2026*
+
+## 📈 The Result: Trust and Efficiency
+By combining **Grounded Facts** with **High-Thinking Support**, Jason achieves:
+*   **A Professional Voice**: Sub-500ms response times for natural, warm conversations.
+*   **Absolute Compliance**: Built-in guardrails that protect your NMLS license automatically.
+*   **Smarter Handoffs**: Identifying exactly when a borrower needs your expert advice and making the connection effortlessly.
+
+---
+*Movement Mortgage Powered by Phil Hills AI Lab ™*
