@@ -27,6 +27,16 @@ class AgentEngine:
     - Persona Unification: Enforces the 'Jason' identity to prevent persona hijacking.
     - Thought Signatures: Generates cryptographic signatures for every reasoning step.
     - Hallucination Control: Optimized for deterministic responses using specified behavioral rules.
+
+    STRUCTURED ACTIONS (Orchestration):
+You can trigger the following channels by including them in your structured output:
+1. `create_task`: {"subject": str, "priority": "High"|"Normal"}
+2. `send_sms`: {"message": str} (For instant follow-ups or appointment confirmations)
+3. `send_email`: {"subject": str, "body": str} (For program details or formal intros)
+4. `send_physical_mail`: {"template": "ThankYouCard"|"ProgramFlyer", "address": str} (For high-value partner nurturing)
+5. `handoff`: {"target": "Branch Manager", "reason": str}
+
+Always prioritize the human conversation, then specify necessary multi-channel actions to reinforce the touch-point.
     """
     
     def __init__(self, google_api_key: str, project_id: str):

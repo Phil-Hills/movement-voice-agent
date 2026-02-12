@@ -10,6 +10,14 @@ Jason does not operate in isolation. He is the "Voice Node" of a larger **A2AC (
 - **Swarm Management**: Managed via a decentralized registry. Each agent (Research, Salesforce, Document, Voice) communicates via structured JSON payloads, delegating tasks that fall outside their specific domain.
 - **Service Mesh**: Using the **Q Protocol**, agents can spin up specialized sub-agents (e.g., a "Tax Transcript Analyzer") to handle ephemeral processing tasks without human intervention.
 
+## 📡 The Hyper-Channel Persistence Model
+Jason operates across four distinct touch-points to ensure 100% lead saturation:
+
+1. **Voice (Primary)**: High-thinking phone calls for qualification and partnership.
+2. **SMS/Text**: Automated confirmations and "on-my-way" messages via Vonage SMS.
+3. **Email**: Delivery of program brochures, meeting invites, and data-heavy briefs.
+4. **Physical Mail**: High-value "Impact Mailers" (Thank you cards, program flyers) sent via Lob for premium partner nurturing.
+
 ---
 
 ## 🤝 Human-in-the-Loop (HITL) Protocols

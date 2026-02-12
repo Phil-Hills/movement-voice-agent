@@ -15,6 +15,7 @@ from core.lead_management import LeadManager, LeadModel
 from core.research_engine import ResearchEngine
 from core.vonage_client import VonageClient
 from core.salesforce_app import SalesforceApp
+from core.comm_orchestrator import HyperChannelOrchestrator
 from core.campaign_manager import get_campaign_manager
 from core.salesforce_client import get_salesforce_client
 
@@ -131,6 +132,10 @@ async def agent_chat(request: Request):
                         lead_id=current_lead_id,
                         current_step=payload.get("next_step", 1)
                     )
+                elif atype in ["send_sms", "send_email", "send_physical_mail"]:
+                    lead = lead_manager.get_lead(current_lead_id)
+                    comm_orchestrator.execute_action(atype, payload, lead)
+                
                 logger.info(f"✅ Executed AI Action: {atype}")
             except Exception as ae:
                 logger.error(f"❌ Failed to execute AI action {atype}: {ae}")
