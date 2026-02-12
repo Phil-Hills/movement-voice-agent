@@ -25,6 +25,7 @@ For the Branch Manager, Jason is a tool for recruitment and market saturation.
 *   **Partner Recruitment (B2B)**: Jason executes the partner outreach strategy, calling local Real Estate Brokers to discuss the "AI-Enhanced Closing Experience" we offer.
 *   **Pipeline Oversight**: Get a high-fidelity view of branch-level lead interest and partner engagement via aggregated Salesforce dashboards.
 *   **Operational Consistency**: Ensure every lead that hits the branch receives a professional, 11-touch follow-up cadence, regardless of individual LO workload.
+*   **The Branch AI Agent Admin**: The cornerstone of local governance. Every branch designates a dedicated admin to oversee Jason’s performance, manage Salesforce MORE mappings, and ensure the local "Move More" strategy is perfectly executed.
 *   **✅ Your Win**: A recruitment edge that attracts top talent and a consistent branch reputation for excellence.
 
 ---
