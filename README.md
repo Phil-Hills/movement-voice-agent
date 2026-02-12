@@ -1,6 +1,6 @@
 # 🎙️ CORE VOICE AGENT: JASON [v5.1.0]
 
-> **STATUS:** PRODUCTION READY | **ARCHITECTURE:** BRUTALIST | **MAINTAINER:** PHIL HILLS AI LAB
+> **STATUS:** PRODUCTION READY | **ARCHITECTURE:** Q-PROTOCOL
 > 
 > "The Action Era of AI begins with Absolute Semantic Decoupling."
 
