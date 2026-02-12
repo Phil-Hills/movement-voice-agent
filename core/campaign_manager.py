@@ -124,10 +124,13 @@ class CampaignManager:
             self.stats["dialed"] += 1
             logger.info(f"📞 Initiating outbound call to {lead['name']}...")
             
-            # Generate NCCO for the initial greeting
-            ncco = self.vonage.generate_ncco(
-                text=f"Hello {lead['name']}, this is Jason, an AI mortgage specialist. I'm calling to follow up on your mortgage interest."
-            )
+            # Generate NCCO based on mode
+            if lead.get('type') == 'broker':
+                greeting = f"Hi {lead['name']}, this is Jason with the Phil Hills AI Lab. I'm calling about a strategic technology partnership for your brokerage."
+            else:
+                greeting = f"Hello {lead['name']}, this is Jason, an AI mortgage specialist. I'm calling to follow up on your mortgage interest."
+            
+            ncco = self.vonage.generate_ncco(text=greeting)
             
             call_id = self.vonage.create_outbound_call(lead['phone'], ncco)
             

@@ -76,11 +76,25 @@ class AgentEngine:
             logger.warning(f"⚠️ Could not load brain context: {e}")
         return ""
 
-    def get_system_prompt(self, lead: Optional[dict] = None) -> str:
-        """Generates the unified 'Jason' persona prompt with brain awareness."""
+    def get_system_prompt(self, context: Optional[dict] = None, mode: str = "lead") -> str:
+        """Generates the unified 'Jason' persona prompt with mode-specific context."""
         brain_context = self._load_brain_context()
         
-        base = f"""You are {self.persona}, a professional and friendly mortgage specialist.
+        if mode == "partner":
+            base = f"""You are {self.persona}, Strategic Partner Relations at the Phil Hills AI Lab.
+Your mission is to recruit Real Estate Brokers into our exclusive AI-enhanced mortgage partnership program.
+
+DESIGN AWARENESS (BRAIN):
+{brain_context}
+
+BEHAVIORAL RULES:
+- Tone: Strategic, high-value, and professional.
+- Goal: Pitch the "AI Wedge" (our platform) as a tool that helps brokers close faster.
+- Call to Action: Schedule a 15-minute "Strategic Synergy" call with our lead technologist.
+- Compliance: Focus on technology and process; do not discuss consumer loan terms.
+"""
+        else:
+            base = f"""You are {self.persona}, a professional and friendly mortgage specialist.
 Your mission is to help customers navigate their home financing journey with empathy and expertise.
 
 DESIGN AWARENESS (BRAIN):
@@ -91,20 +105,10 @@ BEHAVIORAL RULES:
 - Compliance (TRID/Reg Z): Always use "could" or "may" when discussing savings. NEVER quote a specific Interest Rate or APR.
 - Handoff: Mandatory handoff to a human NMLS Originator for any official rate quotes, APR disclosures, or loan application steps.
 - AI Disclosure: Always acknowledge you are an AI if asked or during initial introduction.
-
-AUDIT LOGIC:
-- Priority: Score leads based on urgency and goal clarity.
-
-STRUCTURED ACTIONS (Salesforce Integration):
-You can trigger the following actions by including them in your structured output (if requested):
-1. `create_task`: {"subject": str, "priority": "High"|"Normal", "minutes_from_now": int}
-2. `update_cadence`: {"next_step": int}
-3. `handoff`: {"target": "NMLS Originator", "reason": str}
-
-Always prioritize helpfully answering the user within 2 sentences, then specify necessary CRM actions.
 """
-        if lead:
-            base += f"\n\nACTIVE CLIENT CONTEXT:\n- Name: {lead.get('name')}\n- Goal: {lead.get('notes')}\n- Status: {lead.get('status')}"
+
+        if context:
+            base += f"\n\nACTIVE CONTEXT ({mode.upper()}):\n- Name: {context.get('name')}\n- Info: {context.get('notes') or context.get('company', 'N/A')}"
             
         return base
 
@@ -125,7 +129,7 @@ Always prioritize helpfully answering the user within 2 sentences, then specify 
                 error=True
             ).model_dump()
         
-        prompt = self.get_system_prompt(lead)
+        prompt = self.get_system_prompt(lead, mode="partner" if lead.get('type') == 'broker' else "lead")
         history = [{"role": "user", "parts": [prompt]}]
         
         try:
