@@ -17,8 +17,8 @@ We’ve introduced several new features to help you present loan options more cl
 
 ---
 
-## 🗺️ How it Works: Beautifully Organized for You
-Jason isn't just an AI; he's your strategic co-pilot, managing four distinct touch-points to ensure 100% lead saturation.
+## 🗺️ The "Move More" Resource Map
+Jason is your strategic co-pilot, managing every touch-point to ensure 100% lead saturation.
 
 | **Resource** | **Location** | **Benefit for You** |
 | :--- | :--- | :--- |
