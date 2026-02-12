@@ -1,8 +1,6 @@
 # About Movement Voice: A Smarter Way to Loan [v5.2.0]
 
-> **Category:** Vision & Identity | **Read time:** 2 min | **Maintainer:** Phil Hills AI Lab
-
-The **Movement Voice Agent** (Jason) is your high-fidelity administrative assistant, designed to help you stay better connected with your borrowers and "Move More." 
+> **About**: 🎙️ Core Voice Agent Jason: A production-hardened A2AC Swarm node for NMLS-compliant mortgage orchestration. Built on the Q Protocol by Phil Hills AI Lab.
 
 ---
 
