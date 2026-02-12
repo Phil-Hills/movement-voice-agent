@@ -31,7 +31,33 @@ Jason is only as powerful as the tools we provide him. These integrated services
 
 ---
 
-## 🏢 3. Branch Level: Scalable Infrastructure
+## ☁️ 3. Cloud Infrastructure & Token Economics
+Movement Voice is built for high-scale, low-latency performance through specialized cloud orchestration.
+
+*   **Platform Hosting (GCP/Cloud Run)**: ~$15 - $45 / month (Base standby).
+    *   *Benefit*: Pay-per-request model ensures zero wasted expenditure during off-peak hours.
+*   **Token Optimization (Gemini 2.0 Flash)**: 
+    *   Estimated ~1,500 tokens per interaction turn.
+    *   *Efficiency*: By utilizing the **Q Protocol**, we minimize redundant context, ensuring every token contributes directly to borrower satisfaction.
+
+---
+
+## 🚀 4. The Strategic Edge: A2AC Benefits
+The **Agent-to-Agent Communication (A2AC)** mesh provides benefits that traditional automation cannot match:
+
+✅ **Asymmetric Support**: Jason operates as a sovereign node, delegating document analysis and research to sub-agents without human intervention.
+✅ **Scalability**: Spin up a "Swarm" of agents during peak season and scale back instantly when the market shifts.
+✅ **Resiliency**: If one utility node faces downtime, the A2AC mesh reroutes the task to ensure the borrower conversation never breaks.
+
+---
+
+## 🏛️ 5. Intellectual Property & Sovereignty
+> [!IMPORTANT]
+> **Proprietary Sovereignty**: This platform, including the **Movement Voice Engine**, the **A2AC Swarm Protocols**, and the **Q-Orchestration Layer**, is the exclusive intellectual property of **Phil Hills**. Its implementation within the branch environment represents a sovereign strategic asset, designed to elevate the human originator through proprietary enterprise AI.
+
+---
+
+## 🏗️ 6. Corporate Level: Enterprise Efficiency
 For the Branch Manager, Movement Voice transforms "Marketing Expense" into "Production Growth."
 
 *   **Platform Orchestration**: A flat monthly subscription through the **MORE Marketplace** covers the core "Brain" and Salesforce sync.
