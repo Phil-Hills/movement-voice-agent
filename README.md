@@ -27,7 +27,7 @@ Jason is your strategic co-pilot, managing every touch-point to ensure 100% lead
 | **🔭 Strategy** | [Workflow 2026](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/ORIGINATOR_WORKFLOW_2026.md) | See how Jason handles the 'Marathon' doc chase. |
 | **⚡ Operations** | [Admin Guide](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/SF_ADMIN_GUIDE.md) | Easy setup for your Salesforce environment. |
 | **💰 Economics** | [Unit ROI](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/COST_ECONOMICS.md) | Massive savings vs. traditional cold-calling. |
-| **🔭 MORE Bridge**| [SF Evolution](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SALESFORCE_MORE_STRATEGY.md) | Bridging the Agentforce gap until June. |
+| **🔭 MORE Sync** | [SF MORE Strategy](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/SALESFORCE_MORE_STRATEGY.md) | Deep integration with Movement's MORE platform. |
 
 👉 [Learn step by step how to get started with Movement Voice](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/INSTALL_GUIDE.md)
 
