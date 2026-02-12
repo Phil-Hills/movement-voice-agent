@@ -2,7 +2,10 @@
 
 > **Category:** LO Success | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
 
-Welcome to the team! This guide explains a smarter way to work with **Jason**, our autonomous AI assistant, so you can focus on building relationships and "Moving More."
+> **Category:** LO Success | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
+
+## ⚡ Zero-Tech Friction: Your Focus is People
+At Movement, we believe you shouldn't have to be a technologist to be a top producer. Jason is designed to handle 100% of the technical heavy lifting, allowing you to spend your time where it matters: **connecting with borrowers.**
 
 ---
 

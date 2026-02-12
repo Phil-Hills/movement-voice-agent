@@ -9,6 +9,8 @@ The **Movement Voice Agent** (Jason) is your high-fidelity administrative assist
 ## 🎯 Our Mission: Winning the Human Relationship
 We believe in a world where Loan Officers are freed from procedural friction. Our mission is to provide a warm, empathetic, and professional voice for your mortgage inquiries, ensuring you can focus on what matters most: **Human Connection and Expert Advice.**
 
+✅ **Zero-Tech Friction**: We build tools that handle the complexity so the human originator doesn't have to. You focus on the borrower; we'll handle the protocols.
+
 ## 🧠 The Jason Persona: Your Strategic Co-Pilot
 - **Strategic Co-Pilot**: Jason is an administrative assistant, not a replacement. He handles the procedural "marathon" so you can focus on the closing.
 - **Human-in-the-Loop Governance**: Every branch is supported by a **Salesforce AI Agent Admin** who ensures Jason is always aligned with local market needs and data standards.

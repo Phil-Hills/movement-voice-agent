@@ -13,6 +13,7 @@
 For the NMLS Originator, Jason is a force multiplier that protects your time.
 
 *   **A Smarter Way to Qualify**: Jason handles the initial "cold" outreach, identifying high-intent borrowers so you only talk to the most ready-to-move clients.
+*   **Zero-Tech Friction**: You don't need to learn a new app or manage a complex dialer. Jason works quietly in the background, surfacing "Hot Leads" directly into your existing Salesforce dashboard.
 *   **The Doc Chase Marathon**: Never spend your afternoon chasing a missing W2 again. Jason handles the repetitive follow-ups for you.
 *   **Relationship Reinforcement**: Jason stays top-of-mind with your borrowers for years, triggering anniversary calls and mailers to secure future recaptures.
 *   **✅ Your Win**: You reclaim your attention to focus on high-stakes negotiation and building deep local relationships.
