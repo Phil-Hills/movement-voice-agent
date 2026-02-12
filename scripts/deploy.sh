@@ -7,7 +7,8 @@ set -e
 
 # Configuration
 PROJECT_ID=$(gcloud config get-value project)
-SERVICE_NAME="voice-sales-agent"
+# --- CONFIG ---
+SERVICE_NAME="core-voice-agent"
 REGION="us-central1"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
 

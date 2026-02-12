@@ -1,7 +1,7 @@
-# Model Card: Movement Voice Agent
+# Model Card: Core Voice Agent
 
 ## Model Details
-- **Name**: Movement Voice Agent (Jason)
+- **Name**: Core Voice Agent (Jason)
 - **Version**: 1.0
 - **Date**: January 2026
 - **Authors**: Phil Hills AI Lab
@@ -118,9 +118,9 @@ Autonomous voice agent utilizing Google Gemini 3 Flash Preview for real-time con
 ## Citing This Work
 
 ```bibtex
-@software{movement_voice_agent_2026,
+@software{core_voice_agent_2026,
   author = {Hills, Phil},
-  title = {Movement Voice Agent: Autonomous AI Sales Agent with Q Protocol},
+  title = {Core Voice Agent: Autonomous AI Sales Agent with Q Protocol},
   year = {2026},
   publisher = {Phil Hills AI Lab},
   url = {https://github.com/Phil-Hills/movement-voice-agent}

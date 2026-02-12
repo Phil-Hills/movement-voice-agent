@@ -51,7 +51,7 @@ class CampaignManager:
                     "state": row.get("Subject Property: Address: State") or row.get("State", "WA"),
                     "loan_amount": row.get("Total Loan Amount") or row.get("Amount", "$0"),
                     "interest_rate": row.get("Interest Rate", "0.0%"),
-                    "company": "Movement Mortgage" # Default context
+                    "company": "Mortgage Services" # Default context
                 }
                 self.active_campaign.append(lead)
             
@@ -85,7 +85,7 @@ class CampaignManager:
                     "phone": row.get('Phone', ''),
                     "city": row.get('City', 'Unknown'),
                     "state": row.get('State', 'WA'),
-                    "company": row.get('Company', 'Movement Mortgage'),
+                    "company": row.get('Company', 'Mortgage Services'),
                     "sf_id": row.get('Id') # Store SF ID for write-back
                 }
                 self.active_campaign.append(lead)

@@ -3,23 +3,24 @@ from core.agent_engine import AgentEngine
 from agent_interface import BaseAgent
 import os
 
-logger = logging.getLogger("movement_agent")
+logger = logging.getLogger("core_voice_agent")
 
-class MovementAgent(BaseAgent):
+class CoreAgent(BaseAgent):
     """
-    The specific 'Jason' agent for Movement Mortgage.
-    Implements the Q Protocol and A2AC interface.
+    Core implementation of the 'Jason' persona.
     """
     
-    def __init__(self):
+    def __init__(self, google_api_key: str, project_id: str):
         super().__init__(
+            agent_id="jason-v4",
             name="Jason",
-            description="Movement Mortgage Specialist - Friendly, Professional, Compliant",
+            role="Mortgage Specialist",
+            description="Friendly, Professional, Compliant",
             capabilities=["mortgage", "salesforce", "telephony", "research"]
         )
         self.engine = AgentEngine(
-            google_api_key=os.getenv("GOOGLE_API_KEY"),
-            project_id=os.getenv("GOOGLE_CLOUD_PROJECT", "deployment-2026-core")
+            google_api_key=google_api_key,
+            project_id=project_id
         )
 
     async def generate_response(self, user_input: str, lead_context: dict = None) -> str:

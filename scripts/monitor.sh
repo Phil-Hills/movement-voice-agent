@@ -11,8 +11,9 @@ RED='\033[0;31m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
-# Config
-API_URL="http://localhost:8080"
+# --- CONFIG ---
+SERVICE_NAME="Core Voice Agent"
+APP_URL="http://localhost:8080"
 POLL_INTERVAL=2
 
 clear
@@ -32,13 +33,13 @@ while true; do
     
     # Draw Interface
     echo -e "${CYAN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
-    echo -e "${CYAN}${BOLD}  MOVEMENT VOICE AGENT MONITOR | AGENT: ${PERSONA} | MISSION CONTROL${RESET}"
+    echo -e "${CYAN}${BOLD}  CORE VOICE AGENT MONITOR | AGENT: ${PERSONA} | MISSION CONTROL${RESET}"
     echo -e "${CYAN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
     echo -e "  DATE: $(date +'%Y-%m-%d %H:%M:%S')"
     echo -e "  SYSTEM STATUS: ${GREEN}${BOLD}${STATUS}${RESET}"
     echo ""
     
-    echo -e "${BOLD}[ CAMPAIGN METRICS ]${RESET}"
+    echo -e "${BOLD}--- MISSION CONTROL: JASON v4.1.0 ---${RESET}"
     if [ "$RUNNING" == "true" ]; then
         echo -e "  STATUS: ${GREEN}${BOLD}ACTIVE RUNNING${RESET}"
     else

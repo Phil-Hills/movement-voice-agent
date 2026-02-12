@@ -1,12 +1,15 @@
-# Project Context: Movement Voice Agent
+# Project Context: Core Voice Agent
 
 ## 📍 Location
 - **Directory**: `c:\Users\bphil\movement-voice-agent`
 - **Type**: Python / FastAPI Backend
 
-## 🎯 Project Goals
-1.  **AI Voice Agent (Jason)**: High-fidelity mortgage specialist with VA/Conv/Jumbo logic.
-2.  **Salesforce Integration**: Hardened bi-directional sync (11-touch cadence).
+## CORE VOICE AGENT [Project: Jason]
+
+This repository contains a high-fidelity, production-grade AI voice agent designed for outbound mortgage sales and lead orchestration.
+
+### 🎯 CURRENT OBJECTIVE
+Transition from a hackathon prototype to a professional enterprise-grade platform for mortgage services.
 3.  **Modular Logic**: Separation of AgentEngine, LeadManager, and ResearchEngine for production stability.
 
 ## 🏗️ Architecture

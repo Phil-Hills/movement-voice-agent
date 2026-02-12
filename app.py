@@ -20,12 +20,12 @@ load_dotenv()
 
 # ============ LOGGING ============
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger("movement-agent")
+logger = logging.getLogger("core-voice-agent")
 
 # ============ APP SETUP ============
 app = FastAPI(
-    title="Movement Voice Agent - Jason",
-    description="Professional AI Voice Agent for Movement Mortgage",
+    title="Core Voice Agent - Jason",
+    description="Professional AI Voice Agent for Mortgage Services",
     version="4.1.0"
 )
 
@@ -122,7 +122,7 @@ async def generate_pitch():
         raise HTTPException(status_code=400, detail="No lead selected")
     
     lead = lead_manager.get_lead(current_lead_id)
-    prompt = f"Generate a professional, warm 30-second phone pitch for {lead['name']} from {lead['company']}. Highlight the Movement Mortgage advantage."
+    prompt = f"Generate a professional, warm 30-second phone pitch for {lead['name']} from {lead['company']}. Highlight our mortgage expertise and service advantage."
     
     response = await agent_engine.get_response(prompt, lead, thinking_level="high")
     return {"pitch": response["text"]}

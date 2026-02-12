@@ -1,8 +1,8 @@
-# 🎙️ Movement Voice Agent — Gemini 3 Hackathon Submission
+# 🎙️ Core Voice Agent — Gemini 3 Hackathon Submission
 
 ## Gemini 3 Integration (~200 words)
 
-**Movement Voice Agent** is an autonomous outbound sales agent powered by **Gemini 3 Flash Preview** that operates across voice, SMS, and email channels without human supervision.
+**Core Voice Agent** is an autonomous outbound sales agent powered by **Gemini 3 Flash Preview** that operates across voice, SMS, and email channels without human supervision.
 
 ### Core Gemini 3 Features Used:
 
@@ -33,7 +33,7 @@ This system replaces an entire sales team workflow. Gemini 3 doesn't just respon
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   MOVEMENT VOICE AGENT                      │
+│                     CORE VOICE AGENT                        │
 ├─────────────────────────────────────────────────────────────┤
 │   Vonage/Dialogflow CX  ──►  FastAPI Webhook               │
 │              │                                              │

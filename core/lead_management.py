@@ -112,7 +112,7 @@ class LeadManager:
 
     def calculate_lead_score(self, lead: dict) -> int:
         """
-        Calculates proprietary lead score based on Movement Mortgage rubric.
+        Calculates proprietary lead score based on industry-standard rubric.
         - VA: +10 base
         - Contacted: +15
         - Goal Stated: +20
@@ -148,7 +148,7 @@ class LeadManager:
                 "name": row.get("Primary Borrower", row.get("name", row.get("Name", "Unknown"))),
                 "email": row.get("Primary Borrower: Email", row.get("email", row.get("Email", ""))),
                 "phone": row.get("phone", row.get("Phone", "")),
-                "company": row.get("company", row.get("Company", "Movement Mortgage")),
+                "company": row.get("company", row.get("Company", "Mortgage Services")),
                 "notes": f"Program: {row.get('Program', 'N/A')}. Rate: {row.get('Interest Rate', 'N/A')}",
                 "source": "csv_upload",
                 "status": "new"
