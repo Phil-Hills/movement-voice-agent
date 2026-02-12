@@ -1,7 +1,5 @@
 # 🎙️ Movement Voice Agent (Jason)
 
-> **🏆 Google DeepMind Gemini 3 Hackathon Entry — Marathon Agent Track**
-
 Enterprise-grade AI Voice Agent. This agent handles outbound telephony via **Vonage/Dialogflow CX**, powered by **Gemini 3 Flash Preview** with autonomous multi-channel tool execution.
 
 ## 🧠 System Architecture
