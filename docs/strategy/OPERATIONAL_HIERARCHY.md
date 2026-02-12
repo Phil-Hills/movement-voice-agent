@@ -2,6 +2,8 @@
 
 > **Category:** Strategic Vision | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
 
+👉 [Review the full Unit Economics & ROI Model](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/COST_ECONOMICS.md)
+
 **Movement Voice** is designed to scale with your ambition. Whether you are an individual Loan Officer or a Corporate Executive, our platform provides a smarter way to connect and grow.
 
 ---

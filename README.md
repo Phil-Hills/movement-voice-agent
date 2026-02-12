@@ -24,6 +24,7 @@ Jason isn't just an AI; he's your strategic co-pilot, managing four distinct tou
 | **📑 Compliance** | [Safety Gate](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/compliance/LICENSED_DUTY_GUARDRAILS.md) | Stay 100% compliant with NMLS duty guardrails. |
 | **🔭 Strategy** | [Workflow 2026](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/ORIGINATOR_WORKFLOW_2026.md) | See how Jason handles the 'Marathon' doc chase. |
 | **⚡ Operations** | [Admin Guide](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/SF_ADMIN_GUIDE.md) | Easy setup for your Salesforce environment. |
+| **💰 Economics** | [Unit ROI](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/strategy/COST_ECONOMICS.md) | Massive savings vs. traditional cold-calling. |
 
 👉 [Learn step by step how to get started with Movement Voice]
 
