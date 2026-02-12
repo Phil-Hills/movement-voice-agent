@@ -1,9 +1,17 @@
+"""
+Reviewer Agent - Audit Layer.
+
+This module acts as the "Audit Layer" for the Q Protocol.
+It performs strict, adversarial review of AI-generated content to ensure
+falsifiability, consistency, and adherence to security standards.
+
+The Reviewer Agent is designed to be unhelpful—it only critiques, never suggests.
+"""
 
 import json
 import logging
-from typing import Dict, Any, Optional
 import re
-from datetime import datetime
+from typing import Any, Dict, Optional
 
 # Configure logging
 logger = logging.getLogger("reviewer-interface")
@@ -71,10 +79,26 @@ Return ONLY valid JSON. No markdown prologue, no conversational filler. No code 
 }
 """
 
-async def review_content(content: str, model, submission_id: str = "S001", model_local=None) -> Dict[str, Any]:
+async def review_content(
+    content: str,
+    model: Any,
+    submission_id: str = "S001",
+    model_local: Optional[Any] = None
+) -> Dict[str, Any]:
     """
     Review content using the Reviewer Agent logic.
-    Accepts a Gemini GenerativeModel instance and an optional local model for fallback.
+
+    This function invokes the AI model with a strict system prompt to evaluate
+    the submission against the Q Protocol rubric.
+
+    Args:
+        content: The text content to review.
+        model: The primary GenerativeModel instance (e.g., Gemini).
+        submission_id: Unique identifier for the submission.
+        model_local: Optional local LLM client for fallback.
+
+    Returns:
+        Dict[str, Any]: The structured review result (verdict, score, issues).
     """
     logger.info(f"⚖️ Reviewing submission {submission_id}...")
     

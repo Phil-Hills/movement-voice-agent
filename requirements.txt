@@ -10,3 +10,4 @@ simple-salesforce
 httpx>=0.25.0
 msgpack
 blake3
+python-dateutil>=2.8.0

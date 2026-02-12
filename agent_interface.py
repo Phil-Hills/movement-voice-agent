@@ -1,27 +1,40 @@
+"""
+Q Protocol Agent Interface.
+
+This module defines the standard interface for AI Agents within the
+Q Protocol system. It handles structured communication, task requests,
+and verifiable receipts (TaskResponse).
+"""
+
+import datetime
 import logging
 import uuid
-import datetime
-import json
-from dataclasses import dataclass, field, asdict
-from typing import Dict, Any, Optional, List
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
 
 logger = logging.getLogger("agent_interface")
 
 @dataclass
 class AgentCard:
+    """
+    Metadata card describing an agent's identity and capabilities.
+    """
     uuid: str
     name: str
     description: str
     version: str = "1.0.0"
-    capabilities: list = field(default_factory=list)
+    capabilities: List[str] = field(default_factory=list)
 
 @dataclass
 class TaskRequest:
+    """
+    A structured request for an agent to perform work.
+    """
     requester_id: str
     content: str
     task_id: str = field(default_factory=lambda: str(datetime.datetime.now().timestamp()))
-    context: dict = field(default_factory=dict)
-    headers: dict = field(default_factory=lambda: {
+    context: Dict = field(default_factory=dict)
+    headers: Dict = field(default_factory=lambda: {
         "x-a2a-context-id": str(uuid.uuid4()),
         "x-a2a-hop-count": "0",
         "x-a2a-timestamp": datetime.datetime.utcnow().isoformat()
@@ -29,24 +42,41 @@ class TaskRequest:
 
 @dataclass
 class TaskResponse:
+    """
+    A verifiable receipt of work performed by an agent.
+    """
     task_id: str
     responder_id: str
     status: str
     output: str
-    artifacts: list = field(default_factory=list)
+    artifacts: List = field(default_factory=list)
     timestamp: str = field(default_factory=lambda: datetime.datetime.utcnow().isoformat())
-    headers: dict = field(default_factory=dict)
+    headers: Dict = field(default_factory=dict)
     
     def to_receipt(self) -> str:
-        """Generate a Q Protocol Receipt String"""
+        """
+        Generate a concise Q Protocol Receipt String.
+
+        Returns:
+            str: The formatted receipt (RCPT:Responder:ID:Status:Size).
+        """
         return f"RCPT:{self.responder_id}:{self.task_id}:{self.status}:{len(self.output)}b"
 
 class BaseAgent:
     """
     Abstract base agent that communicates via the A2A+Cube protocol.
+
     Ported for Movement Voice Agent.
     """
     def __init__(self, name: str, description: str, capabilities: Optional[List[str]] = None):
+        """
+        Initialize the agent with a card and stats.
+
+        Args:
+            name: Agent name.
+            description: Description of role.
+            capabilities: List of capability strings.
+        """
         self.card = AgentCard(
             uuid=str(uuid.uuid4()),
             name=name,
@@ -63,7 +93,16 @@ class BaseAgent:
     def sign_off_task(self, request: TaskRequest, status: str, output: str) -> TaskResponse:
         """
         Generate a Receipt (TaskResponse) for a completed task.
-        This is the 'Sign-off' procedure required by Q Protocol.
+
+        This constitutes the 'Sign-off' procedure required by Q Protocol.
+
+        Args:
+            request: The original TaskRequest.
+            status: Outcome status (e.g., 'success').
+            output: Resulting content/summary.
+
+        Returns:
+            TaskResponse: The signed receipt.
         """
         response = TaskResponse(
             task_id=request.task_id,
@@ -78,6 +117,16 @@ class BaseAgent:
     def create_ad_hoc_receipt(self, action: str, details: str, status: str = "completed") -> TaskResponse:
         """
         Create a receipt for an internal action without a formal request.
+
+        Useful for logging autonomous decisions (e.g., Company Research).
+
+        Args:
+            action: The action name.
+            details: Details of the action.
+            status: Outcome status.
+
+        Returns:
+            TaskResponse: The generated receipt.
         """
         response = TaskResponse(
             task_id=f"adhoc_{datetime.datetime.now().timestamp()}",

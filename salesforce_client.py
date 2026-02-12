@@ -1,5 +1,5 @@
 """
-Salesforce AgentForce Integration Client
+Salesforce AgentForce Integration Client.
 
 This module provides integration with Salesforce CRM for the Movement Voice Agent.
 It handles authentication, lead retrieval, disposition updates, and task creation.
@@ -7,11 +7,15 @@ It handles authentication, lead retrieval, disposition updates, and task creatio
 Part of the Q Protocol dual-orchestrator architecture.
 """
 
-from simple_salesforce import Salesforce
-import os
+import json
 import logging
-from typing import Optional, Dict, Any, List
+import os
+import tempfile
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+
+import dateutil.parser
+from simple_salesforce import Salesforce
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +28,8 @@ class SalesforceClient:
     syncing agent state, lead data, and call dispositions.
     """
     
+    DEMO_LOG_FILE = os.path.join(tempfile.gettempdir(), "demo_activity.json")
+
     def __init__(self):
         """Initialize Salesforce connection using environment variables."""
         self.sf: Optional[Salesforce] = None
@@ -31,12 +37,17 @@ class SalesforceClient:
         self._connect()
     
     def _connect(self) -> bool:
-        """Establish connection to Salesforce."""
+        """
+        Establish connection to Salesforce.
+
+        Returns:
+            bool: True if connection successful, False otherwise.
+        """
         try:
             username = os.environ.get("SF_USERNAME")
             password = os.environ.get("SF_PASSWORD")
             security_token = os.environ.get("SF_TOKEN")
-            domain = os.environ.get("SF_DOMAIN", "login")  # 'login' for prod, 'test' for sandbox
+            domain = os.environ.get("SF_DOMAIN", "login")
             
             if not all([username, password, security_token]):
                 logger.warning("Salesforce credentials not configured. Running in demo mode.")
@@ -58,7 +69,12 @@ class SalesforceClient:
     
     @property
     def is_connected(self) -> bool:
-        """Check if Salesforce connection is active."""
+        """
+        Check if Salesforce connection is active.
+
+        Returns:
+            bool: True if connected.
+        """
         return self.sf is not None
     
     # =========================================================================
@@ -70,10 +86,10 @@ class SalesforceClient:
         Retrieve a lead by ID.
         
         Args:
-            lead_id: Salesforce Lead ID (18 characters)
+            lead_id: Salesforce Lead ID (18 characters).
             
         Returns:
-            Lead record dict or None
+            Optional[Dict[str, Any]]: Lead record dict or None.
         """
         if not self.is_connected:
             return self._demo_lead(lead_id)
@@ -90,11 +106,11 @@ class SalesforceClient:
         Get leads associated with a campaign.
         
         Args:
-            campaign_id: Salesforce Campaign ID
-            limit: Maximum number of leads to return
+            campaign_id: Salesforce Campaign ID.
+            limit: Maximum number of leads to return.
             
         Returns:
-            List of lead records
+            List[Dict[str, Any]]: List of lead records.
         """
         if not self.is_connected:
             return [
@@ -113,14 +129,13 @@ class SalesforceClient:
             """
             result = self.sf.query(query)
             leads = result.get('records', [])
-            # Fallback for demo if connected but no leads found (e.g. empty test org)
+
             if not leads and "TEST" in campaign_id:
                 logger.info("Connected but no leads found for TEST campaign. Using mock data.")
                 return [self._demo_lead(f"lead_test_{i}") for i in range(1, 4)]
             return leads
         except Exception as e:
             logger.error(f"Failed to query leads for campaign {campaign_id}: {e}")
-            # Fallback to mock data on error so verification can proceed
             return [self._demo_lead(f"err_lead_{i}") for i in range(1, 4)]
     
     def update_lead_disposition(
@@ -134,13 +149,13 @@ class SalesforceClient:
         Update lead with call disposition.
         
         Args:
-            lead_id: Salesforce Lead ID
-            disposition: Call outcome (e.g., "Callback Scheduled", "Not Interested")
-            notes: Optional call notes
-            call_count: Current call attempt number (1-11 for full cadence)
+            lead_id: Salesforce Lead ID.
+            disposition: Call outcome.
+            notes: Optional call notes.
+            call_count: Current call attempt number.
             
         Returns:
-            Success status
+            bool: Success status.
         """
         if not self.is_connected:
             logger.info(f"[DEMO] Would update lead {lead_id} with disposition: {disposition}")
@@ -152,7 +167,6 @@ class SalesforceClient:
                 "Description": notes or f"AI Agent call - {disposition}"
             }
             
-            # Custom fields for call tracking (if they exist in org)
             if call_count:
                 update_data["Call_Attempt__c"] = call_count
             
@@ -165,7 +179,15 @@ class SalesforceClient:
             return False
     
     def _map_disposition_to_status(self, disposition: str) -> str:
-        """Map agent disposition to Salesforce Lead Status."""
+        """
+        Map agent disposition to Salesforce Lead Status.
+
+        Args:
+            disposition: The agent's outcome label.
+
+        Returns:
+            str: The corresponding Salesforce status.
+        """
         mapping = {
             "INTERESTED": "Working - Contacted",
             "CALLBACK_SCHEDULED": "Working - Contacted",
@@ -179,7 +201,7 @@ class SalesforceClient:
         return mapping.get(disposition, "Open - Not Contacted")
     
     # =========================================================================
-    # TASK OPERATIONS (for 11-touch cadence tracking)
+    # TASK OPERATIONS
     # =========================================================================
     
     def create_task(
@@ -194,14 +216,14 @@ class SalesforceClient:
         Create a follow-up task for a lead.
         
         Args:
-            lead_id: Related Lead ID
-            subject: Task subject
-            description: Task description/notes
-            due_date: When the task is due
-            priority: High, Normal, or Low
+            lead_id: Related Lead ID.
+            subject: Task subject.
+            description: Task description/notes.
+            due_date: When the task is due.
+            priority: High, Normal, or Low.
             
         Returns:
-            Created Task ID or None
+            Optional[str]: Created Task ID or None.
         """
         if not self.is_connected:
             logger.info(f"[DEMO] Would create task for lead {lead_id}: {subject}")
@@ -238,18 +260,15 @@ class SalesforceClient:
         """
         Log a completed call as a Task.
         
-        This is part of the 11-touch cadence - each call is logged
-        and the next follow-up is scheduled automatically.
-        
         Args:
-            lead_id: Related Lead ID
-            call_outcome: Disposition of the call
-            duration_seconds: Call duration
-            notes: Conversation summary
-            call_number: Which call in the cadence (1-11)
+            lead_id: Related Lead ID.
+            call_outcome: Disposition of the call.
+            duration_seconds: Call duration.
+            notes: Conversation summary.
+            call_number: Which call in the cadence.
             
         Returns:
-            Created Task ID or None
+            Optional[str]: Created Task ID or None.
         """
         subject = f"AI Agent Call #{call_number} - {call_outcome}"
         description = f"""
@@ -267,10 +286,6 @@ Notes:
             description=description,
             priority="Normal"
         )
-    
-    import json
-    
-    DEMO_LOG_FILE = "/tmp/demo_activity.json"
 
     def _get_demo_log(self) -> List[Dict[str, Any]]:
         """Read demo activity log from file."""
@@ -292,7 +307,16 @@ Notes:
             logger.error(f"Failed to save demo log: {e}")
 
     def log_demo_activity(self, lead_name: str, status: str, company: str, notes: str, recording_url: Optional[str] = None):
-        """Manually log activity in demo mode (for CampaignManager)."""
+        """
+        Manually log activity in demo mode (for CampaignManager).
+
+        Args:
+            lead_name: Name of the lead.
+            status: Call status.
+            company: Company name.
+            notes: Call notes.
+            recording_url: URL to the recording.
+        """
         current_log = self._get_demo_log()
         
         new_entry = {
@@ -314,7 +338,6 @@ Notes:
         current_log = current_log[:20]
         
         self._save_demo_log(current_log)
-        # Update in-memory too just in case
         self._demo_activity_log = current_log
 
     def get_recent_leads(self, limit: int = 5) -> List[Dict[str, Any]]:
@@ -322,10 +345,10 @@ Notes:
         Get recently created or updated leads.
         
         Args:
-            limit: Number of leads to return
+            limit: Number of leads to return.
             
         Returns:
-            List of lead records enriched with status info
+            List[Dict[str, Any]]: List of lead records.
         """
         demo_leads = self._get_demo_log()[:limit]
         
@@ -367,7 +390,7 @@ Notes:
         Calculate stats for the dashboard.
         
         Returns:
-            Dict containing counts for today's calls, appointments, etc.
+            Dict[str, Any]: containing counts for today's calls, appointments, etc.
         """
         if not self.is_connected:
             return {
@@ -414,11 +437,6 @@ Notes:
     def _format_relative_time(self, date_str: str) -> str:
         """Format ISO date string to relative time (e.g. '5 mins ago')."""
         try:
-            # Salesforce returns: 2026-01-22T23:15:00.000+0000
-            # Simple python helper
-            from datetime import datetime
-            import dateutil.parser
-            
             dt = dateutil.parser.parse(date_str)
             now = datetime.now(dt.tzinfo)
             diff = now - dt
@@ -447,10 +465,10 @@ Notes:
         Look up a contact by phone number.
         
         Args:
-            phone: Phone number to search
+            phone: Phone number to search.
             
         Returns:
-            Contact record or None
+            Optional[Dict[str, Any]]: Contact record or None.
         """
         if not self.is_connected:
             return self._demo_contact(phone)
@@ -478,7 +496,15 @@ Notes:
     # =========================================================================
     
     def _demo_lead(self, lead_id: str) -> Dict[str, Any]:
-        """Return demo lead data when not connected to Salesforce."""
+        """
+        Return demo lead data when not connected to Salesforce.
+
+        Args:
+            lead_id: Mock Lead ID.
+
+        Returns:
+            Dict[str, Any]: Mock lead object.
+        """
         return {
             "Id": lead_id,
             "FirstName": "Demo",
@@ -492,6 +518,16 @@ Notes:
             "Description": "Demo lead for testing"
         }
     
+    def _demo_contact(self, phone: str) -> Dict[str, Any]:
+        """
+        Return demo contact data.
+
+        Args:
+            phone: Mock phone number.
+
+        Returns:
+            Dict[str, Any]: Mock contact object.
+        """
         return {
             "Id": "demo_contact",
             "FirstName": "Demo",
@@ -507,7 +543,12 @@ _client: Optional[SalesforceClient] = None
 
 
 def get_salesforce_client() -> SalesforceClient:
-    """Get the singleton Salesforce client instance."""
+    """
+    Get the singleton Salesforce client instance.
+
+    Returns:
+        SalesforceClient: The singleton instance.
+    """
     global _client
     if _client is None:
         _client = SalesforceClient()
