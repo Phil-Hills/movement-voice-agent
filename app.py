@@ -147,7 +147,7 @@ async def generate_pitch():
         raise HTTPException(status_code=400, detail="No lead selected")
     
     lead = lead_manager.get_lead(current_lead_id)
-    prompt = f"Generate a professional, warm 30-second phone pitch for {lead['name']} from {lead['company']}. Highlight our mortgage expertise and service advantage."
+    prompt = f"Generate a professional, warm 30-second phone pitch for {lead['name']} from {lead['company']}. Highlight our mortgage expertise and service advantage. COMPLIANCE: Do not quote specific interest rates or APRs; focus on service and expertise."
     
     response = await agent_engine.get_response(prompt, lead, thinking_level="high")
     return {"pitch": response["text"]}

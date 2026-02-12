@@ -19,6 +19,7 @@ class LeadModel(BaseModel):
     source: str = "unknown"
     status: str = "new"
     score: int = 0
+    do_not_call: bool = False
     created_at: str = Field(default_factory=lambda: datetime.now().isoformat())
     updated_at: Optional[str] = None
 
@@ -151,7 +152,7 @@ class LeadManager:
                 "email": row.get("Primary Borrower: Email", row.get("email", row.get("Email", ""))),
                 "phone": row.get("phone", row.get("Phone", "")),
                 "company": row.get("company", row.get("Company", "Mortgage Services")),
-                "notes": f"Program: {row.get('Program', 'N/A')}. Rate: {row.get('Interest Rate', 'N/A')}",
+                "notes": f"Program: {row.get('Program', 'N/A')}. (Ref: {row.get('Loan Number', 'N/A')})",
                 "source": "csv_upload",
                 "status": "new"
             }

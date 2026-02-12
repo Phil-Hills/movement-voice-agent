@@ -115,13 +115,18 @@ class CampaignManager:
             lead = self.active_campaign[self.current_lead_index]
             self.current_lead_index += 1
             
+            # 0. NMLS/TCPA Check: Do Not Call Enforcement
+            if lead.get('do_not_call') or lead.get('DoNotCall'):
+                logger.info(f"🚫 Skipping {lead['name']} - Do Not Call flag detected.")
+                continue
+
             # 1. Trigger Vonage Call
             self.stats["dialed"] += 1
             logger.info(f"📞 Initiating outbound call to {lead['name']}...")
             
             # Generate NCCO for the initial greeting
             ncco = self.vonage.generate_ncco(
-                text=f"Hello {lead['name']}, this is Jason. I'm calling to follow up on your mortgage interest."
+                text=f"Hello {lead['name']}, this is Jason, an AI mortgage specialist. I'm calling to follow up on your mortgage interest."
             )
             
             call_id = self.vonage.create_outbound_call(lead['phone'], ncco)
