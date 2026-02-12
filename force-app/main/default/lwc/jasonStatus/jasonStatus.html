@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Jason (Voice Agent)" icon-name="custom:custom19">
+        <div class="slds-p-around_medium">
+            <div class="header-section">
+                <lightning-icon icon-name="action:call" size="small" alternative-text="Agent Active"></lightning-icon>
+                <span class="status-badge slds-m-left_small">{agentStatus}</span>
+            </div>
+
+            <div class="slds-m-top_medium">
+                <p class="slds-text-body_regular">{lastActionDescription}</p>
+            </div>
+
+            <div class="slds-m-top_medium footer">
+                <lightning-button label="View Transcript" onclick={handleViewTranscript}
+                    variant="neutral"></lightning-button>
+                <lightning-button label="Force Handoff" onclick={handleForceHandoff} variant="brand"
+                    class="slds-m-left_x-small"></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

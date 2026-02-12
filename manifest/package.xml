@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>JasonOrchestrator</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>LeadTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>jasonStatus</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>JasonCloudRun</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <types>
+        <members>MovementVoiceApp</members>
+        <name>ConnectedApp</name>
+    </types>
+    <version>60.0</version>
+</Package>

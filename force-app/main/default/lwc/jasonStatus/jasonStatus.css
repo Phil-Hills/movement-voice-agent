@@ -1,0 +1,11 @@
+.status-badge {
+    font-weight: bold;
+    color: #0070d2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer {
+    border-top: 1px solid #dddbda;
+    padding-top: 0.5rem;
+}
