@@ -6,8 +6,8 @@ import io
 import random
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from core.salesforce_app import SalesforceApp
-from core.vonage_client import VonageClient
+from .salesforce_app import SalesforceApp
+from .vonage_client import VonageClient
 
 logger = logging.getLogger(__name__)
 
@@ -173,7 +173,7 @@ class CampaignManager:
             recording_link = f"/api/recordings/demo_{lead.get('name', 'user').replace(' ', '_')}.mp3"
             
             # Always log to demo activity for UI visibility
-            self.sf_client.log_demo_activity(
+            self.sf_app.sf.log_demo_activity(
                 lead_name=lead['name'],
                 status=status,
                 company=lead['company'],
@@ -181,7 +181,7 @@ class CampaignManager:
                 recording_url=recording_link
             )
             
-            if self.sf_client.is_connected:
+            if self.sf_app.sf.is_connected:
                 # Real Log (if we had IDs)
                 pass
             

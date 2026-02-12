@@ -122,6 +122,8 @@ class LeadManager:
         status = lead.get("status", "new").lower()
         notes = lead.get("notes", "").lower()
         
+        # 1. Process local CSV (for demo/audit)
+        csv_path = "data/clients.csv"
         # Base Persona Scores
         if "va" in notes or "veteran" in notes:
             score += 10

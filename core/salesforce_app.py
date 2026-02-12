@@ -1,8 +1,8 @@
 import logging
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
-from salesforce_client import get_salesforce_client
-from core.lead_management import LeadModel
+from .salesforce_client import get_salesforce_client
+from .lead_management import LeadModel
 
 logger = logging.getLogger("salesforce_app")
 

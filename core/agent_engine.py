@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Optional, Dict, List, Any
 import google.generativeai as genai
 from pydantic import BaseModel, Field
-from agent_interface import BaseAgent
+from .agent_interface import BaseAgent
 
 logger = logging.getLogger("agent_engine")
 

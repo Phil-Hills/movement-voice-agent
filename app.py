@@ -15,8 +15,8 @@ from core.lead_management import LeadManager, LeadModel
 from core.research_engine import ResearchEngine
 from core.vonage_client import VonageClient
 from core.salesforce_app import SalesforceApp
-from campaign_manager import get_campaign_manager
-from salesforce_client import get_salesforce_client
+from core.campaign_manager import get_campaign_manager
+from core.salesforce_client import get_salesforce_client
 
 load_dotenv()
 

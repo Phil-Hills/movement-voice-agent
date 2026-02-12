@@ -27,11 +27,19 @@ graph TD
 *   **Intelligence:** 11-touch cadence orchestration via Salesforce.
 
 ## 📁 REPOSITORY STRUCTURE
-- `/core`: Modularized logic (AgentEngine, LeadManager, ResearchEngine).
-- `/scripts`: Operational tools (Brutalist Monitor, Deployment).
-- `agent.py`: Specialized Jason instance implementing Q Protocol.
+- `/core`: Operational logic (AgentEngine, LeadManager, Salesforce, etc.)
+- `/docs`: Strategic documentation (Guides, Safety, Context)
+- `/data`: Sandbox datasets and local configuration
+- `/scripts`: Operational tools (Brutalist Monitor, Deployment)
+- `/templates`: Web interface assets
 - `app.py`: Production-grade FastAPI entry point.
-- `salesforce_client.py`: Hardened CRM integration.
+
+## 📖 DOCUMENTATION
+- [About Jason](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ABOUT.md)
+- [Safety & Compliance](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/SAFETY.md)
+- [Originator Guide](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ORIGINATOR_GUIDE.md)
+- [Salesforce Admin Guide](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/SF_ADMIN_GUIDE.md)
+- [Demo Script](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/DEMO_SCRIPT.md)
 
 ## Strategic Design: Q Protocol & A2AC
 
@@ -47,7 +55,7 @@ This platform implementation adheres to the **Q Protocol**, a framework for dece
 This system is built with a security-first approach, designed to meet rigorous enterprise standards for data sovereignty and auditability.
 
 ### 🛡️ Data Sovereignty & Privacy
-- **Sanitized Datasets**: All demonstration data (`clients.csv`) is mocked to prevent PII exposure during audits and sandbox pilots.
+- **Sanitized Datasets**: All demonstration data ([clients.csv](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/data/clients.csv)) is mocked to prevent PII exposure.
 - **Strict Schema Enforcement**: All lead and agent interactions are validated through Pydantic models to prevent injection and data corruption.
 - **Deterministic Outbound**: The `ReviewerAgent` performs real-time audit of AI logic to ensure compliance with institutional standards.
 
