@@ -9,12 +9,7 @@ The **Movement Voice Agent** (Jason) is designed to improve borrower conversatio
 ## 📽️ Experience the Swarm
 Experience the future of mortgage orchestration today through our high-fidelity simulation suite.
 
-👉 **[Launch Movement Voice Demo Site](./demo-site/index.html)**
-*(Note: For the full experience with animations, run the command below)*
-
-```bash
-cd demo-site && npm install && npm run dev
-```
+👉 **[Launch Live Demo Site](https://movement-voice-demo-511662304947.us-central1.run.app)**
 
 👉 **[View Agentic Swarm Orchestration](./docs/strategy/SWARM_ORCHESTRATION_AND_LIFECYCLE.md)**
 👉 **[Phase 1 Install Guide: Step-by-Step Onboarding](./docs/ops/INSTALL_GUIDE.md)**
