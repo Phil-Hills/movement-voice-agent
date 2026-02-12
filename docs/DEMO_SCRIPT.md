@@ -34,12 +34,19 @@
 
 ---
 
-## 🏁 Act 4: The Handoff (2:30 - 3:00)
-**Visual**: Show `ORIGINATOR_GUIDE.md` and then finish on the logo/repo URL.
+## 🎬 Act 4: The Human in the Loop (2:15 - 3:00)
+**Visual**: Screen showing a Salesforce Task list with "Jason Handoffs" at the top.
 
 **Narrator**:
-"We provide your team with the 'Originator Guide' and 'Admin Manual' to ensure a seamless rollout. This is more than a tool; it’s a force multiplier for your sales floor."
+"But Jason isn't here to replace you. He’s here to make you a Strategic Pilot. This is the 'Day in the Life' of the 2026 Originator. While you focus on the complex, multi-million dollar closings, Jason is chasing missing W2s, recruiting new Real Estate partners, and signing his thoughts with cryptographic signatures for your review. This is the end of cold-calling, and the beginning of Cognitive Luxury."
 
+---
+
+## 🏁 Closing (3:00 - End)
+**Visual**: Logo of **Phil Hills AI Lab** with the text: **ABSOLUTE SEMANTIC DECOUPLING**.
+
+**Narrator**:
+"The Core Voice Agent. Built on the Q Protocol. Deployed by the Phil Hills AI Lab. The Action Era of AI is here. Let's build the future of finance, together."
 "The Core Voice Agent: Professional. Autonomous. Compliant. The future of mortgage sales starts here."
 
 ---
