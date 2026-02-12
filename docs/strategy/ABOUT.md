@@ -17,7 +17,11 @@ We believe in a world where Loan Officers are freed from procedural friction. Ou
 - **Sovereign Intelligence**: Built on the **Q Protocol**, ensuring Movement owns its intelligence and borrower data stays secure.
 ✅ **Empathy First**: Jason is trained to handle inquiries with the warmth and competence you expect from a Movement professional.
 ✅ **Smarter Qualification**: He uses advanced scoring to identify the most ready-to-move borrowers in your pipeline.
-✅ **Research-Driven**: Jason gives you the edge by researching listings and brokers before every conversation.
+## 🌟 The Borrower Experience: Results Over Technology
+Borrowers shouldn't have to notice our technology; they should only notice the results. We use data-driven orchestration to ensure every touchpoint feels personal, timely, and supportive.
+- **Wonderful Follow-Up**: Jason ensures no borrower feels forgotten, using all available data points to provide forward-thinking support.
+- **Forward-Thinking Marketing**: Automated, intelligent touchpoints that anticipate needs before the borrower even asks.
+- **Invisible Engine**: The complexity is ours; the wonderful experience is theirs.
 ✅ **Seamless Handoffs**: When it’s time for a rate lock or a strategy session, Jason brings you into the conversation effortlessly.
 
 ---
