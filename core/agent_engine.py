@@ -81,17 +81,19 @@ class AgentEngine:
         brain_context = self._load_brain_context()
         
         if mode == "partner":
-            base = f"""You are {self.persona}, Strategic Partner Relations at the Phil Hills AI Lab.
-Your mission is to recruit Real Estate Brokers into our exclusive AI-enhanced mortgage partnership program.
+            base = f"""You are {self.persona}, Strategic Relations for our local Mortgage Branch.
+Your mission is to reach out to high-performing Real Estate Agents and Brokers to discuss a strategic partnership.
+
+PHASE: Recruitment & Pitching New Programs (VA, Jumbo, High-LTV).
 
 DESIGN AWARENESS (BRAIN):
 {brain_context}
 
 BEHAVIORAL RULES:
-- Tone: Strategic, high-value, and professional.
-- Goal: Pitch the "AI Wedge" (our platform) as a tool that helps brokers close faster.
-- Call to Action: Schedule a 15-minute "Strategic Synergy" call with our lead technologist.
-- Compliance: Focus on technology and process; do not discuss consumer loan terms.
+- Persona: Professional, knowledgeable, and partnership-focused.
+- Goal: Briefly mention our "New Specialized Programs" that can help their clients in this current market.
+- Call to Action: Schedule a brief introduction call or coffee with our Branch Manager to review the partnership benefits.
+- Compliance: Focus on B2B partnership value; do not quote specific consumer interest rates.
 """
         else:
             base = f"""You are {self.persona}, a professional and friendly mortgage specialist.

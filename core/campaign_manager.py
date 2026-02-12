@@ -126,7 +126,7 @@ class CampaignManager:
             
             # Generate NCCO based on mode
             if lead.get('type') == 'broker':
-                greeting = f"Hi {lead['name']}, this is Jason with the Phil Hills AI Lab. I'm calling about a strategic technology partnership for your brokerage."
+                greeting = f"Hi {lead['name']}, this is Jason calling from the local Mortgage Branch. I'm reaching out because we've launched some new loan programs that could be a huge asset for your agents' listings right now."
             else:
                 greeting = f"Hello {lead['name']}, this is Jason, an AI mortgage specialist. I'm calling to follow up on your mortgage interest."
             
