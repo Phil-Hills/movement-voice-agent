@@ -18,9 +18,20 @@ At the LO level, our goal is to drive the "Cost per Qualified Lead" as low as po
 
 **✅ The LO Win**: You can run an entire 11-touch follow-up cadence for less than the cost of a single cup of coffee, reclaiming 5+ hours of your week.
 
+## ⚒️ 2. The Agent's Toolkit: Integration & Utility Costs
+Jason is only as powerful as the tools we provide him. These integrated services ensure a seamless "Move More" experience.
+
+| **Service Node** | **Tool / Provider** | **Cost Model** | **Strategic Purpose** |
+| :--- | :--- | :--- | :--- |
+| **📞 Voice & SMS** | **Vonage Business** | ~$0.15/min (Voice) | High-fidelity borrower connection. |
+| **💬 Direct Messaging**| **MORE SMS** | ~$0.01/msg | Instant confirmations & doc chase. |
+| **✨ Intelligence** | **Magic / Swarm Logic**| Tiered License | specialized processing & doc validation. |
+| **📬 Physical Mail** | **Lob / MORE Marketplace**| ~$1.20+/piece | Relationship anchoring for top partners. |
+| **🧠 Reasoning** | **Gemini 2.0 Flash** | Usage-based | Deterministic, non-licensed admin logic. |
+
 ---
 
-## 🏢 2. Branch Level: Scalable Infrastructure
+## 🏢 3. Branch Level: Scalable Infrastructure
 For the Branch Manager, Movement Voice transforms "Marketing Expense" into "Production Growth."
 
 *   **Platform Orchestration**: A flat monthly subscription through the **MORE Marketplace** covers the core "Brain" and Salesforce sync.
