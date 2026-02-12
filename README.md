@@ -35,7 +35,7 @@ graph TD
 
 ## Security Architecture & Compliance [CISO-Ready]
 
-This system is built with a security-first approach, specifically designed to meet the rigorous standards of Michelle Wilson (CISO) and Lyra Waggoner (COO).
+This system is built with a security-first approach, designed to meet rigorous enterprise standards for data sovereignty and auditability.
 
 ### 🛡️ Data Sovereignty & Privacy
 - **Sanitized Datasets**: All demonstration data (`clients.csv`) is mocked to prevent PII exposure during audits and sandbox pilots.
