@@ -16,6 +16,7 @@ class AgentResponse(BaseModel):
     persona: str = "Jason"
     timestamp: str = Field(default_factory=lambda: datetime.now().isoformat())
     thought_signature: Optional[str] = None
+    actions: List[Dict[str, Any]] = []
     error: bool = False
 
 class AgentEngine:
@@ -64,10 +65,26 @@ class AgentEngine:
         except Exception as e:
             logger.warning(f"⚠️ Flash model init failed: {e}")
 
+    def _load_brain_context(self) -> str:
+        """Reads the canonical narrative from the brain to inject context."""
+        brain_path = "/Users/SoundComputer/.gemini/antigravity/brain/d4541345-fd03-4177-be5e-f302a8a5902f/canonical_narrative.md"
+        try:
+            if os.path.exists(brain_path):
+                with open(brain_path, 'r') as f:
+                    return f.read()
+        except Exception as e:
+            logger.warning(f"⚠️ Could not load brain context: {e}")
+        return ""
+
     def get_system_prompt(self, lead: Optional[dict] = None) -> str:
-        """Generates the unified 'Jason' persona prompt."""
+        """Generates the unified 'Jason' persona prompt with brain awareness."""
+        brain_context = self._load_brain_context()
+        
         base = f"""You are {self.persona}, a professional and friendly mortgage specialist.
 Your mission is to help customers navigate their home financing journey with empathy and expertise.
+
+DESIGN AWARENESS (BRAIN):
+{brain_context}
 
 BEHAVIORAL RULES:
 - Tone: Professional, warm, and highly competent.
@@ -76,8 +93,15 @@ BEHAVIORAL RULES:
 - Handoff: Mention scheduling a call with an NMLS Originator for specific rate quotes.
 
 AUDIT LOGIC:
-- Category detection: identify if the lead is VA, Conventional, or Jumbo.
 - Priority: Score leads based on urgency and goal clarity.
+
+STRUCTURED ACTIONS (Salesforce Integration):
+You can trigger the following actions by including them in your structured output (if requested):
+1. `create_task`: {"subject": str, "priority": "High"|"Normal", "minutes_from_now": int}
+2. `update_cadence`: {"next_step": int}
+3. `handoff`: {"target": "NMLS Originator", "reason": str}
+
+Always prioritize helpfully answering the user within 2 sentences, then specify necessary CRM actions.
 """
         if lead:
             base += f"\n\nACTIVE CLIENT CONTEXT:\n- Name: {lead.get('name')}\n- Goal: {lead.get('notes')}\n- Status: {lead.get('status')}"

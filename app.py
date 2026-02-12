@@ -11,8 +11,10 @@ from dotenv import load_dotenv
 
 # Core Imports
 from core.agent_engine import AgentEngine
-from core.lead_management import LeadManager
+from core.lead_management import LeadManager, LeadModel
 from core.research_engine import ResearchEngine
+from core.vonage_client import VonageClient
+from core.salesforce_app import SalesforceApp
 from campaign_manager import get_campaign_manager
 from salesforce_client import get_salesforce_client
 
@@ -46,6 +48,8 @@ PROJECT_ID = os.getenv("GOOGLE_CLOUD_PROJECT", "deployment-2026-core")
 agent_engine = AgentEngine(google_api_key=GOOGLE_API_KEY, project_id=PROJECT_ID)
 lead_manager = LeadManager(project_id=PROJECT_ID)
 research_engine = ResearchEngine(model_flash=agent_engine.model_flash)
+vonage_client = VonageClient()
+sf_app = SalesforceApp()
 
 # Global State for Demo/Session
 current_lead_id: Optional[str] = None
@@ -110,6 +114,27 @@ async def agent_chat(request: Request):
     lead = lead_manager.get_lead(current_lead_id) if current_lead_id else None
     response = await agent_engine.get_response(text, lead, thinking_level)
     
+    # Process AI-driven Salesforce Actions
+    if response.get("actions") and current_lead_id:
+        for action in response["actions"]:
+            atype = action.get("type")
+            payload = action.get("payload", {})
+            try:
+                if atype == "create_task":
+                    sf_app.orchestrate_task_from_disposition(
+                        lead_id=current_lead_id,
+                        disposition=payload.get("subject", "AI Follow-up"),
+                        notes=f"AI Reason: {payload.get('reason', 'N/A')}"
+                    )
+                elif atype == "update_cadence":
+                    sf_app.trigger_cadence_step(
+                        lead_id=current_lead_id,
+                        current_step=payload.get("next_step", 1)
+                    )
+                logger.info(f"✅ Executed AI Action: {atype}")
+            except Exception as ae:
+                logger.error(f"❌ Failed to execute AI action {atype}: {ae}")
+
     if current_lead_id:
         lead_manager.save_conversation(current_lead_id, "user", text)
         lead_manager.save_conversation(current_lead_id, "assistant", response["text"])

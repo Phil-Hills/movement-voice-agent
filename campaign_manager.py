@@ -6,7 +6,8 @@ import io
 import random
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from salesforce_client import get_salesforce_client
+from core.salesforce_app import SalesforceApp
+from core.vonage_client import VonageClient
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,8 @@ class CampaignManager:
     """
     
     def __init__(self):
-        self.sf_client = get_salesforce_client()
+        self.sf_app = SalesforceApp()
+        self.vonage = VonageClient()
         self.active_campaign: List[Dict[str, Any]] = []
         self.is_running = False
         self.current_lead_index = 0
@@ -75,19 +77,11 @@ class CampaignManager:
             self.current_lead_index = 0
             
             # Fetch from Salesforce
-            sf_leads = self.sf_client.get_leads_for_campaign(campaign_id)
+            sf_leads = self.sf_app.sf.get_leads_for_campaign(campaign_id)
             
             for row in sf_leads:
                 # Adapt Salesforce record to internal format
-                lead = {
-                    "name": f"{row.get('FirstName', '')} {row.get('LastName', '')}".strip(),
-                    "email": row.get('Email', ''),
-                    "phone": row.get('Phone', ''),
-                    "city": row.get('City', 'Unknown'),
-                    "state": row.get('State', 'WA'),
-                    "company": row.get('Company', 'Mortgage Services'),
-                    "sf_id": row.get('Id') # Store SF ID for write-back
-                }
+                lead = self.sf_app.sync_lead_to_model(row).model_dump()
                 self.active_campaign.append(lead)
             
             self.stats["total"] = len(self.active_campaign)
@@ -121,18 +115,27 @@ class CampaignManager:
             lead = self.active_campaign[self.current_lead_index]
             self.current_lead_index += 1
             
-            # 1. Update Stats - Dialing
+            # 1. Trigger Vonage Call
             self.stats["dialed"] += 1
-            logger.info(f"📞 Dialing {lead['name']}...")
+            logger.info(f"📞 Initiating outbound call to {lead['name']}...")
             
-            # Simulate "Calling" state in Dashboard
-            if not self.sf_client.is_connected:
-                self.sf_client.log_demo_activity(
-                    lead_name=lead['name'],
-                    status="Dialing...",
-                    company=lead['company'],
-                    notes=f"Initiating outbound call to {lead['state']}..."
-                )
+            # Generate NCCO for the initial greeting
+            ncco = self.vonage.generate_ncco(
+                text=f"Hello {lead['name']}, this is Jason. I'm calling to follow up on your mortgage interest."
+            )
+            
+            call_id = self.vonage.create_outbound_call(lead['phone'], ncco)
+            
+            if call_id:
+                logger.info(f"✅ Call active: {call_id}")
+            
+            # 2. Log Demo Activity (for Dashboard visibility)
+            self.sf_app.sf.log_demo_activity(
+                lead_name=lead['name'],
+                status="Dialing...",
+                company=lead['company'],
+                notes=f"Vonage Call UUID: {call_id or 'SIMULATED'}"
+            )
             
             # Simulate Ringing Duration
             await asyncio.sleep(random.uniform(2, 4))
