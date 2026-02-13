@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Rate Tracker | Movement Mortgage</title>
+    <meta name="description"
+        content="Daily loan originator rate tracker comparing current market rates against pipeline borrowers to identify refinance opportunities." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/src/rate-tracker.css" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <div class="logo-mark">M</div>
+                <div class="brand">
+                    <span class="brand-name">MOVEMENT</span>
+                    <span class="brand-sub">Rate Intelligence</span>
+                </div>
+            </div>
+            <div class="top-bar-center">
+                <span class="date-display" id="currentDate"></span>
+            </div>
+            <div class="top-bar-right">
+                <div class="lo-badge">
+                    <span class="lo-dot"></span>
+                    <span>Brad Overlin</span>
+                    <span class="nmls">NMLS #987905</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Market Rates Panel -->
+        <section class="rates-panel">
+            <div class="rates-header">
+                <h2>📡 Today's Market Rates</h2>
+                <p class="rates-subtitle">Edit rates below to recalculate all refi opportunities</p>
+            </div>
+            <div class="rates-grid">
+                <div class="rate-card">
+                    <label>Conventional 30yr</label>
+                    <div class="rate-input-wrap">
+                        <input type="number" id="rate-conv30" value="6.048" step="0.125" min="0" max="15"
+                            class="rate-input" />
+                        <span class="rate-suffix">%</span>
+                    </div>
+                </div>
+                <div class="rate-card">
+                    <label>Jumbo 30yr</label>
+                    <div class="rate-input-wrap">
+                        <input type="number" id="rate-jumbo30" value="6.361" step="0.125" min="0" max="15"
+                            class="rate-input" />
+                        <span class="rate-suffix">%</span>
+                    </div>
+                </div>
+                <div class="rate-card">
+                    <label>FHA 30yr</label>
+                    <div class="rate-input-wrap">
+                        <input type="number" id="rate-fha30" value="5.956" step="0.125" min="0" max="15"
+                            class="rate-input" />
+                        <span class="rate-suffix">%</span>
+                    </div>
+                </div>
+                <div class="rate-card">
+                    <label>VA 30yr</label>
+                    <div class="rate-input-wrap">
+                        <input type="number" id="rate-va30" value="5.690" step="0.125" min="0" max="15"
+                            class="rate-input" />
+                        <span class="rate-suffix">%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Stats -->
+        <section class="summary-strip">
+            <div class="stat-card">
+                <div class="stat-value" id="totalPipeline">--</div>
+                <div class="stat-label">Pipeline Value</div>
+            </div>
+            <div class="stat-card accent">
+                <div class="stat-value" id="refiReady">--</div>
+                <div class="stat-label">Refi Ready</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalSavings">--</div>
+                <div class="stat-label">Est. Monthly Savings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgRate">--</div>
+                <div class="stat-label">Avg Pipeline Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="fundedCount">--</div>
+                <div class="stat-label">Funded Loans</div>
+            </div>
+        </section>
+
+        <!-- Pipeline Table -->
+        <section class="pipeline-section">
+            <div class="pipeline-header">
+                <h2>🔥 Originator Pipeline — Brad Overlin</h2>
+                <div class="filter-row">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="refi">Refi Ready</button>
+                    <button class="filter-btn" data-filter="watch">Watch</button>
+                    <button class="filter-btn" data-filter="funded">Funded</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table id="pipelineTable">
+                    <thead>
+                        <tr>
+                            <th>Score</th>
+                            <th>Borrower</th>
+                            <th>Stage</th>
+                            <th>Loan #</th>
+                            <th>Property</th>
+                            <th>Loan Amount</th>
+                            <th>Current Rate</th>
+                            <th>Market Rate</th>
+                            <th>Δ Rate</th>
+                            <th>Mo. Savings</th>
+                            <th>Buyer Agent</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pipelineBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Action Items -->
+        <section class="actions-section">
+            <h2>📋 Today's Action Items</h2>
+            <div id="actionItems" class="action-grid">
+            </div>
+        </section>
+
+        <footer class="tracker-footer">
+            <p>Movement Mortgage — Clair Intelligence System — Rate Tracker v2.0</p>
+            <p class="footer-sub">Rates: Optimal Blue national average. Data: MORE CRM. Not a rate lock commitment.</p>
+        </footer>
+    </div>
+
+    <script src="/src/rate-tracker.js"></script>
+</body>
+
+</html>
