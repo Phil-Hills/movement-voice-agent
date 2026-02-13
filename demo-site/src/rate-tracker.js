@@ -3,7 +3,7 @@
    Rate Tracker | Intelligence System
    ====================================== */
 
-// Brad Overlin's Pipeline (extracted from MORE CRM audit 2/12/2026)
+// Originator's Pipeline (extracted from CRM audit)
 const PIPELINE = [
     { name: "Megan Carter", stage: "Funded", loanNum: "4342859", property: "9213 Ash Ave SE, Snoqualmie WA", loanAmount: 1114750, rate: 6.500, program: "Jumbo", closingDate: "6/20/2025", creditScore: 808, ltv: 65.0, dti: 41.68, piti: 8376.57, buyerAgent: "Barb Pexa" },
     { name: "Chelsey Milton", stage: "Application", loanNum: "3010572614", property: "TBD", loanAmount: 546025, rate: 6.750, program: "Conventional", closingDate: "3/9/2026", creditScore: 796, ltv: 73.2, dti: 26.32, piti: 3541.51, buyerAgent: "" },

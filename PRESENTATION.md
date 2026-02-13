@@ -50,11 +50,6 @@
 
 ---
 
-## 🚀 Live Demo
-Don't just take our word for it. See the Swarm in action.
-
-### [👉 Launch Live Demo](https://movement-voice-demo-511662304947.us-central1.run.app)
-
 ---
 
 *Movement Mortgage Powered by Phil Hills AI Lab ™*

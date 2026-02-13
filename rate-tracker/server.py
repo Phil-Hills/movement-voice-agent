@@ -25,7 +25,7 @@ logger = logging.getLogger('rate-tracker')
 PORT = int(os.environ.get('PORT', 8080))
 
 # Notification email (set via environment variable)
-BRAD_EMAIL = os.environ.get('BRAD_EMAIL', '')
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', '')
 NOTIFY_FROM = os.environ.get('NOTIFY_FROM', 'noreply@rate-tracker-service.com')
 
 # SMTP config (Gmail app password or SendGrid)
@@ -40,7 +40,7 @@ PHIL_EMAIL = os.environ.get('PHIL_EMAIL', '')
 # ---- OUTLOOK RATE WATCH CONFIG (GCP-only: Playwright + GCS) ----
 # Browser session cookies stored in GCS for persistence across cold starts
 # One-time Okta login with push MFA, then fully autonomous
-SERVICE_URL = os.environ.get('SERVICE_URL', 'https://rate-tracker-511662304947.us-west1.run.app')
+SERVICE_URL = os.environ.get('SERVICE_URL', 'https://rate-tracker.run.app')
 GCS_BUCKET = os.environ.get('GCS_SESSION_BUCKET', 'rate-tracker-sessions')
 OKTA_EMAIL = os.environ.get('OKTA_EMAIL', '')
 OKTA_PASSWORD = os.environ.get('OKTA_PASSWORD', '')  # stored securely via Secret Manager
@@ -112,7 +112,7 @@ def trigger_daily():
     Called by Cloud Scheduler every morning at 7 AM PT.
     1. Fetches latest rates from Outlook Rate Watch folder (via Graph API)
     2. Analyzes pipeline for refi opportunities
-    3. Sends email notification to Brad
+    3. Sends email notification to Originator
     4. Auto-creates campaign from refi-ready pipeline
     5. Advances active campaign cadences
     """
@@ -146,7 +146,7 @@ def trigger_daily():
     # Step 2: Analyze pipeline
     analysis = analyze_pipeline(CURRENT_RATES)
 
-    # Step 3: Send notification to Brad
+    # Step 3: Send notification to Originator
     notification_sent = send_daily_notification(analysis)
 
     # Step 4: Auto-create campaign if refi opportunities exist
@@ -922,9 +922,10 @@ VONAGE_FROM_NUMBER = os.environ.get('VONAGE_FROM_NUMBER', '')
 SMSMAGIC_API_KEY = os.environ.get('SMSMAGIC_API_KEY', '')
 SMSMAGIC_SENDER_ID = os.environ.get('CRM_SMS_SENDER_ID', 'GenericSender')
 
-BRAD_PHONE = os.environ.get('ADMIN_PHONE', '')
+ADMIN_PHONE = os.environ.get('ADMIN_PHONE', '')
 ADMIN_NAME = 'Administrator'
 ADMIN_NMLS = '000000'
+ADMIN_FULL_NAME = 'Loan Originator'
 
 # ---- ACTIVE CAMPAIGNS STORE ----
 ACTIVE_CAMPAIGNS = {}
@@ -943,14 +944,14 @@ REFI_CADENCE = [
             "On your ${loan_amount} loan, that could save you ${monthly_savings}/month.\n\n"
             "I'd love to walk you through your refinance options. "
             "Are you available for a quick 10-minute call this week?\n\n"
-            "Best,\nBrad Overlin\nNMLS #{nmls}\nMovement Mortgage"
+            "Best,\n{originator_name}\nNMLS #{nmls}\nMovement Mortgage"
         )
     },
     {
         "day": 1,
         "channel": "sms",
         "message": (
-            "Hi {name}, this is Brad from Movement Mortgage. "
+            "Hi {name}, this is your loan originator from Movement Mortgage. "
             "Rates just dropped to {market_rate}% — you could save ${monthly_savings}/mo "
             "on your loan. Want me to run the numbers? Reply YES or call me anytime."
         )
@@ -959,11 +960,11 @@ REFI_CADENCE = [
         "day": 3,
         "channel": "vonage_call",
         "greeting": (
-            "Hello {name}, this is a courtesy call from Brad Overlin at Movement Mortgage. "
+            "Hello {name}, this is a courtesy call from Movement Mortgage regarding your rate watch. "
             "I'm reaching out because current mortgage rates have dropped significantly below your existing rate. "
             "Based on your loan, you could be saving over ${monthly_savings} per month. "
             "I'd love to schedule a brief call to discuss your refinance options. "
-            "Press 1 to connect with Brad now, or we'll follow up by email."
+            "Press 1 to connect with an originator now, or we'll follow up by email."
         )
     },
     {
@@ -988,7 +989,7 @@ REFI_CADENCE = [
             "  Loan Amount: ${loan_amount}\n\n"
             "If you're interested, I can have everything prepped for a no-obligation consultation. "
             "Just reply to this email or call me directly.\n\n"
-            "Brad Overlin | NMLS #{nmls}\n"
+            "Your Loan Originator | NMLS #{nmls}\n"
             "Movement Mortgage | Market Leader"
         )
     },
@@ -996,10 +997,10 @@ REFI_CADENCE = [
         "day": 10,
         "channel": "vonage_call",
         "greeting": (
-            "Hi {name}, this is a follow-up from Brad Overlin at Movement Mortgage. "
+            "Hi {name}, this is a follow-up from Movement Mortgage. "
             "I wanted to check in one last time about the rate improvement opportunity on your mortgage. "
             "Rates have been moving and I want to make sure you don't miss this window. "
-            "Press 1 to speak with Brad directly."
+            "Press 1 to speak with a loan officer directly."
         )
     },
 ]
@@ -1056,7 +1057,7 @@ def create_campaign_from_pipeline():
         "name": f"Refi Campaign — {datetime.now().strftime('%b %d, %Y')}",
         "created": datetime.now(timezone.utc).isoformat(),
         "status": "active",
-        "originator": BRAD_FULL_NAME,
+        "originator": ADMIN_FULL_NAME,
         "leads": [],
         "cadence": REFI_CADENCE,
         "execution_log": []
@@ -1151,7 +1152,8 @@ def execute_cadence_step(campaign_id):
             "rate_delta": abs(lead["rate_delta"]),
             "monthly_savings": f"{lead['monthly_savings']:,.0f}",
             "loan_amount": f"{lead['loan_amount']:,.0f}",
-            "nmls": BRAD_NMLS
+            "originator_name": ADMIN_FULL_NAME,
+            "nmls": ADMIN_NMLS
         }
 
         # Execute based on channel
@@ -1162,7 +1164,7 @@ def execute_cadence_step(campaign_id):
             result["subject"] = step["subject"].format(**template_vars)
             result["body_preview"] = step["body"].format(**template_vars)[:200] + "..."
             result["status"] = _send_cadence_email(
-                lead["name"], lead.get("email", BRAD_EMAIL),
+                lead["name"], lead.get("email", ADMIN_EMAIL),
                 step["subject"].format(**template_vars),
                 step["body"].format(**template_vars)
             )
@@ -1435,11 +1437,11 @@ def analyze_pipeline(rates):
 
 # ---- EMAIL NOTIFICATIONS ----
 def send_daily_notification(analysis):
-    """Send Brad a morning email summary."""
+    """Send a morning email summary."""
 
     if not SMTP_USER or not SMTP_PASS:
         logger.warning("⚠️  SMTP not configured — skipping email notification")
-        logger.info("Would have sent email to: %s", BRAD_EMAIL)
+        logger.info("Would have sent email to: %s", ADMIN_EMAIL)
         # Log what would have been sent
         summary = build_email_body(analysis)
         logger.info("Email body:\n%s", summary[:500])
@@ -1449,7 +1451,7 @@ def send_daily_notification(analysis):
         msg = MIMEMultipart('alternative')
         msg['Subject'] = f"🏠 Daily Rate Intel — {analysis['refi_ready_count']} Refi Ready | {datetime.now().strftime('%b %d, %Y')}"
         msg['From'] = NOTIFY_FROM
-        msg['To'] = BRAD_EMAIL
+        msg['To'] = ADMIN_EMAIL
 
         body = build_email_body(analysis)
         msg.attach(MIMEText(body, 'html'))
@@ -1457,13 +1459,13 @@ def send_daily_notification(analysis):
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
             server.starttls()
             server.login(SMTP_USER, SMTP_PASS)
-            recipients = [BRAD_EMAIL]
+            recipients = [ADMIN_EMAIL]
             if PHIL_EMAIL:
                 msg['Cc'] = PHIL_EMAIL
                 recipients.append(PHIL_EMAIL)
             server.sendmail(NOTIFY_FROM, recipients, msg.as_string())
 
-        logger.info("✅ Notification sent to %s", BRAD_EMAIL)
+        logger.info("✅ Notification sent to %s", ADMIN_EMAIL)
         return True
 
     except Exception as e:
@@ -1472,7 +1474,7 @@ def send_daily_notification(analysis):
 
 
 def build_email_body(analysis):
-    """Build a clean HTML email body for Brad's morning briefing."""
+    """Build a clean HTML email body for the morning briefing."""
     refi_loans = [l for l in analysis['loans'] if l['refiScore'] >= 70 and l['stage'] == 'Funded']
     watch_loans = [l for l in analysis['loans'] if 30 <= l['refiScore'] < 70 and l['stage'] == 'Funded']
 

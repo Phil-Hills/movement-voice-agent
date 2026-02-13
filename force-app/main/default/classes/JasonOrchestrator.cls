@@ -1,7 +1,7 @@
 public with sharing class JasonOrchestrator {
     
     // The Cloud Run Endpoint for the Swarm
-    private static final String SWARM_ENDPOINT = 'https://movement-voice-demo-511662304947.us-central1.run.app/api/v1/webhook/lead';
+    private static final String SWARM_ENDPOINT = 'https://movement-voice-agent.run.app/api/v1/webhook/lead';
 
     @future(callout=true)
     public static void handOffToSwarm(List<Id> leadIds) {

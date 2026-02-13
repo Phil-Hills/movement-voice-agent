@@ -9,10 +9,6 @@ The **Voice Agent Agent** (Jason) is designed to improve borrower conversations 
 ## 📽️ Experience the Swarm
 Experience the future of mortgage orchestration today through our high-fidelity simulation suite.
 
-👉 **[Launch Live Demo Site](https://movement-voice-demo-511662304947.us-central1.run.app)**
-
-👉 **[📊 Rate Intelligence Dashboard (LIVE)](https://rate-tracker-511662304947.us-west1.run.app)**
-
 👉 **[View Agentic Swarm Orchestration](./docs/strategy/SWARM_ORCHESTRATION_AND_LIFECYCLE.md)**
 👉 **[Phase 1 Install Guide: Step-by-Step Onboarding](./docs/ops/INSTALL_GUIDE.md)**
 
@@ -20,18 +16,7 @@ Experience the future of mortgage orchestration today through our high-fidelity 
 
 ## 🚀 New Features in v6.0.0
 
-### 📊 Rate Intelligence Dashboard
-A real-time originator dashboard comparing current market rates against the funded loan pipeline to instantly surface refinance opportunities.
 
-| Feature | Description |
-| :--- | :--- |
-| **Editable Market Rates** | Update Conv/Jumbo/FHA/VA 30yr rates — table recalculates instantly |
-| **Refi Scoring Engine** | Weighted algorithm (rate delta + loan size) = 0-99 score per borrower |
-| **Pipeline Filters** | All, Refi Ready, Watch, Funded, Active views |
-| **Action Items** | Auto-generated call/email/review cards per opportunity |
-| **Summary Stats** | Pipeline value, refi-ready count, est. monthly savings, avg rate |
-
-🔗 **Live:** [rate-tracker-511662304947.us-west1.run.app](https://rate-tracker-511662304947.us-west1.run.app)
 
 ### 🎯 Campaign & Cadence Engine
 Automatically creates marketing campaigns from refi-ready borrowers and runs multi-channel outreach cadences.
@@ -43,7 +28,7 @@ Automatically creates marketing campaigns from refi-ready borrowers and runs mul
 | 3 | 📞 **Vonage Voice** | AI-initiated courtesy call with IVR press-to-connect |
 | 5 | 💬 **SMS Magic** | Second text touchpoint with rate quote offer |
 | 7 | 📧 **Email** | Full personalized rate analysis breakdown |
-| 10 | 📞 **Vonage Voice** | Final check-in call with direct Brad connect |
+| 10 | 📞 **Voice** | Final check-in call with direct connection |
 
 **API Endpoints:**
 - `POST /api/campaigns/create-from-pipeline` — Auto-create from refi-ready list
@@ -53,7 +38,7 @@ Automatically creates marketing campaigns from refi-ready borrowers and runs mul
 ### ⏰ Daily Automation (Cloud Scheduler)
 A GCP Cloud Scheduler job fires every morning at **7:00 AM PT** and automatically:
 1. Analyzes the pipeline against current market rates
-2. Sends Brad a formatted email briefing with refi opportunities
+2. Sends a formatted email briefing with refi opportunities
 3. Auto-creates campaigns from newly eligible borrowers
 4. Advances active campaign cadences to the next touchpoint
 
@@ -70,7 +55,7 @@ A GCP Cloud Scheduler job fires every morning at **7:00 AM PT** and automaticall
 
 | **Resource** | **Location** | **Benefit** |
 | :--- | :--- | :--- |
-| **📊 Rate Tracker** | [rate-tracker/](./rate-tracker/) | Daily rate intelligence dashboard (Cloud Run) |
+
 | **🧠 Intelligence** | [Core Engine](./core/agent_engine.py) | High-thinking qualification that sounds human |
 | **📑 Compliance** | [Safety Gate](./docs/compliance/LICENSED_DUTY_GUARDRAILS.md) | 100% compliant with NMLS duty guardrails |
 | **🔭 Strategy** | [Workflow 2026](./docs/strategy/ORIGINATOR_WORKFLOW_2026.md) | How Jason handles the 'Marathon' doc chase |
@@ -80,18 +65,7 @@ A GCP Cloud Scheduler job fires every morning at **7:00 AM PT** and automaticall
 
 ---
 
-## 🛠️ Deployment & Configuration
-
-### Rate Tracker Service
-Deployed on **GCP Cloud Run** in `us-west1` on project `mineral-anchor-486222-a5`.
-
-**Environment Variables (set via Cloud Run):**
-```
-SMTP_USER / SMTP_PASS           # Gmail app password for Brad's email notifications
-BRAD_EMAIL                      # Brad Overlin's email
-VONAGE_APP_ID / VONAGE_FROM_NUMBER  # Vonage Voice API credentials
-SMSMAGIC_API_KEY                # SMS Magic API key for text cadences
-```
+### Deployment & Configuration
 
 All channels operate in **dry-run mode** until API keys are configured — no accidental sends.
 
