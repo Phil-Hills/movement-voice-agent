@@ -1,8 +1,8 @@
 """
-Movement Rate Tracker — Cloud Run Backend
+Rate Tracker — Cloud Run Backend
 Serves the dashboard, provides rate API, handles daily scheduled updates,
 reads Outlook Rate Watch emails via Microsoft Graph API,
-and sends email notifications to Brad Overlin.
+and sends email notifications.
 """
 
 import os
@@ -24,9 +24,9 @@ logger = logging.getLogger('rate-tracker')
 # ---- CONFIGURATION ----
 PORT = int(os.environ.get('PORT', 8080))
 
-# Brad's notification email (set via environment variable)
-BRAD_EMAIL = os.environ.get('BRAD_EMAIL', 'brad.overlin@movement.com')
-NOTIFY_FROM = os.environ.get('NOTIFY_FROM', 'clair@movement-rate-tracker.com')
+# Notification email (set via environment variable)
+BRAD_EMAIL = os.environ.get('BRAD_EMAIL', '')
+NOTIFY_FROM = os.environ.get('NOTIFY_FROM', 'noreply@rate-tracker-service.com')
 
 # SMTP config (Gmail app password or SendGrid)
 SMTP_HOST = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
@@ -34,8 +34,8 @@ SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
 SMTP_USER = os.environ.get('SMTP_USER', '')
 SMTP_PASS = os.environ.get('SMTP_PASS', '')
 
-# Phil gets a copy
-PHIL_EMAIL = os.environ.get('PHIL_EMAIL', 'phil.hills@movement.com')
+# Copy recipient
+PHIL_EMAIL = os.environ.get('PHIL_EMAIL', '')
 
 # ---- OUTLOOK RATE WATCH CONFIG (GCP-only: Playwright + GCS) ----
 # Browser session cookies stored in GCS for persistence across cold starts
@@ -46,28 +46,17 @@ OKTA_EMAIL = os.environ.get('OKTA_EMAIL', '')
 OKTA_PASSWORD = os.environ.get('OKTA_PASSWORD', '')  # stored securely via Secret Manager
 RATE_WATCH_FOLDER = os.environ.get('RATE_WATCH_FOLDER', 'Rate Watch')
 OUTLOOK_URL = 'https://outlook.office.com/mail/'
-MOVEMENT_OKTA_URL = 'https://movement.okta.com/app/UserHome?session_hint=AUTHENTICATED'
-SALESFORCE_URL = 'https://movement.lightning.force.com/'
+# Dynamic Org URLs
+MOVEMENT_OKTA_URL = os.environ.get('OKTA_ORG_URL', 'https://login.okta.com')
+SALESFORCE_URL = os.environ.get('SALESFORCE_ORG_URL', 'https://login.salesforce.com')
 SESSION_DIR = '/tmp/outlook_session'
 SESSION_READY = False  # Set to True after successful login
 
-# ---- PIPELINE DATA (from MORE CRM audit 2/12/2026) ----
+# ---- PIPELINE DATA ----
+# Populated via API or CSV upload. Using generic placeholders for demo.
 PIPELINE = [
-    {"name": "Megan Carter", "stage": "Funded", "loanNum": "4342859", "property": "9213 Ash Ave SE, Snoqualmie WA", "loanAmount": 1114750, "rate": 6.500, "program": "Jumbo", "closingDate": "6/20/2025", "creditScore": 808, "buyerAgent": "Barb Pexa"},
-    {"name": "Chelsey Milton", "stage": "Application", "loanNum": "3010572614", "property": "TBD", "loanAmount": 546025, "rate": 6.750, "program": "Conventional", "closingDate": "3/9/2026", "creditScore": 796, "buyerAgent": ""},
-    {"name": "Anuj Mittal", "stage": "Funded", "loanNum": "3010526", "property": "3493 NE Harrison St", "loanAmount": 850000, "rate": 6.875, "program": "Jumbo", "closingDate": "11/12/2025", "creditScore": None, "buyerAgent": "Manu Vij"},
-    {"name": "JIYEON PARK", "stage": "Funded", "loanNum": "3010542", "property": "13910 123rd Ave NE", "loanAmount": 720000, "rate": 6.625, "program": "Jumbo", "closingDate": "12/1/2025", "creditScore": None, "buyerAgent": "Emma Park"},
-    {"name": "Cooper White", "stage": "Application", "loanNum": "3010554", "property": "TBD", "loanAmount": 480000, "rate": 6.500, "program": "Conventional", "closingDate": None, "creditScore": None, "buyerAgent": "Derek Sarr"},
-    {"name": "john thang", "stage": "Application", "loanNum": "4214710", "property": "TBD", "loanAmount": 350000, "rate": 6.875, "program": "Conventional", "closingDate": None, "creditScore": None, "buyerAgent": "lisa nguyen"},
-    {"name": "Jared Larsen", "stage": "Funded", "loanNum": "4073624", "property": "18501 SE Newport Wy", "loanAmount": 600000, "rate": 7.125, "program": "Conventional", "closingDate": "9/26/2023", "creditScore": None, "buyerAgent": "Karen Cor"},
-    {"name": "Matthew Simon", "stage": "Application", "loanNum": "", "property": "1156 NW 58th St", "loanAmount": 425000, "rate": 6.750, "program": "Conventional", "closingDate": None, "creditScore": None, "buyerAgent": ""},
-    {"name": "Chris Candelario", "stage": "Application", "loanNum": "4379189", "property": "TBD", "loanAmount": 390000, "rate": 6.625, "program": "Conventional", "closingDate": None, "creditScore": None, "buyerAgent": "Barb Pexa"},
-    {"name": "Faezeh Amjadi", "stage": "Application", "loanNum": "4421329", "property": "TBD", "loanAmount": 375000, "rate": 6.500, "program": "Conventional", "closingDate": None, "creditScore": None, "buyerAgent": ""},
-    {"name": "Stanley Gene", "stage": "Funded", "loanNum": "30105361", "property": "1352 Brewster Dr", "loanAmount": 550000, "rate": 6.750, "program": "Conventional", "closingDate": "2/11/2026", "creditScore": None, "buyerAgent": "Kelly O'Go"},
-    {"name": "Samantha Sim", "stage": "Funded", "loanNum": "3010535", "property": "206 1st Ave E", "loanAmount": 415200, "rate": 6.875, "program": "Conventional", "closingDate": "12/4/2025", "creditScore": None, "buyerAgent": "Makenna K"},
-    {"name": "Michael Lentz", "stage": "Funded", "loanNum": "3010536", "property": "10605 SE 30th St", "loanAmount": 520000, "rate": 6.625, "program": "Conventional", "closingDate": "12/12/2025", "creditScore": None, "buyerAgent": "Barb Pexa"},
-    {"name": "catherine Jin", "stage": "Funded", "loanNum": "4124925", "property": "3633 Beach Dr", "loanAmount": 750000, "rate": 7.250, "program": "Jumbo", "closingDate": "1/22/2024", "creditScore": None, "buyerAgent": "Yao Lu"},
-    {"name": "Catherine Jin", "stage": "Lost", "loanNum": "", "property": "3633 Beach Dr", "loanAmount": 0, "rate": None, "program": "Conventional", "closingDate": None, "creditScore": None, "buyerAgent": ""},
+    {"name": "Test Borrower 1", "stage": "Funded", "loanNum": "0000001", "property": "123 Main St", "loanAmount": 500000, "rate": 6.500, "program": "Conventional", "closingDate": "2025-06-20", "creditScore": 750, "buyerAgent": "Agent A"},
+    {"name": "Test Borrower 2", "stage": "Application", "loanNum": "0000002", "property": "TBD", "loanAmount": 450000, "rate": 6.750, "program": "FHA", "closingDate": None, "creditScore": 720, "buyerAgent": "Agent B"},
 ]
 
 # ---- CURRENT RATES (Optimal Blue national avg — updated daily by scheduler) ----
@@ -294,6 +283,95 @@ def _parse_rates_from_text(text):
     return rates
 
 
+def _handle_okta_login(page):
+    """
+    Shared helper to handle Okta login flow (Email -> Password -> Push MFA).
+    Returns True if logged in (or not needed), False on failure.
+    Captures 'static/last_error.png' on failure.
+    """
+    import time
+    try:
+        current_url = page.url
+        if 'okta.com' not in current_url and 'login.microsoftonline' not in current_url:
+            return True  # No login needed
+
+        logger.info("🔐 Okta login required at %s", current_url)
+        if not OKTA_EMAIL or not OKTA_PASSWORD:
+            logger.error("❌ OKTA_EMAIL / OKTA_PASSWORD not set")
+            return False
+
+        # 1. Enter Email
+        logger.info("   Typing email...")
+        email_entered = False
+        for sel in ['input[name="identifier"]', 'input[name="username"]', 'input[type="email"]']:
+            try:
+                if page.locator(sel).first.is_visible(timeout=2000):
+                    page.locator(sel).first.fill(OKTA_EMAIL)
+                    page.locator(sel).first.press('Enter')
+                    email_entered = True
+                    break
+            except: pass
+        
+        if not email_entered:
+            logger.warning("   ⚠️ Could not find email field (might be on password step?)")
+        
+        time.sleep(3)
+
+        # 2. Enter Password
+        logger.info("   Typing password...")
+        pass_entered = False
+        for sel in ['input[type="password"]', 'input[name="password"]']:
+            try:
+                if page.locator(sel).first.is_visible(timeout=3000):
+                    page.locator(sel).first.fill(OKTA_PASSWORD)
+                    page.locator(sel).first.press('Enter')
+                    pass_entered = True
+                    break
+            except: pass
+
+        if pass_entered:
+            logger.info("   ✅ Password submitted")
+        else:
+            logger.warning("   ⚠️ Could not find password field")
+
+        time.sleep(5)
+
+        # 3. Handle MFA Push
+        logger.info("📱 Looking for Push MFA button...")
+        push_clicked = False
+        for sel in ['a:text("Send Push")', 'button:text("Send Push")', '[data-se="okta_verify-push"]', 
+                   'input[value="Send Push"]', '.okta-verify-push-button']:
+            try:
+                if page.locator(sel).first.is_visible(timeout=3000):
+                    page.locator(sel).first.click()
+                    push_clicked = True
+                    logger.info("   ✅ Push button clicked! Approve on phone.")
+                    break
+            except: pass
+        
+        if not push_clicked:
+            logger.warning("   ⚠️ Push button not found (might have auto-pushed?)")
+
+        # 4. Wait for redirection away from login
+        logger.info("⏳ Waiting for approval (max 120s)...")
+        try:
+            page.wait_for_url(
+                lambda u: 'okta.com/login' not in u and 'okta.com/signin' not in u and 'login.microsoftonline' not in u,
+                timeout=120000
+            )
+            logger.info("   ✅ Login successful! URL: %s", page.url)
+            return True
+        except Exception:
+            logger.error("❌ Login timed out. URL: %s", page.url)
+            page.screenshot(path='static/last_error.png')
+            logger.info("📸 Screenshot saved to static/last_error.png")
+            return False
+
+    except Exception as e:
+        logger.error("❌ Login error: %s", e)
+        page.screenshot(path='static/last_error.png')
+        return False
+
 def _run_outlook_browser():
     """
     Headless Chromium → Outlook → Rate Watch folder → extract latest email.
@@ -309,6 +387,7 @@ def _run_outlook_browser():
     import time
     logger.info("🌐 Launching headless browser...")
     os.makedirs(SESSION_DIR, exist_ok=True)
+    os.makedirs('static', exist_ok=True)
 
     with sync_playwright() as p:
         browser = p.chromium.launch_persistent_context(
@@ -324,59 +403,11 @@ def _run_outlook_browser():
             # Navigate to Outlook
             page.goto(OUTLOOK_URL, wait_until='domcontentloaded', timeout=45000)
             time.sleep(3)
-            current_url = page.url
-
-            # Handle Okta login if redirected
-            if 'okta.com' in current_url or 'login.microsoftonline' in current_url:
-                logger.info("🔐 Okta login required...")
-                if not OKTA_EMAIL or not OKTA_PASSWORD:
-                    logger.error("❌ OKTA_EMAIL / OKTA_PASSWORD not set")
-                    browser.close()
-                    return None
-
-                # Enter email
-                try:
-                    ef = page.locator('input[name="identifier"], input[name="username"], input[type="email"]')
-                    if ef.first.is_visible(timeout=5000):
-                        ef.first.fill(OKTA_EMAIL)
-                        page.locator('input[type="submit"], button[type="submit"]').first.click()
-                        time.sleep(2)
-                except Exception:
-                    pass
-
-                # Enter password
-                try:
-                    pf = page.locator('input[type="password"]')
-                    if pf.first.is_visible(timeout=5000):
-                        pf.first.fill(OKTA_PASSWORD)
-                        page.locator('input[type="submit"], button[type="submit"]').first.click()
-                        time.sleep(2)
-                except Exception:
-                    pass
-
-                # Handle MFA push
-                logger.info("📱 Sending Okta Verify push...")
-                for sel in ['a:text("Send Push")', 'button:text("Send Push")', '[data-se="okta_verify-push"]']:
-                    try:
-                        btn = page.locator(sel).first
-                        if btn.is_visible(timeout=3000):
-                            btn.click()
-                            logger.info("   ✅ Push sent — approve on phone!")
-                            break
-                    except Exception:
-                        continue
-
-                # Wait for MFA approval (2 min)
-                try:
-                    page.wait_for_url(
-                        lambda u: 'okta.com/login' not in u and 'okta.com/signin' not in u,
-                        timeout=120000
-                    )
-                    logger.info("   ✅ MFA approved!")
-                except Exception:
-                    logger.error("   ❌ MFA timeout")
-                    browser.close()
-                    return None
+            
+            # Handle Login via Shared Helper
+            if not _handle_okta_login(page):
+                browser.close()
+                return None
 
                 time.sleep(5)
 
@@ -494,7 +525,7 @@ def auth_setup():
         <div style="background:#0d1117;padding:20px;border-radius:8px;margin:20px 0;border:1px solid #333">
             <h3 style="color:#ffd700">Environment Variables</h3>
             <code style="color:#8b8b8b;display:block;padding:10px;background:#000;border-radius:4px">
-OKTA_EMAIL={OKTA_EMAIL or 'your.email@movement.com'}<br>
+OKTA_EMAIL={OKTA_EMAIL or 'your.email@company.com'}<br>
 OKTA_PASSWORD=**** (use Secret Manager)<br>
 GCS_SESSION_BUCKET={GCS_BUCKET}
             </code>
@@ -629,59 +660,10 @@ def _run_crm_send_sms(contact_name, message):
             page.goto(SALESFORCE_URL, wait_until='domcontentloaded', timeout=45000)
             time.sleep(3)
 
-            # Handle Okta login if redirected
-            if 'okta.com' in page.url or 'login.microsoftonline' in page.url:
-                logger.info("🔐 Okta login required...")
-                if not OKTA_EMAIL or not OKTA_PASSWORD:
-                    logger.error("❌ OKTA_EMAIL / OKTA_PASSWORD not set")
-                    browser.close()
-                    return {'status': 'error', 'message': 'Okta credentials not configured'}
-
-                # Enter email
-                try:
-                    ef = page.locator('input[name="identifier"], input[name="username"], input[type="email"]')
-                    if ef.first.is_visible(timeout=5000):
-                        ef.first.fill(OKTA_EMAIL)
-                        page.locator('input[type="submit"], button[type="submit"]').first.click()
-                        time.sleep(2)
-                except Exception:
-                    pass
-
-                # Enter password
-                try:
-                    pf = page.locator('input[type="password"]')
-                    if pf.first.is_visible(timeout=5000):
-                        pf.first.fill(OKTA_PASSWORD)
-                        page.locator('input[type="submit"], button[type="submit"]').first.click()
-                        time.sleep(2)
-                except Exception:
-                    pass
-
-                # Handle MFA push
-                logger.info("📱 Sending Okta Verify push...")
-                for sel in ['a:text("Send Push")', 'button:text("Send Push")', '[data-se="okta_verify-push"]']:
-                    try:
-                        btn = page.locator(sel).first
-                        if btn.is_visible(timeout=3000):
-                            btn.click()
-                            logger.info("   ✅ Push sent — approve on phone!")
-                            break
-                    except Exception:
-                        continue
-
-                # Wait for MFA approval
-                try:
-                    page.wait_for_url(
-                        lambda u: 'okta.com/login' not in u and 'okta.com/signin' not in u,
-                        timeout=120000
-                    )
-                    logger.info("   ✅ MFA approved!")
-                except Exception:
-                    logger.error("   ❌ MFA timeout")
-                    browser.close()
-                    return {'status': 'error', 'message': 'MFA approval timeout'}
-
-                time.sleep(5)
+            # Handle Login via Shared Helper
+            if not _handle_okta_login(page):
+                browser.close()
+                return {'status': 'error', 'message': 'Login failed — check /debug/view'}
 
             # Wait for Salesforce to load
             try:
@@ -916,8 +898,7 @@ def send_sms_via_crm():
     Uses Playwright browser agent with saved Okta session.
     """
     data = request.get_json() or {}
-    contact_name = data.get('contact', 'Phil Hills')
-    message = data.get('message', f"📊 Rate Tracker Update: Today's rates — Conv {CURRENT_RATES.get('conventional_30', 'N/A')}%, Jumbo {CURRENT_RATES.get('jumbo_30', 'N/A')}%, FHA {CURRENT_RATES.get('fha_30', 'N/A')}%, VA {CURRENT_RATES.get('va_30', 'N/A')}%")
+    message = data.get('message', f"Current Rates:\n30Yr Conv: {CURRENT_RATES.get('conventional_30')}%\n30Yr Jumbo: {CURRENT_RATES.get('jumbo_30')}%")
 
     logger.info("📱 SMS request: to=%s msg=%s", contact_name, message[:60])
 
@@ -939,11 +920,11 @@ VONAGE_APP_ID = os.environ.get('VONAGE_APP_ID', '')
 VONAGE_FROM_NUMBER = os.environ.get('VONAGE_FROM_NUMBER', '')
 
 SMSMAGIC_API_KEY = os.environ.get('SMSMAGIC_API_KEY', '')
-SMSMAGIC_SENDER_ID = os.environ.get('SMSMAGIC_SENDER_ID', 'MovementMtg')
+SMSMAGIC_SENDER_ID = os.environ.get('CRM_SMS_SENDER_ID', 'GenericSender')
 
-BRAD_PHONE = os.environ.get('BRAD_PHONE', '')
-BRAD_FULL_NAME = 'Brad Overlin'
-BRAD_NMLS = '987905'
+BRAD_PHONE = os.environ.get('ADMIN_PHONE', '')
+ADMIN_NAME = 'Administrator'
+ADMIN_NMLS = '000000'
 
 # ---- ACTIVE CAMPAIGNS STORE ----
 ACTIVE_CAMPAIGNS = {}

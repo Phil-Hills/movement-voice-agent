@@ -17,7 +17,7 @@ Build a deployable AI Sales Agent that can handle inbound/outbound calls using G
 - State management for conversation context.
 
 ### 2. The Agent Logic (`voice_system/agent.py`)
-- Defines the "Sales Persona" (likely using the Jason/Voice Architect personas).
+- Defines the "Sales Persona" (likely using the Agent/Voice Architect personas).
 - Handles NLU (Intent detection) and NLG (Response generation).
 - Interruption handling logic (if using streaming).
 
@@ -49,7 +49,7 @@ We will use **Dialogflow CX Phone Gateway** as the "Body" (handling Telephony/AS
 
 
 ## Phase 3: Universal Flow & Structured Intelligence
-**Goal**: Transition from simple text generation to a structured decision engine that drives a "Universal Call Flow" for Brad Overlin.
+**Goal**: Transition from simple text generation to a structured decision engine that drives a "Universal Call Flow" for Loan Officer.
 - [x] **Universal Script**: Implement the branching logic (VA/Conv/Jumbo) in a single system prompt.
 - [x] **Structured Intelligence**: Update Brain to output JSON (`text`, `score`, `disposition`) instead of raw text.
 - [x] **Lead Scoring**: Implement scoring rules (+15 for Goal, +30 for Appt) within the Brain's logic.

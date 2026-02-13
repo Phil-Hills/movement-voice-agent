@@ -1,6 +1,6 @@
 # Infrastructure Guide: Beta-to-Main Rollout Strategy
 
-This guide outlines the protocol for scaling the Movement Voice Agent platform from a sandboxed **Beta** branch to a fully orchestrated multi-branch infrastructure.
+This guide outlines the protocol for scaling the Voice Agent Agent platform from a sandboxed **Beta** branch to a fully orchestrated multi-branch infrastructure.
 
 ## 🏗️ The Multi-Branch Architecture
 We utilize a **Branch-per-Environment** model to ensure absolute semantic isolation of data and compute resources.
@@ -48,4 +48,4 @@ Once `beta` features are verified by the **ReviewerAgent**, they propagate throu
 - **Rollback Protocol**: In case of a "Hallucination Event," roll back the `main` service to the last stable SHA-256 commit within 60 seconds.
 
 ---
-*Blueprint by Phil Hills AI Lab | Feb 2026*
+*Blueprint by AI Lab | Feb 2026*

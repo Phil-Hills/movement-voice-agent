@@ -1,8 +1,8 @@
-# Quickstart: 5 Minutes to "Move More" [Jason]
+# Quickstart: 5 Minutes to "Move More" [Agent]
 
-> **Category:** Velocity | **Read time:** 2 min | **Maintainer:** Phil Hills AI Lab
+> **Category:** Velocity | **Read time:** 2 min | **Maintainer:** AI Lab
 
-Want to see Jason in action right now? This guide is the "Fast Lane" for developers and stakeholders to witness the A2AC Swarm magic.
+Want to see Agent in action right now? This guide is the "Fast Lane" for developers and stakeholders to witness the A2AC Swarm magic.
 
 ---
 
@@ -29,7 +29,7 @@ Check your terminal for the ✅ **Gemini 2.0 Flash Thinking initialized** status
 ---
 
 ## 🎙️ 3. Witness the "Thinking"
-Jason doesn't just talk; he plans. Trigger a mock reasoning pass to see how he protects your license:
+Agent doesn't just talk; he plans. Trigger a mock reasoning pass to see how he protects your license:
 
 ```bash
 python3 scripts/simulate_handoff.py
@@ -46,4 +46,4 @@ Once you’ve seen the speed of Gemini 2.0 Flash Thinking, move to the full prod
 👉 [Set up Salesforce MORE Integration](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/docs/ops/SF_ADMIN_GUIDE.md)
 
 ---
-*Movement Mortgage Powered by Phil Hills AI Lab ™*
+*Mortgage Co Powered by AI Lab ™*

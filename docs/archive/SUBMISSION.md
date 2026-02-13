@@ -69,11 +69,11 @@ This project demonstrates the **Action Era** vision:
 
 ## 📹 Demo Video Script (3 min max)
 
-1. **0:00-0:30** — Introduction: "This is Jason, an autonomous AI sales agent..."
+1. **0:00-0:30** — Introduction: "This is Agent, an autonomous AI sales agent..."
 2. **0:30-1:30** — Live call demo showing Gemini 3 reasoning + SSML voice
 3. **1:30-2:15** — Show multi-channel action execution (SMS sent, calendar booked)
 4. **2:15-3:00** — Architecture walkthrough + ThinkingConfig explanation
 
 ---
 
-*Built by Phil Hills | Seattle, 2026*
+*Built by Architect | Seattle, 2026*

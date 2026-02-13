@@ -1,6 +1,6 @@
 # Safety & Responsibility Document
 
-## Movement Voice Agent - Security & Ethics Assessment
+## Voice Agent Agent - Security & Ethics Assessment
 
 ### 1. Threat Model
 

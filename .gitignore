@@ -18,3 +18,4 @@ clients.csv
 /tmp/
 demo_activity.json
 data/secrets/
+*.csv

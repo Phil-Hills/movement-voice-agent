@@ -1,6 +1,6 @@
-# Salesforce Admin Guide: Movement Voice Agent Implementation
+# Salesforce Admin Guide: Voice Agent Agent Implementation
 
-Follow these instructions to configure your Salesforce environment for the **Movement Voice Agent** integration.
+Follow these instructions to configure your Salesforce environment for the **Voice Agent Agent** integration.
 
 ## 1. Connected App Setup [Security]
 To enable OAuth communication between the Agent and Salesforce:
@@ -31,4 +31,4 @@ Create a new Permission Set with the following access levels:
 Ensure the **Vonage for Salesforce** package is installed and configured with the same API credentials used in the `.env` file of this application.
 
 ---
-*Generated for Phil Hills AI Lab | Feb 2026*
+*Generated for AI Lab | Feb 2026*

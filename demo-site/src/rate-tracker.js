@@ -1,6 +1,6 @@
 /* ======================================
    Rate Tracker — Core Logic
-   Movement Mortgage | Clair Intelligence
+   Rate Tracker | Intelligence System
    ====================================== */
 
 // Brad Overlin's Pipeline (extracted from MORE CRM audit 2/12/2026)

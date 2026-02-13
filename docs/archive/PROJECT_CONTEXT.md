@@ -4,7 +4,7 @@
 - **Directory**: `c:\Users\bphil\movement-voice-agent`
 - **Type**: Python / FastAPI Backend
 
-## CORE VOICE AGENT [Project: Jason]
+## CORE VOICE AGENT [Project: Agent]
 
 This repository contains a high-fidelity, production-grade AI voice agent designed for outbound mortgage sales and lead orchestration.
 

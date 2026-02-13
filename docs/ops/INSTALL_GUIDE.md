@@ -1,8 +1,8 @@
-# Installation Guide: Deploying Movement Voice [Jason]
+# Installation Guide: Deploying Voice Agent [Agent]
 
-> **Category:** Operations | **Read time:** 10 min | **Maintainer:** Phil Hills AI Lab
+> **Category:** Operations | **Read time:** 10 min | **Maintainer:** AI Lab
 
-This guide provides a professional, step-by-step process for deploying the **Movement Voice** platform within your environment.
+This guide provides a professional, step-by-step process for deploying the **Voice Agent** platform within your environment.
 
 ---
 
@@ -64,7 +64,7 @@ The platform is optimized for **Google Cloud Run** for high-scale, pay-per-reque
 ---
 
 ## 🌉 4. Salesforce MORE Integration
-To connect Jason to your Salesforce environment:
+To connect Agent to your Salesforce environment:
 
 1.  **Create Connected App**: In Salesforce, create a new Connected App with OAuth scopes for Lead, Task, and API access.
 2.  **Map Field IDs**: Ensure your Lead fields (e.g., `Loan_Program__c`, `DNC_Flag__c`) match the schema in [lead_management.py](file:///Users/SoundComputer/Downloads/a2ac.ai/movement-voice-agent/core/lead_management.py).
@@ -88,5 +88,5 @@ To ensure the system is correctly grounded and operational:
     Trigger a mock lead through Salesforce and verify the outbound call or SMS is queued.
 
 ---
-*Movement Mortgage Powered by Phil Hills AI Lab ™*
+*Mortgage Co Powered by AI Lab ™*
 *Proprietary Sovereign Strategy*

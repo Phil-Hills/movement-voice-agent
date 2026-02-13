@@ -1,8 +1,8 @@
-# 🎙️ Movement Voice: A Smarter Way to Connect with Borrowers [v6.0.0]
+# 🎙️ Voice Agent: A Smarter Way to Connect with Borrowers [v6.0.0]
 
-> **Category:** Digital Innovation | **Read time:** 3 min | **Maintainer:** Phil Hills AI Lab
+> **Category:** Digital Innovation | **Read time:** 3 min | **Maintainer:** AI Lab
 
-The **Movement Voice Agent** (Jason) is designed to improve borrower conversations and help you stay better connected throughout the loan journey. By introducing AI-driven orchestration, Jason handles the administrative heavy lifting so you can focus on building relationships.
+The **Voice Agent Agent** (Jason) is designed to improve borrower conversations and help you stay better connected throughout the loan journey. By introducing AI-driven orchestration, Jason handles the administrative heavy lifting so you can focus on building relationships.
 
 ---
 
@@ -115,5 +115,5 @@ By delegating document chasing, partner recruitment, and initial qualification t
 **Questions?**
 Check out our weekly office hours or visit the MORE Marketplace to see these features in action.
 
-*Movement Mortgage Powered by Phil Hills AI Lab ™ Version 6.0.0*
+*Company Mortgage Powered by AI Lab ™ Version 6.0.0*
 

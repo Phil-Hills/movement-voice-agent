@@ -1,10 +1,10 @@
 # Model Card: Core Voice Agent
 
 ## Model Details
-- **Name**: Core Voice Agent (Jason)
+- **Name**: Core Voice Agent (Agent)
 - **Version**: 1.0
 - **Date**: January 2026
-- **Authors**: Phil Hills AI Lab
+- **Authors**: AI Lab
 - **License**: Apache 2.0
 - **Architecture**: Talker-Reasoner Dual System with Q Protocol Orchestration
 
@@ -122,7 +122,7 @@ Autonomous voice agent utilizing Google Gemini 3 Flash Preview for real-time con
   author = {Hills, Phil},
   title = {Core Voice Agent: Autonomous AI Sales Agent with Q Protocol},
   year = {2026},
-  publisher = {Phil Hills AI Lab},
+  publisher = {AI Lab},
   url = {https://github.com/Phil-Hills/movement-voice-agent}
 }
 ```
